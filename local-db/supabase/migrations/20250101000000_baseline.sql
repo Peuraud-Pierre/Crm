@@ -5633,7 +5633,7 @@ CREATE TABLE IF NOT EXISTS "public"."apple_calendar_connections" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "user_id" "uuid",
     "icloud_email" "text",
-    "icloud_app_password_encrypted" "text",
+    "icloud_app_password_encrypted" "bytea",
     "is_active" boolean DEFAULT false,
     "last_sync_at" timestamp with time zone,
     "created_at" timestamp with time zone DEFAULT "now"(),

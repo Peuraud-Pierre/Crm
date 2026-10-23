@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "theme_color": "#1e0b3a",
   "icons": [
     {
       "src": "/nokk_project_logo.svg",

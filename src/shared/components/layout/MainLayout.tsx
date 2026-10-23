@@ -22,7 +22,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         )?.displayName ?? ""
 
     return (
-        <div className="h-svh flex bg-background overflow-hidden">
+        <div className="neon-shell h-svh flex bg-background overflow-hidden">
             {/* Sidebar — drawer sur tous les formats */}
             <div
                 className={cn(

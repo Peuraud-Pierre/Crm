@@ -36,6 +36,8 @@ OVERRIDES = {
     ("newsletter_api_logs", "req_id"): "text",
     ("newsletter_api_logs", "ts"): "timestamptz",
     ("newsletter_send_runs", "triggered_by"): "uuid",
+    # pgp_sym_encrypt/decrypt (apple-liaison, cypher migrations/001) : bytea.
+    ("apple_calendar_connections", "icloud_app_password_encrypted"): "bytea",
 }
 OVERRIDES_ANY = {"entity_id": "text", "session_id": "text", "debut": "timestamptz", "fin": "timestamptz", "snapshot_month": "date"}
 UUID_NAMES = {"owner", "by", "created_by", "updated_by", "assigned_to", "author", "sender", "user", "uploaded_by", "reviewed_by"}

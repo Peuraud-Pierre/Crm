@@ -211,89 +211,92 @@
    DESIGN SYSTEM — LIGHT THEME
 ===================================================== */
 :root {
-    --background: 40 20% 98%;
-    --foreground: 220 25% 15%;
+    /* Thème « Néon violet » : fond lavande, encre indigo, violet électrique
+       pour l'identité, cyan réservé au focus clavier. */
+    --background: 270 40% 98%;
+    --foreground: 262 45% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 15%;
+    --card-foreground: 262 45% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 15%;
+    --popover-foreground: 262 45% 13%;
 
     /* Primary */
-    --primary: 131 65% 28%;
+    --primary: 274 85% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 131 65% 24%;
-    --primary-light: 131 65% 32%;
+    --primary-hover: 274 85% 44%;
+    --primary-light: 274 85% 58%;
 
     /* Secondary */
-    --secondary: 40 10% 95%;
-    --secondary-foreground: 220 25% 25%;
-    --secondary-hover: 40 10% 90%;
+    --secondary: 270 30% 95%;
+    --secondary-foreground: 262 35% 25%;
+    --secondary-hover: 270 30% 90%;
 
-    --muted: 40 10% 95%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 270 30% 95%;
+    --muted-foreground: 262 12% 46%;
 
-    /* Accent */
-    --accent: 40 10% 92%;
-    --accent-foreground: 220 25% 25%;
+    /* Accent — survol neutre lavande, jamais le violet plein (DESIGN_SYSTEM.md §12.1) */
+    --accent: 270 35% 92%;
+    --accent-foreground: 262 35% 25%;
 
     /* Brand */
-    --brand: 131 65% 32%;
+    --brand: 274 85% 52%;
     --brand-foreground: 0 0% 100%;
-    --brand-light: 131 65% 95%;
+    --brand-light: 274 90% 96%;
 
-    /* Status */
-    --success: 131 65% 32%;
+    /* Néons — sources des halos (voir NEON EFFECTS) */
+    --neon: 276 100% 62%;
+    --neon-cyan: 188 100% 45%;
+    --neon-magenta: 320 100% 58%;
+
+    /* Status — le succès reste vert : un statut dit la vérité, pas la marque. */
+    --success: 145 70% 32%;
     --success-foreground: 0 0% 100%;
-    --success-light: 131 65% 95%;
+    --success-light: 145 70% 94%;
     /* Ambre, et non bleu. La valeur historique était `210 90% 60%` — une teinte
        bleue identique à --chart-2 : `bg-warning` rendait un avertissement BLEU.
-       Conséquence mesurée : le token n'était utilisé que 10 fois dans l'app,
-       contre 260 classes amber/orange/yellow écrites en dur, faute de cible
-       sémantique valide.
-
-       Luminosité 38 % et non 50 % : comme --success (32 %) et --destructive
-       (45 %), ce token doit servir AUX DEUX usages — aplat (`bg-warning` +
-       `text-warning-foreground` blanc) et texte (`text-warning` sur
-       `bg-warning-light`). Un ambre à 50 % passe en aplat mais devient
-       illisible en texte sur fond clair. */
+       Luminosité 38 % : ce token sert en aplat comme en texte. */
     --warning: 38 92% 38%;
     --warning-foreground: 0 0% 100%;
     --warning-light: 38 92% 94%;
-    --destructive: 15 100% 45%;
+    --destructive: 350 85% 48%;
     --destructive-foreground: 0 0% 100%;
-    --destructive-light: 15 100% 95%;
-    --viso: 270 70% 55%;
+    --destructive-light: 350 85% 95%;
+    /* Visio passe au magenta : le violet est désormais la couleur de marque. */
+    --viso: 320 85% 50%;
 
     /* Palette catégorielle pour charts (non-sémantique — différenciation de séries/catégories) */
-    --chart-1: 131 65% 32%;
-    --chart-2: 210 90% 60%;
-    --chart-3: 15 100% 55%;
-    --chart-4: 270 70% 55%;
-    --chart-5: 45 90% 55%;
-    --chart-6: 340 75% 55%;
-    --chart-7: 190 70% 45%;
-    --chart-8: 220 15% 55%;
+    --chart-1: 274 85% 55%;
+    --chart-2: 188 95% 40%;
+    --chart-3: 320 85% 55%;
+    --chart-4: 250 80% 62%;
+    --chart-5: 45 95% 50%;
+    --chart-6: 15 95% 55%;
+    --chart-7: 145 65% 38%;
+    --chart-8: 260 12% 55%;
 
     /* Borders & Ring */
-    --border: 220 13% 90%;
-    --input: 220 13% 90%;
-    --ring: 210 100% 40%;
+    --border: 270 25% 88%;
+    --input: 270 25% 88%;
+    --ring: 188 100% 40%;
 
-    /* Sidebar */
-    --sidebar: 131 65% 28%;
-    --sidebar-foreground: 225 40% 96%;
-    --sidebar-muted: 131 66% 24%;
-    --sidebar-accent: 131 65% 32%;
-    --sidebar-accent-foreground: 225 40% 96%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 131 65% 45%;
+    /* Sidebar — nuit violette même en thème clair */
+    --sidebar: 268 70% 14%;
+    --sidebar-foreground: 270 40% 92%;
+    --sidebar-muted: 268 55% 24%;
+    --sidebar-accent: 274 90% 50%;
+    --sidebar-accent-foreground: 270 40% 97%;
+    --sidebar-border: 268 40% 24%;
+    --sidebar-ring: 188 100% 50%;
 
     /* Shadows */
-    --shadow-card: 0 2px 8px hsl(220 25% 15% / 0.08);
-    --shadow-elevated: 0 8px 30px hsl(220 25% 15% / 0.12);
-    --shadow-primary: 0 4px 20px hsl(131 65% 28% / 0.25);
+    --shadow-card: 0 2px 8px hsl(262 45% 13% / 0.06);
+    --shadow-elevated: 0 8px 30px hsl(274 60% 30% / 0.16);
+    --shadow-primary:
+        0 0 0 1px hsl(var(--neon) / 0.35), 0 0 16px hsl(var(--neon) / 0.4);
+    --shadow-primary-hover:
+        0 0 0 1px hsl(var(--neon) / 0.6), 0 0 24px hsl(var(--neon) / 0.6);
 
     /* Radius */
     --radius: 0.75rem;
@@ -325,88 +328,199 @@
 }
 
 /* =====================================================
-   DARK THEME
+   DARK THEME — cyberpunk : nuit indigo, néons violet / cyan / magenta
 ===================================================== */
 .dark {
-    --background: 220 25% 8%;
-    --foreground: 220 13% 90%;
+    --background: 262 50% 5%;
+    --foreground: 270 30% 92%;
 
-    --card: 220 25% 10%;
-    --card-foreground: 220 13% 90%;
+    --card: 262 45% 8%;
+    --card-foreground: 270 30% 92%;
 
-    --popover: 220 25% 10%;
-    --popover-foreground: 220 13% 90%;
+    --popover: 262 45% 9%;
+    --popover-foreground: 270 30% 92%;
 
-    --secondary: 220 25% 15%;
-    --secondary-foreground: 220 13% 80%;
-    /* Était absent de .dark : le survol sautait au beige clair (40 10% 90%)
-       sur une surface quasi noire. */
-    --secondary-hover: 220 25% 20%;
+    --secondary: 264 40% 13%;
+    --secondary-foreground: 270 25% 82%;
+    --secondary-hover: 264 40% 18%;
 
-    --muted: 220 25% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 264 40% 13%;
+    --muted-foreground: 268 15% 64%;
 
-    --border: 220 25% 20%;
-    --input: 220 25% 20%;
-    --ring: 210 100% 50%;
+    --border: 270 45% 20%;
+    --input: 270 45% 22%;
+    --ring: 186 100% 55%;
 
-    /* Primary */
-    --primary: 131 50% 38%;
-    /* Était absent de .dark : la valeur claire (blanc pur) fuyait ici, à 3,9:1
-       sur --primary sombre. Léger blanc cassé, contraste rétabli. */
-    --primary-foreground: 131 15% 97%;
-    --primary-hover: 131 50% 33%;
-    --primary-light: 131 50% 43%;
+    /* Primary — violet néon lumineux, texte sombre pour le contraste */
+    --primary: 276 100% 66%;
+    --primary-foreground: 270 60% 8%;
+    --primary-hover: 276 100% 72%;
+    --primary-light: 276 100% 74%;
 
     /* Accent */
-    --accent: 220 25% 18%;
-    --accent-foreground: 220 13% 90%;
+    --accent: 266 40% 16%;
+    --accent-foreground: 270 30% 92%;
 
     /* Brand */
-    --brand: 131 50% 43%;
-    --brand-foreground: 0 0% 100%;
-    --brand-light: 131 40% 18%;
+    --brand: 280 100% 70%;
+    --brand-foreground: 270 60% 8%;
+    --brand-light: 276 60% 16%;
+
+    --neon: 278 100% 66%;
+    --neon-cyan: 186 100% 55%;
+    --neon-magenta: 320 100% 64%;
 
     /* Status */
-    --success: 131 50% 43%;
-    --success-foreground: 0 0% 100%;
-    --success-light: 131 40% 18%;
-    /* Ambre (voir :root) — la teinte est éclaircie et désaturée pour rester
-       lisible sur fond sombre, comme les tokens --chart-* le font déjà. */
-    --warning: 38 85% 55%;
-    --warning-foreground: 30 60% 10%;
-    --warning-light: 38 40% 18%;
-    --destructive: 15 85% 58%;
+    --success: 145 85% 50%;
+    --success-foreground: 150 60% 8%;
+    --success-light: 145 50% 13%;
+    --warning: 45 100% 58%;
+    --warning-foreground: 40 70% 8%;
+    --warning-light: 45 50% 14%;
+    --destructive: 352 95% 60%;
     --destructive-foreground: 0 0% 100%;
-    --destructive-light: 15 60% 20%;
-    --viso: 270 65% 62%;
+    --destructive-light: 352 60% 16%;
+    --viso: 320 100% 68%;
 
-    --shadow-primary: 0 4px 20px hsl(131 50% 38% / 0.3);
-
-    /* Palette catégorielle chart — plus claire/moins saturée pour la lisibilité sur fond sombre */
-    --chart-1: 131 50% 43%;
-    --chart-2: 210 85% 62%;
-    --chart-3: 15 85% 60%;
-    --chart-4: 270 65% 65%;
-    --chart-5: 45 85% 60%;
-    --chart-6: 340 70% 62%;
-    --chart-7: 190 60% 52%;
-    --chart-8: 220 12% 68%;
+    /* Palette catégorielle chart — néons lisibles sur fond nuit */
+    --chart-1: 276 100% 70%;
+    --chart-2: 186 100% 55%;
+    --chart-3: 320 100% 68%;
+    --chart-4: 250 95% 72%;
+    --chart-5: 50 100% 60%;
+    --chart-6: 15 100% 62%;
+    --chart-7: 145 85% 52%;
+    --chart-8: 265 15% 68%;
 
     /* --event-* (définis dans :root) référencent var(--success)/var(--primary)/etc. via
        des hsl(var(--x) / alpha) non résolues — elles héritent donc automatiquement de
        ces overrides dark, sans avoir besoin d'être redéfinies ici. */
 
-    --sidebar: 220 25% 5%;
-    --sidebar-foreground: 220 13% 80%;
-    --sidebar-muted: 220 25% 25%;
-    --sidebar-accent: 131 65% 28%;
-    --sidebar-accent-foreground: 220 13% 90%;
-    --sidebar-border: 220 25% 20%;
-    --sidebar-ring: 131 65% 45%;
+    --sidebar: 262 55% 3%;
+    --sidebar-foreground: 270 25% 82%;
+    --sidebar-muted: 266 40% 14%;
+    --sidebar-accent: 276 85% 45%;
+    --sidebar-accent-foreground: 270 40% 96%;
+    --sidebar-border: 268 45% 16%;
+    --sidebar-ring: 186 100% 55%;
 
-    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.2);
-    --shadow-elevated: 0 8px 30px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 2px 10px hsl(262 80% 2% / 0.5);
+    --shadow-elevated:
+        0 10px 40px hsl(262 80% 2% / 0.6), 0 0 0 1px hsl(var(--neon) / 0.15);
+    --shadow-primary:
+        0 0 0 1px hsl(var(--neon) / 0.5), 0 0 18px hsl(var(--neon) / 0.55),
+        0 0 42px hsl(var(--neon) / 0.25);
+    --shadow-primary-hover:
+        0 0 0 1px hsl(var(--neon) / 0.8), 0 0 24px hsl(var(--neon) / 0.75),
+        0 0 60px hsl(var(--neon) / 0.35);
+}
+
+/* =====================================================
+   NEON EFFECTS
+   En @layer components : tout utilitaire posé sur l'élément (shadow-none,
+   border-*, etc.) garde la main. Les halos lisent --neon, donc le mode bio
+   (qui ne le redéfinit pas) est neutralisé plus bas.
+===================================================== */
+@layer components {
+    /* Actions principales : halo violet, qui s'intensifie au survol */
+    button.bg-primary,
+    a.bg-primary {
+        box-shadow: var(--shadow-primary);
+        transition-property: color, background-color, box-shadow;
+        transition-duration: 200ms;
+    }
+
+    button.bg-primary:hover,
+    a.bg-primary:hover {
+        box-shadow: var(--shadow-primary-hover);
+    }
+
+    /* Item actif de la barre latérale : tube néon */
+    .bg-sidebar .bg-sidebar-accent {
+        box-shadow:
+            0 0 0 1px hsl(var(--neon) / 0.55),
+            0 0 18px hsl(var(--neon) / 0.5),
+            inset 0 0 12px hsl(var(--neon) / 0.25);
+    }
+
+    /* Onglet actif : soulignement lumineux */
+    [role="tab"][data-state="active"] {
+        box-shadow:
+            inset 0 -2px 0 hsl(var(--neon)),
+            0 6px 14px -8px hsl(var(--neon) / 0.7);
+    }
+
+    /* Focus clavier : halo cyan en plus de l'anneau */
+    :focus-visible {
+        outline-color: hsl(var(--neon-cyan));
+    }
+
+    ::selection {
+        background-color: hsl(var(--neon) / 0.35);
+    }
+
+    /* Nuit : cartes cerclées d'un filet violet et titres légèrement irradiés */
+    .dark .bg-card {
+        border-color: hsl(var(--neon) / 0.22);
+    }
+
+    .dark h1,
+    .dark h2 {
+        text-shadow: 0 0 18px hsl(var(--neon) / 0.45);
+    }
+
+    /* Fond de l'app shell : brume violet/magenta et grille de perspective */
+    .neon-shell {
+        background-image:
+            radial-gradient(
+                900px 600px at 0% 0%,
+                hsl(var(--neon) / 0.08),
+                transparent 60%
+            ),
+            radial-gradient(
+                800px 600px at 100% 100%,
+                hsl(var(--neon-magenta) / 0.06),
+                transparent 60%
+            );
+    }
+
+    .dark .neon-shell {
+        background-image:
+            radial-gradient(
+                1000px 700px at 0% 0%,
+                hsl(var(--neon) / 0.18),
+                transparent 60%
+            ),
+            radial-gradient(
+                900px 700px at 100% 100%,
+                hsl(var(--neon-magenta) / 0.12),
+                transparent 60%
+            ),
+            linear-gradient(hsl(var(--neon) / 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--neon) / 0.05) 1px, transparent 1px);
+        background-size:
+            auto,
+            auto,
+            40px 40px,
+            40px 40px;
+    }
+
+    /* Le mode bio (easter egg) garde son papier kraft, sans néons */
+    .bio-mode button.bg-primary,
+    .bio-mode a.bg-primary,
+    .bio-mode .bg-sidebar .bg-sidebar-accent,
+    .bio-mode [role="tab"][data-state="active"] {
+        box-shadow: none;
+    }
+
+    .bio-mode .neon-shell {
+        background-image: none;
+    }
+
+    .bio-mode h1,
+    .bio-mode h2 {
+        text-shadow: none;
+    }
 }
 
 /* =====================================================
@@ -873,8 +987,8 @@
         background-color: transparent;
     }
     25% {
-        background-color: rgba(0, 255, 34, 0.56);
-        color: #166534;
+        background-color: hsl(var(--neon) / 0.35);
+        color: hsl(var(--foreground));
     }
     100% {
         background-color: transparent;
