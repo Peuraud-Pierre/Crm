@@ -1,0 +1,5 @@
+# Scripts post-installation : pnpm les bloque tant qu'ils ne sont pas tranchés ici.
+# core-js : simple message publicitaire, inutile.
+allowBuilds:
+  core-js: false
+  supabase: true

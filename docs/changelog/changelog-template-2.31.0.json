@@ -1,0 +1,57 @@
+{
+  "version": "2.31.0",
+  "summary": "Version du 15/10/2026 : les écrans de connexion, de mot de passe oublié et de réinitialisation sont entièrement repensés, l'application se souvient du dernier compte connecté sur l'appareil pour accueillir l'utilisateur par son prénom, les messages d'erreur expliquent précisément ce qui bloque, et l'en-tête de l'application reçoit un liseré vert",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Connexion / Accueil personnalisé et email mémorisé",
+        "contenu": "Après une première connexion réussie, l'écran de connexion se souvient de l'adresse email utilisée sur cet appareil et accueille l'utilisateur par son prénom (« Bonjour » ou « Bonsoir » selon l'heure). L'email est prérempli et le curseur est placé directement dans le champ mot de passe. Si quelqu'un d'autre tape une autre adresse, le prénom n'est plus affiché. Le bouton « Utiliser un autre compte » de l'étape du code efface ces informations. Le mot de passe n'est jamais mémorisé"
+      },
+      {
+        "titre": "Connexion / Aides à la saisie du mot de passe",
+        "contenu": "Un avertissement « Verrouillage majuscules activé » s'affiche sous le champ mot de passe quand la touche Verr. Maj. est enclenchée. Le lien « Mot de passe oublié ? » reprend l'adresse email déjà saisie pour éviter de la retaper"
+      },
+      {
+        "titre": "Connexion / Animation d'entrée dans l'application",
+        "contenu": "Une fois la connexion validée, le logo de l'écran de connexion se place au centre avec le message d'accueil, puis rejoint le bouton du menu pendant que l'application apparaît. L'animation dure le temps que la page d'accueil se charge"
+      }
+    ],
+    "Corrections": [],
+    "Modifications": [
+      {
+        "titre": "Connexion / Nouvel écran de connexion",
+        "contenu": "L'écran de connexion est entièrement redessiné, avec un logo animé qui réagit à la saisie, à l'attente, aux erreurs et à la réussite de la connexion. La vérification de sécurité (captcha) se fait désormais le plus souvent sans action de l'utilisateur : le bouton « Se connecter » n'est plus grisé en attendant, et un message prévient quand une vérification manuelle est nécessaire. Les erreurs s'affichent directement dans le formulaire au lieu d'une notification en bas de l'écran, et le mot de passe n'est effacé que s'il est incorrect"
+      },
+      {
+        "titre": "Connexion / Messages d'erreur plus précis",
+        "contenu": "Les écrans de connexion, de mot de passe oublié et de réinitialisation affichent maintenant la cause exacte d'un échec : identifiants incorrects, adresse email non confirmée, compte désactivé, trop de tentatives, vérification de sécurité échouée, code expiré ou incorrect, lien expiré, ou absence de connexion réseau. Si la connexion tarde trop, un message invite à réessayer au lieu de laisser le bouton tourner indéfiniment"
+      },
+      {
+        "titre": "Connexion / Saisie du code de double authentification",
+        "contenu": "Le code à 6 chiffres se saisit dans des cases séparées et est validé automatiquement dès le dernier chiffre, sans avoir à cliquer. En cas d'erreur, les cases sont vidées et le curseur y revient pour une nouvelle saisie. L'adresse du compte concerné est rappelée au-dessus des cases, et un bouton « Utiliser un autre compte » permet de revenir à l'écran de connexion"
+      },
+      {
+        "titre": "Mot de passe oublié / Écran repensé",
+        "contenu": "Après la demande, un écran « Vérifiez votre boîte mail » rappelle l'adresse concernée (partiellement masquée) et propose de renvoyer le lien après un court délai, avec un rappel de vérifier les courriers indésirables"
+      },
+      {
+        "titre": "Mot de passe oublié / Réinitialisation du mot de passe",
+        "contenu": "L'écran de choix du nouveau mot de passe affiche un indicateur de robustesse et les critères à remplir, et indique en direct si les deux mots de passe saisis correspondent. Pour les comptes protégés par la double authentification, le code est demandé avec la même saisie que lors de la connexion. Un lien expiré ou déjà utilisé affiche un écran dédié avec un bouton pour en demander un nouveau, et une fois le mot de passe modifié l'utilisateur est redirigé vers la connexion"
+      },
+      {
+        "titre": "Confirmation d'email / Écrans de vérification des liens",
+        "contenu": "L'ouverture d'un lien de confirmation d'email ou de réinitialisation affiche désormais un écran de vérification, puis un écran de réussite ou d'échec clair (« Adresse email confirmée », « Lien invalide ou expiré ») avec le bouton adapté, au lieu de simples notifications"
+      },
+      {
+        "titre": "Interface / Liseré vert sous l'en-tête",
+        "contenu": "L'en-tête de l'application est désormais séparé du contenu par un fin liseré vert aux couleurs de la marque, plus visible que l'ancienne bordure grise, en thème clair comme en thème sombre"
+      }
+    ],
+    "Suppressions": [
+      {
+        "titre": "Connexion / Bouton « Renvoyer le code »",
+        "contenu": "Le bouton « Renvoyer le code » de l'étape de double authentification a été retiré : le code est généré par l'application d'authentification du téléphone (Google Authenticator, 1Password, Authy…) et change toutes les 30 secondes, aucun code n'est envoyé. Il suffit de saisir le code affiché à ce moment-là dans l'application"
+      }
+    ]
+  }
+}

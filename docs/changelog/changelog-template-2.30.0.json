@@ -1,0 +1,29 @@
+{
+  "version": "2.30.0",
+  "summary": "Version du 13/10/2026 : les Paramètres gagnent une carte « Caméra » pour vérifier, autoriser et tester la caméra de l'appareil, les fenêtres de scan expliquent désormais pourquoi la caméra ne démarre pas et comment la débloquer, et dans le CRM la colonne « No Show » tient compte du filtre Gestionnaire",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Paramètres / Carte « Caméra »",
+        "contenu": "Dans les Paramètres, l'onglet « Préférences » affiche une nouvelle carte « Caméra ». Elle indique l'état de la caméra sur l'appareil utilisé : autorisée, pas encore autorisée, bloquée dans le navigateur, absente, ou déjà utilisée par une autre application. Un bouton permet de l'autoriser ou de réessayer, et quand elle est bloquée la carte liste les étapes pour la réautoriser dans le navigateur. Une fois la caméra autorisée, « Tester la caméra » ouvre un scan : il suffit de viser n'importe quel QR code pour vérifier qu'elle fonctionne. Ce réglage est propre à chaque appareil et n'est pas enregistré sur le compte"
+      }
+    ],
+    "Corrections": [
+      {
+        "titre": "CRM / Colonne « No Show » et filtre Gestionnaire",
+        "contenu": "Dans le Kanban, la colonne « No Show » affichait les clients de tout le monde, quel que soit le choix fait dans le filtre Gestionnaire. Elle suit maintenant ce filtre comme les autres colonnes : « Mes clients » n'y montre que vos propres no-shows, le nom d'un collègue n'y montre que les siens, et « Tous » les affiche tous. Le compteur de la colonne suit le même filtre. Pour reprendre le no-show d'un collègue, il faut donc passer le filtre sur « Tous » ou sur son nom"
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "Scan / Messages plus clairs quand la caméra ne démarre pas",
+        "contenu": "Quand la caméra ne pouvait pas démarrer, les fenêtres de scan affichaient le même message quelle que soit la cause. Elles précisent maintenant ce qui bloque : autorisation pas encore donnée, caméra bloquée dans le navigateur, aucune caméra détectée, caméra déjà utilisée par une autre application, ou connexion non sécurisée. Un bouton permet d'autoriser la caméra ou de réessayer sans fermer la fenêtre, et les étapes pour la débloquer sont indiquées quand le navigateur l'a refusée"
+      },
+      {
+        "titre": "Messagerie / Synchronisation par QR code",
+        "contenu": "Pour synchroniser un appareil en scannant un QR code, la fenêtre de scan est désormais la même que dans le reste de l'application. La caméra démarre dès l'ouverture, sans passer par le bouton « Démarrer le scan », et les mêmes explications s'affichent si elle est bloquée"
+      }
+    ],
+    "Suppressions": []
+  }
+}

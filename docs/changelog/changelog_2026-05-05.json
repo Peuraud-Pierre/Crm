@@ -1,0 +1,221 @@
+{
+    "version": "2.2.4",
+    "summary": "Import des packing lists Excel avec création automatique des livraisons et balles, conversion PCS vers KGS via les catégories, matching trigramme avec auto-création des catégories manquantes, support du numéro de container sur la création de livraison, conservation de la description brute des items sur les balles, colonne No Show dans les statistiques CRM, calcul des KPIs sur les devis envoyés, nouvelle feature Story Creator avec suggestions de captions et hashtags, refactoring stock vers stock_constants.",
+    "categories": {
+        "Ajouts": [
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Bouton 'Importer Excel' dans la feuille Packing List permettant d'uploader un fichier .xlsx commercial."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Upload du fichier Excel vers arrivage-api avec création automatique de la facture dans Supabase."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Insertion automatique des items et packages parsés depuis l'Excel dans les tables Supabase."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Création automatique de la livraison associée à l'arrivage lors de l'import."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Création automatique des balles à partir des packages parsés avec génération du BIN."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Réutilisation de la livraison existante via correspondance par DIN si déjà créée."
+            },
+            {
+                "titre": "Stock - Catégories",
+                "contenu": "Matching trigramme (Sørensen-Dice) entre la description Excel et les catégories existantes lors de l'import."
+            },
+            {
+                "titre": "Stock - Catégories",
+                "contenu": "Auto-création de la catégorie quand aucune correspondance trigramme n'atteint le seuil de similarité."
+            },
+            {
+                "titre": "Stock - Balles",
+                "contenu": "Conversion automatique des pièces (PCS) en kilogrammes via category.unit_weight pour stocker toutes les balles en KGS."
+            },
+            {
+                "titre": "Stock - Balles",
+                "contenu": "Calcul du prix d'achat (purchase_price) en euros via category.unit_price multiplié par le poids."
+            },
+            {
+                "titre": "Stock - Balles",
+                "contenu": "Détection des packages KGS purs (marqueur textuel KGS) avec prise en compte de total_pcs_kg comme poids de la balle."
+            },
+            {
+                "titre": "Stock - Balles",
+                "contenu": "Champ raw_name sur les balles pour conserver la description brute de l'item issue de la packing list (avant matching de catégorie)."
+            },
+            {
+                "titre": "Stock - Balles",
+                "contenu": "Affichage de la description brute (raw_name) sous le badge catégorie sur la BalleCard quand elle diffère du nom de catégorie."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Champ container_no sur le formulaire de création de livraison (DeliveryCreationSheet)."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Support du numéro de container sur la création d'arrivage via le menu d'action shipmentActionMenu."
+            },
+            {
+                "titre": "CRM - Statistiques",
+                "contenu": "Nouvelle colonne 'No Show' dans les statistiques client pour suivre les rendez-vous manqués."
+            },
+            {
+                "titre": "CRM - Kanban",
+                "contenu": "Colonne 'No Show' visible dans le Kanban des clients (CustomerTabSplit)."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Calcul des KPIs sur les devis au statut 'sent' dans la logique des quotes."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Section KPI mise à jour dans le Header_Devis pour refléter les statistiques d'envoi."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Nouvelle feature Story Creator avec génération de suggestions pour stories Instagram."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Suggestions de captions automatiquement générées par le Story Creator."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Suggestions de hashtags pertinents pour les stories."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Composant StoryAnalyzeView pour visualiser l'analyse d'une story importée."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Composant StorySuggesterGenerator pour piloter la génération de suggestions."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Section d'upload (UploadSection) dédiée pour importer le visuel de la story."
+            },
+            {
+                "titre": "Content - Story Creator",
+                "contenu": "Formulaire et bouton de soumission dédiés pour le Story Creator."
+            },
+            {
+                "titre": "Content - Contexte",
+                "contenu": "ContentProvider centralisant l'état et les actions pour les features de génération de contenu."
+            },
+            {
+                "titre": "Stock - Référentiel",
+                "contenu": "Constantes stock_constants.ts centralisant les valeurs réutilisées par les composants stock."
+            }
+        ],
+        "Modifications": [
+            {
+                "titre": "Stock - Architecture",
+                "contenu": "Composants stock refactorisés pour consommer stock_constants au lieu de valeurs en dur."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Sections balleSearch, recentActivity et shipmentSection migrées vers les constantes partagées."
+            },
+            {
+                "titre": "Stock - Vues",
+                "contenu": "Vues calendrier (shipmentCalendarView) et tableau (shipmentTableView) alignées sur les constantes communes."
+            },
+            {
+                "titre": "Stock - Settings",
+                "contenu": "Menus catégories et fournisseurs du board paramètres uniformisés via stock_constants."
+            },
+            {
+                "titre": "Stock - Stockboard",
+                "contenu": "BalleBoard, BalleSheet et DeliverySheet refactorisés pour la cohérence visuelle."
+            },
+            {
+                "titre": "Stock - Historique",
+                "contenu": "HistoryBoard et hook use_history alignés sur la nouvelle convention de constantes."
+            },
+            {
+                "titre": "Stock - UI Contexte",
+                "contenu": "stockUIContext simplifié avec extraction des constantes de configuration."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Refonte de l'UI de la sheet packing list avec amélioration de la lisibilité du tableau d'items et packages."
+            },
+            {
+                "titre": "Stock - Affichage",
+                "contenu": "Arrondi à 2 décimales sur l'affichage du poids des balles dans BalleCard."
+            },
+            {
+                "titre": "Stock - Affichage",
+                "contenu": "Arrondi à 2 décimales sur le poids total de livraison affiché dans deliverySheet."
+            },
+            {
+                "titre": "Stock - Affichage",
+                "contenu": "Arrondi à 2 décimales sur le poids affiché dans deliveryCard."
+            },
+            {
+                "titre": "Stock - Données",
+                "contenu": "Arrondi à 2 décimales appliqué à la persistence du packing et purchase_price des balles à l'import."
+            },
+            {
+                "titre": "Stock - Données",
+                "contenu": "Arrondi à 2 décimales sur le packing total de la livraison à la création."
+            },
+            {
+                "titre": "CRM - Contexte client",
+                "contenu": "CustomerContext mis à jour pour intégrer la logique No Show dans le calcul des stats."
+            },
+            {
+                "titre": "CRM - Calendrier",
+                "contenu": "Hook use_calendar enrichi pour exposer les données nécessaires au suivi No Show."
+            },
+            {
+                "titre": "CRM - Onglets",
+                "contenu": "Configuration CrmTab étendue pour accueillir l'onglet No Show."
+            },
+            {
+                "titre": "CRM - Création événement",
+                "contenu": "Refactoring du composant creation_event pour simplifier la logique et améliorer la maintenabilité."
+            },
+            {
+                "titre": "CRM - Brief",
+                "contenu": "Ajustements mineurs sur la colonne brief de la fiche client (colonneBrief)."
+            },
+            {
+                "titre": "Content - Génération",
+                "contenu": "Composant App du content enrichi pour intégrer le Story Creator dans le flux principal."
+            },
+            {
+                "titre": "Content - Liste",
+                "contenu": "ContentList ajustée pour afficher les nouvelles entrées générées par le Story Creator."
+            }
+        ],
+        "Corrections": [
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Correction du calcul de poids à 0 kg pour les items PCS quand category.unit_weight n'est pas renseigné (chaîne de fallback : pkg.kgs puis total_pcs_kg puis pcs × unit_weight)."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Correction de la création de balles excédentaires sur les packages KGS purs (forçage qty=1 quand pkg.kgs et pkg.pcs sont nuls)."
+            },
+            {
+                "titre": "Stock - Packing List",
+                "contenu": "Correction de l'utilisation de qty Excel comme nombre de balles plutôt que comme valeur en kg pour les packages KGS purs."
+            },
+            {
+                "titre": "Stock - Affichage",
+                "contenu": "Suppression des poids avec décimales excessives à l'affichage des balles et livraisons."
+            }
+        ],
+        "Suppressions": []
+    }
+}

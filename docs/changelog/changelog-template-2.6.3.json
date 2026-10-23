@@ -1,0 +1,29 @@
+{
+  "version": "2.6.3",
+  "summary": "Patch couvrant la période du 25/06/2026 au 26/06/2026 : enrichissement des Analytics CRM (statistiques quotidiennes, suivi des proformas, accès à la sélection des commerciaux selon le rôle), simplification du modèle de données analytics avec retrait de l'indicateur « Qualification », et mise à jour des endpoints API.",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Analytics",
+        "contenu": "Enrichissement des Analytics CRM avec des statistiques quotidiennes et le suivi des proformas, refonte de l'export (ExportStatsButton) et extension du contexte analytics pour agréger ces nouvelles données."
+      },
+      {
+        "titre": "Analytics",
+        "contenu": "Accès à la sélection des commerciaux dans le Header des Analytics basé sur le rôle de l'utilisateur, avec ajustement de la fiche client (colonne G) et du hook use_client pour respecter ces droits."
+      }
+    ],
+    "Corrections": [
+      {
+        "titre": "Environnement / API",
+        "contenu": "Mise à jour des variables d'environnement (.env) pour pointer vers les endpoints API de développement."
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "Analytics",
+        "contenu": "Simplification du modèle de données analytics : retrait de l'indicateur « nbQualification » des structures de données et des calculs associés (ExportStatsButton, Kpis, AnalyticsContext)."
+      }
+    ],
+    "Suppressions": []
+  }
+}

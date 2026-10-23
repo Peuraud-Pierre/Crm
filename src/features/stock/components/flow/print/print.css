@@ -1,0 +1,407 @@
+/*
+ * Feuille de style du document imprimable des arrivages.
+ *
+ * Écrite en CSS classique et non en utilitaires Tailwind : les dimensions sont
+ * en millimètres (format papier) et les règles `@page` / `break-*` n'ont pas
+ * d'équivalent en tokens du design system.
+ *
+ * Le document est rendu deux fois à partir du même composant : une fois dans le
+ * dialog (prévisualisation, mise à l'échelle) et une fois dans un portal
+ * `.apd-root` masqué à l'écran, qui est le seul élément visible à l'impression.
+ */
+
+/* ── Orientation ─────────────────────────────────────────────────────────── */
+
+/*
+ * La règle `@page` qui porte `size` est injectée dynamiquement par
+ * PrintArrivageDialog, dans le portal d'impression : elle dépend du format
+ * choisi, et `@page` ne peut être conditionné ni par classe ni par media query.
+ *
+ * Les pages nommées (`@page apdPortrait` + `page: apdPortrait`) avaient été
+ * essayées d'abord — le navigateur ignorait l'orientation et imprimait tout en
+ * paysage. Ne pas y revenir.
+ */
+
+/* ── Racine d'impression ─────────────────────────────────────────────────── */
+
+.apd-root {
+    display: none;
+}
+
+@media print {
+    body > *:not(.apd-root) {
+        display: none !important;
+    }
+
+    .apd-root {
+        display: block !important;
+        position: static !important;
+    }
+
+    /* Radix verrouille le scroll du body pendant qu'une modale est ouverte —
+       sans cela le document imprimé serait tronqué à la hauteur de la fenêtre. */
+    body {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    /* Les aplats de couleur portent l'information (alerte facture, colonne
+       mise en avant) : sans cela les navigateurs les suppriment à l'impression. */
+    .apd-doc,
+    .apd-doc * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Filet de sécurité : la boîte d'impression du navigateur peut forcer
+       « Marges : aucune », ce qui annule le `margin` de `@page`. Ce padding-là,
+       lui, fait partie du document et colle donc jamais au bord de la feuille. */
+    .apd-doc {
+        padding: 4mm;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    .apd-doc tr {
+        break-inside: avoid;
+    }
+
+    /* Une bannière de mois seule en bas de page annoncerait un bloc qui commence
+       sur la page suivante — exactement la confusion qu'elle est censée lever. */
+    .apd-banner-row {
+        break-after: avoid;
+    }
+}
+
+/* ── Document ────────────────────────────────────────────────────────────── */
+
+.apd-doc {
+    background: #ffffff;
+    color: #111827;
+    font-family: Calibri, Carlito, "Segoe UI", system-ui, sans-serif;
+    font-size: 9pt;
+    line-height: 1.35;
+}
+
+.apd-doc-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8mm;
+    border-bottom: 1pt solid #111827;
+    padding-bottom: 2mm;
+    margin-bottom: 4mm;
+}
+
+.apd-title {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+.apd-subtitle {
+    font-size: 8.5pt;
+    color: #374151;
+    margin: 0.5mm 0 0;
+}
+
+.apd-meta {
+    font-size: 8pt;
+    color: #6b7280;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* ── Bannière de mois (commune aux deux formats) ─────────────────────────── */
+
+.apd-banner {
+    background: #374151;
+    color: #ffffff;
+    font-weight: 700;
+    /* Relatif : la bannière vit dans une cellule, elle suit donc la densité. */
+    font-size: 1.05em;
+    letter-spacing: 0.03em;
+    padding: 1.2mm 2mm;
+}
+
+.apd-banner-weight {
+    float: right;
+    font-weight: 600;
+}
+
+/* ── Format détaillé ─────────────────────────────────────────────────────── */
+
+.apd-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.apd-table th {
+    color: #ffffff;
+    font-weight: 700;
+    /* Relatif : les en-têtes suivent la densité choisie pour le tableau. */
+    font-size: 0.95em;
+    text-align: center;
+    border: 0.5pt solid #374151;
+}
+
+.apd-table td {
+    border: 0.5pt solid #e5e7eb;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.apd-table td.apd-num {
+    text-align: right;
+}
+
+.apd-table tr.apd-banner-row td {
+    border: 0.5pt solid #9ca3af;
+    border-top-width: 1pt;
+    border-bottom-width: 1pt;
+    padding: 0;
+}
+
+.apd-table tr.apd-total td {
+    background: #d1d5db;
+    font-weight: 700;
+    border: 0.5pt solid #9ca3af;
+    border-top-width: 1pt;
+    border-bottom-width: 1pt;
+}
+
+/* ── Densité adaptative ──────────────────────────────────────────────────── */
+
+/*
+ * La taille du texte et la hauteur des lignes suivent le volume à imprimer
+ * (`pickDensity` dans ArrivagePrintDocument), pour que le tableau occupe la
+ * feuille entière plutôt qu'un coin de page quand la période est courte.
+ *
+ * Deux échelles distinctes : le format détaillé porte jusqu'à 13 colonnes et
+ * sature la largeur bien avant le format simple, qui en a 8.
+ */
+
+.apd-doc--airy   .apd-table--simple { font-size: 12pt; }
+.apd-doc--comfy  .apd-table--simple { font-size: 10.5pt; }
+.apd-doc--normal .apd-table--simple { font-size: 9pt; }
+.apd-doc--dense  .apd-table--simple { font-size: 7.5pt; }
+
+.apd-doc--airy   .apd-table--detailed { font-size: 9.5pt; }
+.apd-doc--comfy  .apd-table--detailed { font-size: 8.5pt; }
+.apd-doc--normal .apd-table--detailed { font-size: 7.5pt; }
+.apd-doc--dense  .apd-table--detailed { font-size: 6.5pt; }
+
+.apd-doc--airy   .apd-table td { padding: 2.6mm 1.4mm; }
+.apd-doc--comfy  .apd-table td { padding: 1.9mm 1.2mm; }
+.apd-doc--normal .apd-table td { padding: 1.3mm 1mm; }
+.apd-doc--dense  .apd-table td { padding: 0.8mm 0.8mm; }
+
+.apd-doc--airy   .apd-table th { padding: 2.2mm 1.4mm; }
+.apd-doc--comfy  .apd-table th { padding: 1.7mm 1.2mm; }
+.apd-doc--normal .apd-table th { padding: 1.2mm 1mm; }
+.apd-doc--dense  .apd-table th { padding: 0.9mm 0.8mm; }
+
+/* ── Format simple (tableau compact, portrait) ───────────────────────────── */
+
+.apd-table--simple th {
+    background: #111827;
+}
+
+.apd-table--simple tr.apd-alt td {
+    background: #f3f4f6;
+}
+
+/* Colonnes de dates sous surveillance — mêmes emphases que le classeur Excel :
+   Date facture en rouge, Déchargement en bleu. Les deux teintes sont tenues
+   éloignées l'une de l'autre pour rester distinctes en vision des couleurs. */
+.apd-table--simple th.apd-col-alert {
+    background: #991b1b;
+}
+
+.apd-table--simple th.apd-col-important {
+    background: #1e40af;
+}
+
+.apd-table--simple td.apd-col-alert {
+    background: #fff1f2;
+}
+
+.apd-table--simple tr.apd-alt td.apd-col-alert {
+    background: #ffe4e6;
+}
+
+.apd-table--simple td.apd-col-important {
+    background: #eff6ff;
+    font-weight: 600;
+}
+
+.apd-table--simple tr.apd-alt td.apd-col-important {
+    background: #dbeafe;
+}
+
+/* Facture manquante à moins de 7 jours du déchargement : la ligne entière vire
+   au rosé — l'alerte prime sur la couleur de colonne, comme dans le classeur.
+   Les sélecteurs sont explicités pour battre les règles de colonne ci-dessus. */
+.apd-table--simple tr.apd-row--alert td,
+.apd-table--simple tr.apd-row--alert td.apd-col-alert,
+.apd-table--simple tr.apd-row--alert td.apd-col-important {
+    background: #ffe4e6;
+}
+
+.apd-table--simple tr.apd-row--alert td:first-child {
+    box-shadow: inset 2pt 0 0 #991b1b;
+}
+
+.apd-alert-mark {
+    color: #991b1b;
+    font-weight: 700;
+}
+
+/* ── Pied de page ────────────────────────────────────────────────────────── */
+
+.apd-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8mm;
+    border-top: 1pt solid #111827;
+    margin-top: 4mm;
+    padding-top: 2mm;
+    font-size: 8.5pt;
+}
+
+.apd-footer-total {
+    font-weight: 700;
+}
+
+.apd-legend {
+    color: #6b7280;
+    text-align: right;
+}
+
+.apd-empty {
+    padding: 10mm 0;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* ── Prévisualisation à l'écran ──────────────────────────────────────────── */
+
+.apd-preview {
+    background: #e5e7eb;
+    padding: 4mm;
+    display: flex;
+    justify-content: center;
+    /* `safe` empêche le centrage de rendre inatteignable le bord gauche du
+       document quand celui-ci est plus large que la modale. */
+    justify-content: safe center;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+/* Largeur utile d'une page A4 paysage moins les marges de `@page` (297 − 2×8),
+   et hauteur d'au moins une page (210 − 2×8) : l'aperçu montre ainsi une feuille
+   entière, donc la place réellement occupée par le tableau. */
+.apd-preview .apd-doc {
+    width: 281mm;
+    min-height: 194mm;
+    padding: 4mm;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+    /* `zoom` plutôt que `transform: scale()` : la mise à l'échelle reflue, donc
+       la modale n'hérite pas d'un vide de la hauteur d'origine sous l'aperçu. */
+    zoom: 0.62;
+}
+
+/* La modale occupe 80vw sur desktop et tout l'écran en dessous de `sm` : sans
+   ces paliers, l'aperçu déborde et force un défilement horizontal. */
+@media (max-width: 1280px) {
+    .apd-preview .apd-doc {
+        zoom: 0.48;
+    }
+}
+
+@media (max-width: 900px) {
+    .apd-preview .apd-doc {
+        zoom: 0.34;
+    }
+}
+
+@media (max-width: 640px) {
+    .apd-preview {
+        padding: 2mm;
+        max-height: 40vh;
+    }
+
+    .apd-preview .apd-doc {
+        zoom: 0.24;
+    }
+}
+
+/* ── Arrivages passés ─────────────────────────────────────────────────────── */
+
+/* Le déchargement est derrière nous : la ligne s'éteint en gris italique pour
+   que les arrivages encore à venir ressortent par contraste — c'est la première
+   information cherchée à l'ouverture du document. Le fond gris des cellules est
+   posé en inline par le format détaillé (il doit battre l'emphase de colonne) ;
+   ici on ne traite que la typographie et le format simple. */
+.apd-doc tr.apd-row--past td {
+    color: #5b6270;
+    font-style: italic;
+}
+
+.apd-table--simple tr.apd-row--past td,
+.apd-table--simple tr.apd-row--past td.apd-col-alert,
+.apd-table--simple tr.apd-row--past td.apd-col-important {
+    background: #f9fafb;
+    font-weight: 400;
+}
+
+.apd-table--simple tr.apd-alt.apd-row--past td,
+.apd-table--simple tr.apd-alt.apd-row--past td.apd-col-alert,
+.apd-table--simple tr.apd-alt.apd-row--past td.apd-col-important {
+    background: #f3f4f6;
+}
+
+/* La date de déchargement dépassée est barrée : repère non coloré, qui survit
+   à une impression en noir et blanc. */
+.apd-doc td.apd-past-date {
+    text-decoration: line-through;
+}
+
+/* ── Arrivage en route ────────────────────────────────────────────────────── */
+
+/* Déchargement programmé : la ligne entière s'allume en jaune, c'est le signal
+   le plus fort du document — et d'un seul ton, sans alternance : deux nuances
+   feraient chercher une différence entre deux arrivages en route. Le format
+   détaillé pose ce fond en inline (il doit battre l'emphase de colonne) ; le
+   format simple le porte ici, sélecteurs explicités pour battre les règles de
+   colonne plus haut. */
+.apd-table--simple tr.apd-row--scheduled td,
+.apd-table--simple tr.apd-row--scheduled td.apd-col-alert,
+.apd-table--simple tr.apd-row--scheduled td.apd-col-important,
+.apd-table--simple tr.apd-alt.apd-row--scheduled td,
+.apd-table--simple tr.apd-alt.apd-row--scheduled td.apd-col-alert,
+.apd-table--simple tr.apd-alt.apd-row--scheduled td.apd-col-important {
+    background: #fde047;
+}
+
+/* Sur une ligne en route, la date de déchargement est la date à retenir : elle
+   passe en rouge pour se détacher du quasi-noir du reste de la ligne. Posée
+   après les règles de colonne pour les battre à spécificité égale. */
+/* Le rouge sur jaune plafonne juste au-dessus du seuil AA : l'emphase est donc
+   portée par des indices non chromatiques — un cran plus grand et souligné, en
+   plus du gras. Mêmes renforts que dans les deux classeurs, où aucun contour de
+   texte n'est disponible. La taille est en em pour suivre les quatre densités
+   du document. */
+.apd-doc tr.apd-row--scheduled td.apd-scheduled-date,
+.apd-doc td.apd-scheduled-date {
+    color: #b91c1c;
+    font-weight: 700;
+    font-size: 1.1em;
+    text-decoration: underline;
+}

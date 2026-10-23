@@ -1,0 +1,138 @@
+{
+  "version": "2.20.0",
+  "summary": "Version du 01/09/2026 : la page d'accueil devient un tableau de bord composé de cartes que chacun ajoute, déplace et règle à sa main ; les annonces se rédigent en texte mis en forme et se ciblent par rôle ou service ; la maintenance peut ne couper qu'un seul module au lieu de toute l'application ; le wiki mesure enfin ce qui est lu ; côté CRM, les rendez-vous pris par les prospects sur le site passent par une colonne « RDV à confirmer » avant d'entrer dans l'agenda, et l'export Excel des statistiques est refondu",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Accueil / Tableau de bord",
+        "contenu": "La page d'accueil, jusqu'ici figée et identique pour tout le monde, devient un tableau de bord composé de cartes. Chacun ajoute celles qu'il veut depuis un catalogue rangé par module, les déplace et les redimensionne à la souris, au doigt ou au clavier. La disposition est propre à chaque utilisateur et retenue d'une session à l'autre ; sur mobile, les cartes se remettent automatiquement en une seule colonne. Une carte n'apparaît au catalogue que si le compte a le droit d'en voir les données"
+      },
+      {
+        "titre": "Accueil / Cartes disponibles",
+        "contenu": "Onze cartes au premier catalogue : « Mes rendez-vous du jour » et « Mes tâches CRM », « Derniers leads », « Messages non lus », « Notifications », « Mes tâches » (projets), « Arrivages en cours » et « Journal du stock », « Mes tickets », plus deux outils indépendants de tout module — « Raccourcis » et « Bloc-notes ». Chaque carte signale elle-même son chargement, son absence de données ou son erreur, sans casser le reste du tableau de bord"
+      },
+      {
+        "titre": "Accueil / Réglages par carte",
+        "contenu": "Chaque carte a son menu d'en-tête pour la régler ou la retirer. Les arrivages se limitent à un horizon en jours (0 = sans borne), les tickets à un périmètre (« les miens », « nouveaux » c'est-à-dire ouverts et assignés à personne, ou « tous »), le bloc-notes prend un titre pour en distinguer plusieurs, et les raccourcis se choisissent un par un — l'ordre des cases cochées devient l'ordre affiché"
+      },
+      {
+        "titre": "Accueil / Dispositions par défaut",
+        "contenu": "Les administrateurs définissent une disposition de départ par rôle ou par service. Un utilisateur qui n'a encore rien personnalisé reçoit le modèle correspondant à son profil au lieu d'un tableau de bord vide"
+      },
+      {
+        "titre": "Annonces / Ciblage et épinglage",
+        "contenu": "Une annonce peut désormais viser certains rôles ou certains services : elle n'est visible que par les personnes concernées, au lieu de partir à toute l'entreprise. Une annonce peut aussi être épinglée pour rester en tête, quelle que soit sa date"
+      },
+      {
+        "titre": "Annonces / Texte mis en forme et article complet",
+        "contenu": "Une annonce n'est plus un titre et un bloc de texte brut : elle a un auteur, un chapô affiché dans le bandeau, une image de couverture et un corps mis en forme (titres, listes, gras, liens) qui se lit en pleine page. Les liens sont vérifiés avant affichage, et les images passent par un espace de stockage dédié pour un affichage plus rapide"
+      },
+      {
+        "titre": "Maintenance / Par module",
+        "contenu": "La maintenance ne coupe plus forcément toute l'application : elle peut ne viser qu'un module (le CRM, le stock, le wiki…), les autres restant accessibles. Le module concerné affiche un écran de maintenance, et un bandeau prévient à l'avance dans toute l'application. Les créneaux se programment à l'avance — l'édition se verrouille à moins de douze heures de l'intervention, l'activation devient possible dans les quatre dernières heures. L'accueil, le profil et les réglages restent volontairement hors de portée d'une maintenance ciblée : pour ceux-là, la maintenance globale est la bonne réponse"
+      },
+      {
+        "titre": "Wiki / Statistiques d'usage",
+        "contenu": "Le wiki ne comptait que son stock d'articles ; il mesure maintenant leur utilité. Un nouvel onglet affiche les consultations dans le temps, les articles les plus lus, les lecteurs, le temps passé et la proportion de lectures menées jusqu'au bout, les articles « froids » que plus personne n'ouvre, et le taux de retour des lecteurs. Les consultations sont nominatives et purgées automatiquement au-delà de la durée de rétention"
+      },
+      {
+        "titre": "Wiki / Organisation des catégories",
+        "contenu": "Une catégorie mal rangée devait jusqu'ici être supprimée puis recréée — ce qui détachait ses articles au passage. Elle se déplace désormais directement : nouveau parent, nouvelle position, les catégories voisines se renumérotent d'un seul coup et les articles restent rattachés"
+      },
+      {
+        "titre": "CRM / Colonne « RDV à confirmer »",
+        "contenu": "Un rendez-vous pris par un prospect depuis le site n'entre plus directement dans l'agenda : le client se place dans une nouvelle colonne « RDV à confirmer », visible par tous les commerciaux — y compris quand le prospect n'est encore rattaché à personne — et le rendez-vous n'apparaît à l'agenda qu'une fois le client sorti de cette colonne. La fiche client affiche le rendez-vous en attente avec sa date, pour savoir ce que l'on confirme"
+      },
+      {
+        "titre": "CRM / Urgence du lead",
+        "contenu": "L'horizon annoncé par le prospect dans le formulaire du site est repris et affiché sur la carte client comme sur la fiche du lead, à côté de l'activité et du budget"
+      },
+      {
+        "titre": "CRM / Export Excel des statistiques",
+        "contenu": "L'export des statistiques est refondu : en-têtes mis en forme, regroupements de collaborateurs et lignes de séparation, ligne de totaux, colonne « Nbr qualification », taux de conversion calculés (rendez-vous rapportés aux appels et à l'activité totale) et comparaison avec la période précédente quand elle existe. L'ordre des collaborateurs n'est plus écrit en dur dans l'application : il se règle en base"
+      },
+      {
+        "titre": "Drive / Aperçu des PDF",
+        "contenu": "Un PDF s'ouvre directement dans l'aperçu du Drive, sans téléchargement préalable, avec un message clair si le fichier ne peut pas être affiché"
+      },
+      {
+        "titre": "Interface / Bandeau de nouvelle version",
+        "contenu": "Quand une nouvelle version de l'application est déployée pendant que l'onglet est resté ouvert, un bandeau propose de recharger — au lieu de laisser tourner une version périmée jusqu'au prochain rafraîchissement manuel"
+      },
+      {
+        "titre": "CRM / Récupération du brief en cours",
+        "contenu": "Le brief d'une fiche client est sauvegardé localement pendant la saisie. Si l'onglet se ferme ou se recharge avant l'enregistrement (déploiement, plantage), l'application propose au retour de restaurer la saisie perdue. La restauration n'est jamais automatique : elle est proposée, pour ne pas écraser en silence ce qui aurait été modifié depuis un autre poste"
+      }
+    ],
+    "Corrections": [
+      {
+        "titre": "CRM / Rendez-vous achat pris sur le site",
+        "contenu": "Un rendez-vous « achat » réservé par un prospect sur le site échouait en base au moment de créer les tâches de relance : le rendez-vous existait côté site mais n'arrivait jamais dans le CRM. La cause est corrigée et les traitements concernés sont désormais versionnés avec le reste de l'application, pour que le cas ne se reproduise pas"
+      },
+      {
+        "titre": "CRM / Compteur de la colonne « RDV à confirmer »",
+        "contenu": "Le badge de comptage s'arrêtait à la neuvième colonne : « RDV à confirmer » affichait toujours zéro, quel que soit le nombre de leads qui s'y trouvaient"
+      },
+      {
+        "titre": "CRM / Détection des créneaux occupés",
+        "contenu": "La recherche de conflit ne regardait qu'un seul type d'indisponibilité : les rendez-vous pris via le site, comme ceux des autres commerciaux, restaient invisibles et un créneau déjà pris pouvait être proposé une seconde fois. Tous les vrais rendez-vous et les indisponibilités bloquent désormais le créneau — les traces d'activité (appel, suivi client, divers) continuent de ne rien bloquer. En cas d'échec de la vérification, un message le signale au lieu de laisser croire que le créneau est libre"
+      },
+      {
+        "titre": "CRM / Commercial rattaché à un rendez-vous",
+        "contenu": "Le commercial n'était rattaché au client qu'à la création d'un événement, jamais à sa modification : reprendre le rendez-vous d'un collègue laissait le client attribué à l'ancien propriétaire"
+      },
+      {
+        "titre": "CRM / Motif de no-show",
+        "contenu": "La fenêtre de saisie du motif de no-show passait derrière les autres éléments du calendrier. Elle utilise maintenant la même mécanique de fenêtre que le reste de l'application, tout comme le détail d'un événement"
+      },
+      {
+        "titre": "Arrivages / Newsletter non envoyée",
+        "contenu": "Une modification d'arrivage pouvait ne déclencher aucun envoi, sans que rien ne le signale. L'envoi est maintenant déclenché automatiquement à la modification, une alerte se lève si aucun envoi ne part après une modification, et une surveillance détecte et débloque les requêtes sortantes restées en attente. Un outil de diagnostic permet de tester la liaison à la demande depuis l'écran d'administration"
+      },
+      {
+        "titre": "Drive / Téléchargements et dossiers inaccessibles",
+        "contenu": "Un téléchargement qui échouait ne disait rien : l'erreur est désormais signalée. Ouvrir un lien vers un dossier supprimé ou non partagé affiche un message et ramène à la racine, au lieu d'un écran vide"
+      },
+      {
+        "titre": "Administration / Suppression d'un compte",
+        "contenu": "Supprimer un utilisateur échouait : son identifiant est référencé par des dizaines de tables (activités, devis, tâches…). Le compte de connexion est bien détruit — plus aucune connexion possible — mais le profil est conservé comme trace historique, pour que les journaux d'activité continuent d'afficher qui a fait quoi. Les comptes archivés n'apparaissent plus dans les listes"
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "Drive / Partage réservé au propriétaire",
+        "contenu": "Le bouton de partage n'apparaît plus que sur les éléments dont on est propriétaire : un fichier reçu par partage ne peut pas être redistribué, ce que le serveur refusait déjà sans que l'interface le dise"
+      },
+      {
+        "titre": "Bibliothèque / Images envoyées",
+        "contenu": "Les images envoyées dans les thématiques sont nettoyées avant enregistrement et leur type réel est vérifié à la lecture du fichier, sans se fier à son extension"
+      },
+      {
+        "titre": "Stock / Droits sur les fiches d'arrivage",
+        "contenu": "L'ouverture et la modification d'une fiche d'arrivage vérifient les droits du compte, dans le tableau de flux comme depuis la carte du tableau de bord"
+      },
+      {
+        "titre": "CRM / Création d'un créneau par glissement",
+        "contenu": "Le glissement qui crée un rendez-vous dans l'agenda distingue maintenant la souris du tactile — sur mobile, un défilement n'ouvre plus une création par erreur — et se verrouille sur l'axe vertical, pour ne plus changer de jour en ajustant un horaire"
+      },
+      {
+        "titre": "Nouveautés / Lecture et rédaction",
+        "contenu": "L'écran des nouveautés est refondu : recherche, filtres par catégorie et frise des versions côté lecture ; côté rédaction, gestion des catégories, choix assisté du numéro de version et import/export du contenu au format JSON. Le numéro de version affiché en bas du menu ne charge plus tout l'historique pour une seule ligne"
+      },
+      {
+        "titre": "Administration / Réorganisation des écrans",
+        "contenu": "Les annonces, les nouveautés et la maintenance ne sont plus des sous-écrans du Manager : chacun devient un module à part entière, avec ses propres droits. La console d'erreurs et le journal CRM ont été retravaillés au passage"
+      }
+    ],
+    "Suppressions": [
+      {
+        "titre": "Menu / Ping Pong",
+        "contenu": "L'entrée « Ping Pong » et sa catégorie ont été retirées du menu"
+      },
+      {
+        "titre": "Accueil / Ancienne page",
+        "contenu": "L'ancienne page d'accueil, identique pour tous et non modifiable, a été remplacée par le tableau de bord"
+      }
+    ]
+  }
+}

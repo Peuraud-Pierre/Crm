@@ -1,0 +1,621 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T10:57:10.781590+00:00",
+  "title": "Design System: La Console NOKK_PROJECT",
+  "extensions": {
+    "colorMeta": {
+      "registre-green": {
+        "role": "primary",
+        "displayName": "Vert Registre",
+        "canonical": "hsl(131 65% 28%)",
+        "tonalRamp": [
+          "hsl(131 65% 15%)",
+          "hsl(131 65% 26%)",
+          "hsl(131 65% 37%)",
+          "hsl(131 65% 48%)",
+          "hsl(131 65% 59%)",
+          "hsl(131 65% 70%)",
+          "hsl(131 65% 81%)",
+          "hsl(131 65% 95%)"
+        ]
+      },
+      "registre-green-deep": {
+        "role": "primary",
+        "displayName": "Vert Registre profond",
+        "canonical": "hsl(131 65% 24%)",
+        "tonalRamp": [
+          "hsl(131 65% 15%)",
+          "hsl(131 65% 26%)",
+          "hsl(131 65% 37%)",
+          "hsl(131 65% 48%)",
+          "hsl(131 65% 59%)",
+          "hsl(131 65% 70%)",
+          "hsl(131 65% 81%)",
+          "hsl(131 65% 95%)"
+        ]
+      },
+      "brand-green": {
+        "role": "primary",
+        "displayName": "Vert Tampon",
+        "canonical": "hsl(131 65% 32%)",
+        "tonalRamp": [
+          "hsl(131 65% 15%)",
+          "hsl(131 65% 26%)",
+          "hsl(131 65% 37%)",
+          "hsl(131 65% 48%)",
+          "hsl(131 65% 59%)",
+          "hsl(131 65% 70%)",
+          "hsl(131 65% 81%)",
+          "hsl(131 65% 95%)"
+        ]
+      },
+      "brand-wash": {
+        "role": "primary",
+        "displayName": "Vert Tampon dilué",
+        "canonical": "hsl(131 65% 95%)",
+        "tonalRamp": [
+          "hsl(131 65% 15%)",
+          "hsl(131 65% 26%)",
+          "hsl(131 65% 37%)",
+          "hsl(131 65% 48%)",
+          "hsl(131 65% 59%)",
+          "hsl(131 65% 70%)",
+          "hsl(131 65% 81%)",
+          "hsl(131 65% 95%)"
+        ]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Papier chaud",
+        "canonical": "hsl(40 20% 98%)",
+        "tonalRamp": [
+          "hsl(40 20% 15%)",
+          "hsl(40 20% 26%)",
+          "hsl(40 20% 37%)",
+          "hsl(40 20% 48%)",
+          "hsl(40 20% 59%)",
+          "hsl(40 20% 70%)",
+          "hsl(40 20% 81%)",
+          "hsl(40 20% 95%)"
+        ]
+      },
+      "sheet-white": {
+        "role": "neutral",
+        "displayName": "Feuille blanche",
+        "canonical": "hsl(0 0% 100%)",
+        "tonalRamp": [
+          "hsl(0 0% 15%)",
+          "hsl(0 0% 26%)",
+          "hsl(0 0% 37%)",
+          "hsl(0 0% 48%)",
+          "hsl(0 0% 59%)",
+          "hsl(0 0% 70%)",
+          "hsl(0 0% 81%)",
+          "hsl(0 0% 95%)"
+        ]
+      },
+      "slate-ink": {
+        "role": "neutral",
+        "displayName": "Encre ardoise",
+        "canonical": "hsl(220 25% 15%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "slate-ink-soft": {
+        "role": "neutral",
+        "displayName": "Ardoise douce",
+        "canonical": "hsl(220 25% 25%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "pencil-grey": {
+        "role": "neutral",
+        "displayName": "Gris crayon",
+        "canonical": "hsl(220 10% 50%)",
+        "tonalRamp": [
+          "hsl(220 10% 15%)",
+          "hsl(220 10% 26%)",
+          "hsl(220 10% 37%)",
+          "hsl(220 10% 48%)",
+          "hsl(220 10% 59%)",
+          "hsl(220 10% 70%)",
+          "hsl(220 10% 81%)",
+          "hsl(220 10% 95%)"
+        ]
+      },
+      "linen": {
+        "role": "neutral",
+        "displayName": "Lin",
+        "canonical": "hsl(40 10% 95%)",
+        "tonalRamp": [
+          "hsl(40 10% 15%)",
+          "hsl(40 10% 26%)",
+          "hsl(40 10% 37%)",
+          "hsl(40 10% 48%)",
+          "hsl(40 10% 59%)",
+          "hsl(40 10% 70%)",
+          "hsl(40 10% 81%)",
+          "hsl(40 10% 95%)"
+        ]
+      },
+      "linen-press": {
+        "role": "neutral",
+        "displayName": "Lin pressé",
+        "canonical": "hsl(40 10% 92%)",
+        "tonalRamp": [
+          "hsl(40 10% 15%)",
+          "hsl(40 10% 26%)",
+          "hsl(40 10% 37%)",
+          "hsl(40 10% 48%)",
+          "hsl(40 10% 59%)",
+          "hsl(40 10% 70%)",
+          "hsl(40 10% 81%)",
+          "hsl(40 10% 95%)"
+        ]
+      },
+      "rule-line": {
+        "role": "neutral",
+        "displayName": "Filet",
+        "canonical": "hsl(220 13% 90%)",
+        "tonalRamp": [
+          "hsl(220 13% 15%)",
+          "hsl(220 13% 26%)",
+          "hsl(220 13% 37%)",
+          "hsl(220 13% 48%)",
+          "hsl(220 13% 59%)",
+          "hsl(220 13% 70%)",
+          "hsl(220 13% 81%)",
+          "hsl(220 13% 95%)"
+        ]
+      },
+      "focus-blue": {
+        "role": "tertiary",
+        "displayName": "Bleu focus",
+        "canonical": "hsl(210 100% 40%)",
+        "tonalRamp": [
+          "hsl(210 100% 15%)",
+          "hsl(210 100% 26%)",
+          "hsl(210 100% 37%)",
+          "hsl(210 100% 48%)",
+          "hsl(210 100% 59%)",
+          "hsl(210 100% 70%)",
+          "hsl(210 100% 81%)",
+          "hsl(210 100% 95%)"
+        ]
+      },
+      "customs-amber": {
+        "role": "secondary",
+        "displayName": "Ambre douane",
+        "canonical": "hsl(38 92% 38%)",
+        "tonalRamp": [
+          "hsl(38 92% 15%)",
+          "hsl(38 92% 26%)",
+          "hsl(38 92% 37%)",
+          "hsl(38 92% 48%)",
+          "hsl(38 92% 59%)",
+          "hsl(38 92% 70%)",
+          "hsl(38 92% 81%)",
+          "hsl(38 92% 95%)"
+        ]
+      },
+      "customs-amber-wash": {
+        "role": "secondary",
+        "displayName": "Ambre douane dilué",
+        "canonical": "hsl(38 92% 94%)",
+        "tonalRamp": [
+          "hsl(38 92% 15%)",
+          "hsl(38 92% 26%)",
+          "hsl(38 92% 37%)",
+          "hsl(38 92% 48%)",
+          "hsl(38 92% 59%)",
+          "hsl(38 92% 70%)",
+          "hsl(38 92% 81%)",
+          "hsl(38 92% 95%)"
+        ]
+      },
+      "rust-alert": {
+        "role": "secondary",
+        "displayName": "Rouille",
+        "canonical": "hsl(15 100% 45%)",
+        "tonalRamp": [
+          "hsl(15 100% 15%)",
+          "hsl(15 100% 26%)",
+          "hsl(15 100% 37%)",
+          "hsl(15 100% 48%)",
+          "hsl(15 100% 59%)",
+          "hsl(15 100% 70%)",
+          "hsl(15 100% 81%)",
+          "hsl(15 100% 95%)"
+        ]
+      },
+      "rust-alert-wash": {
+        "role": "secondary",
+        "displayName": "Rouille diluée",
+        "canonical": "hsl(15 100% 95%)",
+        "tonalRamp": [
+          "hsl(15 100% 15%)",
+          "hsl(15 100% 26%)",
+          "hsl(15 100% 37%)",
+          "hsl(15 100% 48%)",
+          "hsl(15 100% 59%)",
+          "hsl(15 100% 70%)",
+          "hsl(15 100% 81%)",
+          "hsl(15 100% 95%)"
+        ]
+      },
+      "visio-violet": {
+        "role": "tertiary",
+        "displayName": "Violet visio",
+        "canonical": "hsl(270 70% 55%)",
+        "tonalRamp": [
+          "hsl(270 70% 15%)",
+          "hsl(270 70% 26%)",
+          "hsl(270 70% 37%)",
+          "hsl(270 70% 48%)",
+          "hsl(270 70% 59%)",
+          "hsl(270 70% 70%)",
+          "hsl(270 70% 81%)",
+          "hsl(270 70% 95%)"
+        ]
+      },
+      "night-desk": {
+        "role": "neutral",
+        "displayName": "Bureau de nuit",
+        "canonical": "hsl(220 25% 8%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "night-sheet": {
+        "role": "neutral",
+        "displayName": "Feuille de nuit",
+        "canonical": "hsl(220 25% 10%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "night-linen": {
+        "role": "neutral",
+        "displayName": "Lin de nuit",
+        "canonical": "hsl(220 25% 15%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "night-rule": {
+        "role": "neutral",
+        "displayName": "Filet de nuit",
+        "canonical": "hsl(220 25% 20%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Encre de nuit",
+        "canonical": "hsl(220 13% 90%)",
+        "tonalRamp": [
+          "hsl(220 13% 15%)",
+          "hsl(220 13% 26%)",
+          "hsl(220 13% 37%)",
+          "hsl(220 13% 48%)",
+          "hsl(220 13% 59%)",
+          "hsl(220 13% 70%)",
+          "hsl(220 13% 81%)",
+          "hsl(220 13% 95%)"
+        ]
+      },
+      "night-green": {
+        "role": "primary",
+        "displayName": "Vert de nuit",
+        "canonical": "hsl(131 50% 38%)",
+        "tonalRamp": [
+          "hsl(131 50% 15%)",
+          "hsl(131 50% 26%)",
+          "hsl(131 50% 37%)",
+          "hsl(131 50% 48%)",
+          "hsl(131 50% 59%)",
+          "hsl(131 50% 70%)",
+          "hsl(131 50% 81%)",
+          "hsl(131 50% 95%)"
+        ]
+      },
+      "night-sidebar": {
+        "role": "neutral",
+        "displayName": "Barre de nuit",
+        "canonical": "hsl(220 25% 5%)",
+        "tonalRamp": [
+          "hsl(220 25% 15%)",
+          "hsl(220 25% 26%)",
+          "hsl(220 25% 37%)",
+          "hsl(220 25% 48%)",
+          "hsl(220 25% 59%)",
+          "hsl(220 25% 70%)",
+          "hsl(220 25% 81%)",
+          "hsl(220 25% 95%)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titres de carte et de section majeurs."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Titres d'onglet et de BoardHeader."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Taille de travail : texte, cellules, boutons."
+      },
+      "body-mobile-input": {
+        "displayName": "Body mobile input",
+        "purpose": "Champs à 16px sous md (anti-zoom iOS)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Badges, métadonnées, en-têtes de colonnes."
+      },
+      "label-dense": {
+        "displayName": "Label dense",
+        "purpose": "text-2xs/3xs/4xs : tableaux denses et libellés d'onglets."
+      }
+    },
+    "shadows": [
+      {
+        "name": "surface",
+        "value": "0 2px 8px hsl(220 25% 15% / 0.08)",
+        "purpose": "Détachement léger d'un conteneur posé."
+      },
+      {
+        "name": "raised",
+        "value": "0 8px 30px hsl(220 25% 15% / 0.12)",
+        "purpose": "Survol des cartes interactives, variante elevated."
+      },
+      {
+        "name": "glow",
+        "value": "0 4px 20px hsl(131 65% 28% / 0.25)",
+        "purpose": "Rare : souligne une action de marque."
+      },
+      {
+        "name": "surface-dark",
+        "value": "0 2px 8px hsl(0 0% 0% / 0.2)",
+        "purpose": "Surface en thème sombre."
+      },
+      {
+        "name": "raised-dark",
+        "value": "0 8px 30px hsl(0 0% 0% / 0.3)",
+        "purpose": "Relevé en thème sombre."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-emphasized",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Entrées et lifts de cartes."
+      },
+      {
+        "name": "ease-decel",
+        "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "purpose": "Glissements d'apparition."
+      },
+      {
+        "name": "ease-overshoot",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Retours ludiques, avec parcimonie."
+      },
+      {
+        "name": "duration-instant",
+        "value": "100ms",
+        "purpose": ""
+      },
+      {
+        "name": "duration-fast",
+        "value": "150ms",
+        "purpose": "États de boutons et badges."
+      },
+      {
+        "name": "duration-base",
+        "value": "200ms",
+        "purpose": "Cartes interactives."
+      },
+      {
+        "name": "duration-slow",
+        "value": "300ms",
+        "purpose": "Apparitions."
+      },
+      {
+        "name": "duration-slower",
+        "value": "500ms",
+        "purpose": ""
+      },
+      {
+        "name": "duration-glacial",
+        "value": "700ms",
+        "purpose": ""
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale d'un écran ou d'un formulaire.",
+      "html": "<button class=\"ds-btn-primary\">Enregistrer</button>",
+      "css": ".ds-btn-primary { font-family: ui-sans-serif, system-ui, sans-serif; display:inline-flex; align-items:center; gap:8px; height:40px; padding:8px 16px; border:0; border-radius:calc(var(--radius) - 2px); background:hsl(var(--primary)); color:hsl(var(--primary-foreground)); font-size:14px; font-weight:500; cursor:pointer; transition:background-color 150ms ease-out, transform 150ms ease-out; } .ds-btn-primary:hover { background:hsl(var(--primary) / 0.9); } .ds-btn-primary:active { transform:scale(0.98); } .ds-btn-primary:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--ring)); }"
+    },
+    {
+      "name": "Bouton contour",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Action secondaire à côté d'une action principale.",
+      "html": "<button class=\"ds-btn-outline\">Annuler</button>",
+      "css": ".ds-btn-outline { font-family: ui-sans-serif, system-ui, sans-serif; display:inline-flex; align-items:center; height:40px; padding:8px 16px; border:1px solid hsl(var(--input)); border-radius:calc(var(--radius) - 2px); background:hsl(var(--background)); color:hsl(var(--foreground)); font-size:14px; font-weight:500; cursor:pointer; transition:background-color 150ms ease-out; } .ds-btn-outline:hover { background:hsl(var(--accent)); color:hsl(var(--accent-foreground)); } .ds-btn-outline:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--ring)); }"
+    },
+    {
+      "name": "Bouton destructif",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Suppression ou action irréversible.",
+      "html": "<button class=\"ds-btn-danger\">Supprimer</button>",
+      "css": ".ds-btn-danger { font-family: ui-sans-serif, system-ui, sans-serif; height:40px; padding:8px 16px; border:0; border-radius:calc(var(--radius) - 2px); background:hsl(var(--destructive)); color:hsl(var(--destructive-foreground)); font-size:14px; font-weight:500; cursor:pointer; transition:background-color 150ms ease-out; } .ds-btn-danger:hover { background:hsl(var(--destructive) / 0.9); } .ds-btn-danger:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--ring)); }"
+    },
+    {
+      "name": "Champ texte",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Saisie standard, 16px sur mobile pour éviter le zoom iOS.",
+      "html": "<input class=\"ds-input\" placeholder=\"N° conteneur BIC\" />",
+      "css": ".ds-input { font-family: ui-sans-serif, system-ui, sans-serif; width:100%; height:40px; padding:8px 12px; border:1px solid hsl(var(--input)); border-radius:calc(var(--radius) - 2px); background:hsl(var(--background)); color:hsl(var(--foreground)); font-size:14px; } .ds-input::placeholder { color:hsl(var(--muted-foreground)); } .ds-input:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--ring)); }"
+    },
+    {
+      "name": "Badges de statut",
+      "kind": "chip",
+      "refersTo": "badge-success",
+      "description": "Pastilles de statut sémantiques : vert confirme, ambre avertit, rouille bloque.",
+      "html": "<span class=\"ds-badge ds-badge-ok\">Reçu</span> <span class=\"ds-badge ds-badge-warn\">Facture manquante</span> <span class=\"ds-badge ds-badge-err\">Bloqué</span>",
+      "css": ".ds-badge { font-family: ui-sans-serif, system-ui, sans-serif; display:inline-flex; align-items:center; padding:2px 10px; border-radius:9999px; font-size:12px; font-weight:600; border:1px solid transparent; } .ds-badge-ok { background:hsl(var(--success)); color:hsl(var(--success-foreground)); } .ds-badge-warn { background:hsl(var(--warning)); color:hsl(var(--warning-foreground)); } .ds-badge-err { background:hsl(var(--destructive)); color:hsl(var(--destructive-foreground)); }"
+    },
+    {
+      "name": "Carte interactive",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Feuille posée sur le papier ; ne s'élève au survol que si elle est cliquable.",
+      "html": "<a class=\"ds-card\" href=\"#\"><strong class=\"ds-card-title\">Conteneur MSKU 482113-0</strong><span class=\"ds-card-meta\">En transit · arrivée Le Havre jeu. 8 oct.</span></a>",
+      "css": ".ds-card { font-family: ui-sans-serif, system-ui, sans-serif; display:flex; flex-direction:column; gap:6px; padding:16px; border:1px solid hsl(var(--border)); border-radius:var(--radius); background:hsl(var(--card)); color:hsl(var(--card-foreground)); text-decoration:none; box-shadow:0 1px 2px hsl(0 0% 0% / 0.05); transition:box-shadow 200ms cubic-bezier(0.22,1,0.36,1), transform 200ms cubic-bezier(0.22,1,0.36,1); } .ds-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-elevated); } .ds-card:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--ring)); } .ds-card-title { font-size:14px; font-weight:600; } .ds-card-meta { font-size:12px; color:hsl(var(--muted-foreground)); } @media (prefers-reduced-motion: reduce) { .ds-card:hover { transform:none; } }"
+    },
+    {
+      "name": "Barre latérale",
+      "kind": "nav",
+      "refersTo": "sidebar-item",
+      "description": "Aplat Vert Registre ; l'item actif prend le Vert Tampon.",
+      "html": "<nav class=\"ds-side\"><a class=\"ds-side-item is-active\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M21 8 12 3 3 8v8l9 5 9-5z\"/><path d=\"m3 8 9 5 9-5M12 13v8\"/></svg><span>Stock</span></a><a class=\"ds-side-item\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2\"/></svg><span>CRM</span></a></nav>",
+      "css": ".ds-side { font-family: ui-sans-serif, system-ui, sans-serif; display:flex; flex-direction:column; gap:4px; width:16rem; padding:8px; background:hsl(var(--sidebar)); } .ds-side-item { display:flex; align-items:center; gap:8px; height:32px; padding:8px; border-radius:calc(var(--radius) - 2px); color:hsl(var(--sidebar-foreground)); font-size:14px; text-decoration:none; transition:background-color 150ms ease-out; } .ds-side-item:hover, .ds-side-item.is-active { background:hsl(var(--sidebar-accent)); color:hsl(var(--sidebar-accent-foreground)); } .ds-side-item.is-active { font-weight:500; } .ds-side-item:focus-visible { outline:none; box-shadow:0 0 0 2px hsl(var(--sidebar-ring)); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le Registre vert",
+    "overview": "**Creative North Star: \"Le Registre vert\"**\n\nLa Console est un registre de commerce bien tenu. On y écrit à l'encre ardoise sur un papier légèrement chaud, et un tampon vert NOKK_PROJECT signe ce qui appartient à la maison. Elle n'essaie pas de séduire : elle doit être exacte, durable et lisible par toute l'entreprise, de l'atelier de tri au bureau de la direction. L'assurance vient de la tenue (alignements nets, statuts sans ambiguïté, une seule couleur d'identité), pas de l'ornement.\n\nLes composants sont familiers et éprouvés (socle shadcn/Radix). La marque ne se joue pas dans des formes inventées. Elle tient dans trois choses : le vert de la barre latérale, la chaleur du fond papier et la rigueur des tokens sémantiques. En pratique, l'interface est dense : `text-xs` et `text-sm` dominent l'app, et les tableaux, kanbans et cartes de balles se lisent de près. Le registre se consulte, il ne se feuillette pas.\n\nLe système existe à parité en clair et en sombre. Le registre de nuit troque le papier contre un bureau ardoise profond, sans jamais perdre le vert.",
+    "keyCharacteristics": [
+      "Un seul vert d'identité, porté par la barre latérale et l'action principale.",
+      "Fond papier chaud (teinte 40°), neutres ardoise froids (teinte 220°) : le contraste chaud/froid remplace la décoration.",
+      "Surfaces plates au repos, élévation réservée à l'interaction.",
+      "Couleurs de statut sémantiques qui disent la vérité (l'ambre avertit, le rouille alerte, le vert confirme).",
+      "Police système, aucune police web : la Console se charge vite, partout, y compris en PWA sur le terrain."
+    ],
+    "rules": [
+      {
+        "name": "La règle du Tampon unique",
+        "body": "Le vert est la seule couleur d'identité. Aucune deuxième couleur de marque. Une nouvelle couleur sémantique se dérive d'un token existant (`hsl(var(--x) / alpha)`, comme les `--event-*`), elle ne s'invente pas.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle Brand ≠ Accent",
+        "body": "`accent` est un survol neutre (lin), `brand` est le vert. Ne jamais remettre du vert dans `--accent` : tous les survols shadcn de l'app viraient au vert plein (incident documenté, `docs/DESIGN_SYSTEM.md` §12.1).",
+        "section": "colors"
+      },
+      {
+        "name": "La règle du Statut honnête",
+        "body": "Un avertissement est ambre, jamais bleu. Une couleur de statut écrite en dur (`amber-500`, `red-600`) est une dette : passer par `warning`, `destructive` ou `success`.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle de l'Échelle fermée",
+        "body": "Rien sous `text-xs` hors des trois tokens `text-2xs`/`3xs`/`4xs`. Pas de `text-[11px]`. Le `text-4xs` (9px) reste exceptionnel et ne porte jamais d'information unique.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle du Terrain",
+        "body": "Tout écran doit fonctionner au téléphone. Un tableau large se replie en cartes, il ne défile pas horizontalement sans raison.",
+        "section": "layout"
+      },
+      {
+        "name": "La règle du Plat au repos",
+        "body": "Une surface ne s'élève que si elle est actionnable. Le hover-lift est réservé à `Card variant=\"interactive\"`. Donner du relief à une carte non cliquable, c'est mentir sur l'affordance.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** passer par les tokens sémantiques (`bg-primary`, `text-warning`, `bg-brand-light`) et dériver toute nouvelle couleur d'un token existant (`hsl(var(--x) / alpha)`).",
+      "**Do** livrer chaque écran en clair ET en sombre, au même niveau. Vérifier les contrastes AA dans les deux thèmes.",
+      "**Do** réserver l'élévation aux surfaces actionnables (`Card variant=\"interactive\"`) et aux calques (popover, dialog, sheet).",
+      "**Do** utiliser les tokens de mouvement (`duration-fast`/`base`/`slow`, `ease-emphasized`/`decel`/`overshoot`) et porter `motion-reduce:` sur tout `hover:` qui déplace ou met à l'échelle.",
+      "**Do** réutiliser le socle partagé (`RecordTable`, `FilterBar`, `BoardHeader`, `StatusBadge`, `FormSheet`) avant d'écrire une variante locale."
+    ],
+    "donts": [
+      "**Don't** mettre une couleur saturée dans `--accent`. C'est le survol neutre de toutes les primitives shadcn.",
+      "**Don't** écrire une couleur de statut en dur (`amber-500`, `red-600`, `green-700`) ni une valeur arbitraire (`text-[11px]`, `w-[123px]`, `shadow-[…]`) sans justification commentée.",
+      "**Don't** ajouter une police web ni une deuxième couleur de marque.",
+      "**Don't** donner un hover-lift à une carte non cliquable.",
+      "**Don't** utiliser la palette `--chart-*` pour signaler un statut."
+    ]
+  }
+}

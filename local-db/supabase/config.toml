@@ -1,0 +1,23 @@
+# Supabase LOCAL de Nokk_project (dev uniquement) — voir local-db/README.md.
+# Projet distinct de supabase/ : celui-ci ne rejoue pas l'historique de
+# migrations de prod, il part d'un schéma de base figé + données fictives.
+project_id = "nokk_project_local"
+
+[db]
+major_version = 17
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql", "./seed/*.sql"]
+
+[auth]
+site_url = "http://localhost:8082"
+additional_redirect_urls = ["http://localhost:8082", "http://127.0.0.1:8082"]
+
+[auth.email]
+enable_confirmations = false
+
+# La RLS stock / magasins / packing exige une session aal2 (TOTP).
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true

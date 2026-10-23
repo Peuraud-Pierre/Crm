@@ -1,0 +1,32 @@
+{
+  "version": "2.14.0",
+  "summary": "Version du 13/08/2026 : les listes de valeurs du brief client (plateformes, provenances, localisations, produits, marques, styles, matières) ne sont plus figées dans l'application et se gèrent désormais depuis une nouvelle page « Administration CRM », qui regroupe aussi le journal des modifications du CRM.",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "CRM / Administration",
+        "contenu": "Nouvelle page « Administration CRM », accessible depuis la section Admin du menu. Elle réunit deux onglets : « Listes Brief » pour gérer les valeurs proposées dans le brief client, et « Logs CRM » pour consulter le journal des modifications du CRM (jusqu'ici uniquement disponible dans la console d'erreurs)"
+      },
+      {
+        "titre": "CRM / Brief",
+        "contenu": "Les sept listes du brief (plateformes, provenances, localisations, produits, marques, styles, matières) sont maintenant modifiables sans mise à jour de l'application : ajout d'une valeur, renommage, activation ou désactivation, suppression. Une valeur désactivée disparaît des choix proposés dans le brief sans effacer les fiches qui l'utilisaient déjà"
+      },
+      {
+        "titre": "CRM / Brief",
+        "contenu": "Ajout de la plateforme « Tik-Tok Live » aux choix disponibles dans le brief client"
+      }
+    ],
+    "Corrections": [],
+    "Modifications": [
+      {
+        "titre": "CRM / Brief",
+        "contenu": "Les valeurs affichées dans le brief proviennent désormais de la liste centrale et non plus du code de l'application : toute modification faite dans « Administration CRM » est visible immédiatement par tout le monde. Attention : renommer une valeur ne modifie pas les briefs déjà enregistrés, qui conservent l'ancien libellé tant qu'ils ne sont pas réenregistrés — pour un changement propre, désactiver l'ancienne valeur et en créer une nouvelle"
+      },
+      {
+        "titre": "Droits",
+        "contenu": "Nouvelle permission « Gérer les listes du brief CRM » : sans elle, les listes restent consultables mais ne peuvent pas être modifiées. Elle est accordée par défaut aux profils qui avaient déjà accès au CRM"
+      }
+    ],
+    "Suppressions": []
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Nokk_project",
+  "short_name": "Nokk_project",
+  "description": "Console de pilotage et d'assistance interne avec authentification, messagerie, génération de contenu et analytics.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/nokk_project_logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/nokk_project_logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

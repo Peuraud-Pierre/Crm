@@ -1,0 +1,427 @@
+steps:
+    - name: setup
+      image: node:26-alpine
+      commands:
+          - echo "📦 Installation des dépendances avec pnpm"
+          - |
+              LOCK_HASH=$(md5sum pnpm-lock.yaml 2>/dev/null | cut -d' ' -f1 || echo "none")
+              CACHE_MARKER="/cache/.last-install-${LOCK_HASH}"
+
+              # Vérifie aussi l'intégrité du cache : marker + node_modules + binaires
+              # rstest/oxlint/tsc + fichiers internes (bustés lors des bumps mineurs
+              # ou d'une écriture partielle du cache).
+              # Évite les faux positifs où node_modules est un reliquat d'une version
+              # antérieure ou une installation interrompue (incident 07/2026 : cache
+              # avec eslint sans son package.json → "Cannot find module '../package.json'").
+              if [ -f "$CACHE_MARKER" ] \
+                 && [ -d "node_modules" ] \
+                 && [ -x "node_modules/.bin/rstest" ] \
+                 && [ -f "node_modules/@rstest/core/dist/rstestSuppressWarnings.cjs" ] \
+                 && [ -x "node_modules/.bin/oxlint" ] \
+                 && [ -f "node_modules/oxlint/package.json" ] \
+                 && [ -x "node_modules/.bin/tsc" ] \
+                 && [ -f "node_modules/typescript/package.json" ]; then
+                echo "✅ Cache node_modules valide détecté, skip installation"
+                exit 0
+              fi
+
+              if [ -f "$CACHE_MARKER" ]; then
+                echo "⚠️ Marker présent mais cache incomplet → réinstallation forcée"
+                rm -f "$CACHE_MARKER"
+                rm -rf node_modules
+              fi
+          - |
+              # Toolchain installée seulement sur cache MISS, et réduite à
+              # libc6-compat : aucune dépendance ne compile de natif (pas un
+              # seul binding.gyp dans l'arbre), rspack/SWC/lightningcss livrent
+              # des binaires précompilés. python3/make/g++ étaient du poids mort
+              # payé à chaque run — et payé AVANT le test de cache, donc même
+              # quand l'installation était sautée.
+              apk add --no-cache libc6-compat
+          - |
+              # Repart d'un node_modules propre. Sur cache miss « marker absent »
+              # (le hash du lockfile a changé), l'ancien node_modules du hash
+              # précédent est TOUJOURS présent dans /cache : le bloc de nettoyage
+              # ci-dessus ne s'exécute que si le marker existe. `npm ci` tente
+              # alors d'effacer ce node_modules lui-même et son rimraf interne
+              # échoue en ENOTEMPTY (rmdir node_modules/date-fns) sur ce FS
+              # persistant. `rm -rf`, qui vide récursivement, ne souffre pas de ça.
+              rm -rf node_modules
+              # node:26 n'embarque plus corepack : pnpm s'installe via npm, à la
+              # version figée dans `packageManager` (package.json). Le store est
+              # gardé dans /cache pour ne pas tout retélécharger à chaque miss.
+              # Les autres steps lancent les scripts avec `npm run`, qui
+              # fonctionne sur un node_modules installé par pnpm.
+              npm install -g --no-audit --no-fund "$(node -p "require('./package.json').packageManager")"
+              echo "🔐 Installation via pnpm install --frozen-lockfile"
+              pnpm install --frozen-lockfile --store-dir /cache/pnpm-store
+          - |
+              # Vérification POST-installation : deux incidents (07/2026) de
+              # node_modules partiellement extraits (eslint sans package.json,
+              # puis rstestSuppressWarnings.cjs absent) ont produit des échecs
+              # cryptiques en aval. On échoue ici, tôt et clairement, plutôt
+              # que dans les workers de test. Cause probable d'une extraction
+              # partielle : disque plein → df affiché pour diagnostic.
+              MISSING=""
+              for f in \
+                "node_modules/.bin/oxlint" \
+                "node_modules/oxlint/package.json" \
+                "node_modules/.bin/tsc" \
+                "node_modules/typescript/package.json" \
+                "node_modules/.bin/rstest" \
+                "node_modules/@rstest/core/dist/rstestSuppressWarnings.cjs"; do
+                [ -e "$f" ] || MISSING="$MISSING $f"
+              done
+              if [ -n "$MISSING" ]; then
+                echo "❌ Installation INCOMPLÈTE — fichiers manquants :$MISSING"
+                echo "   Espace disque du runner :"
+                df -h / /cache 2>/dev/null || df -h
+                echo "   → purger /cache/.last-install-* et relancer ; si df est plein, libérer le disque du runner."
+                exit 1
+              fi
+              echo "✅ Installation vérifiée (oxlint, tsc, rstest complets)"
+              LOCK_HASH=$(md5sum pnpm-lock.yaml 2>/dev/null | cut -d' ' -f1 || echo "none")
+              touch "/cache/.last-install-${LOCK_HASH}"
+              echo "💾 Cache node_modules sauvegardé pour ce lockfile"
+
+    # ==========================================
+    # 🧹 QUALITÉ : lint + typecheck (mode ratchet)
+    # Voir docs/PLAN_ASSAINISSEMENT.md §5.1 — échoue
+    # seulement si le nombre de problèmes dépasse la
+    # baseline committée dans ci/quality-baseline.json.
+    # ==========================================
+    - name: quality
+      image: node:26-alpine
+      commands:
+          - apk add --no-cache libc6-compat
+          - echo "🧹 Lint (mode ratchet)..."
+          - npm run check:lint-ratchet
+          - echo "🔎 Typecheck (mode ratchet)..."
+          - npm run check:typecheck-ratchet
+
+    - name: build
+      image: node:26-alpine
+      commands:
+          - apk add --no-cache libc6-compat
+          - |
+              case "$DRONE_BRANCH" in
+                preprod)    ENV_MODE="preprod" ;;
+                prod|patch) ENV_MODE="production" ;;
+                *)          ENV_MODE="development" ;;
+              esac
+              echo "🏗️ Build du projet (branche=$DRONE_BRANCH, env-mode=$ENV_MODE)"
+              echo "=== Variables au moment du build ==="
+              env | grep -i "PUBLIC_\|API\|URL" | sort
+              echo "=== .env.$ENV_MODE ==="
+              cat ".env.$ENV_MODE" 2>/dev/null || echo "absent"
+              echo "=== DRONE_BRANCH=$DRONE_BRANCH ==="
+
+              if [ -f "next.config.js" ]; then
+                echo "➡️ Projet Next.js détecté"
+                npm run build
+              elif [ -f "rsbuild.config.ts" ]; then
+                echo "➡️ Projet rsbuild détecté"
+                RSBUILD_MODE="$ENV_MODE" npm run build
+              elif [ -f "vite.config.js" ]; then
+                echo "➡️ Projet Vite détecté"
+                npm run build -- --mode "$ENV_MODE"
+              else
+                echo "❌ Aucun fichier de build détecté (next.config.js, rsbuild.config.ts ou vite.config.js)"
+                exit 1
+              fi
+
+    - name: test_front
+      image: node:26-alpine
+      commands:
+          - apk add --no-cache libc6-compat git
+          - echo "🧪 Vérification du cache de tests..."
+          - |
+              # Clé de cache basée sur le CONTENU (arbre Git) + le lockfile,
+              # PAS sur le SHA du commit. Sinon chaque commit/merge/promotion
+              # produit un SHA neuf et le cache ne fait jamais de hit.
+              # Deux commits au contenu identique partagent la même clé.
+              TREE_HASH=$(git rev-parse HEAD^{tree} 2>/dev/null || echo "notree")
+              LOCK_HASH=$(md5sum pnpm-lock.yaml 2>/dev/null | cut -d' ' -f1 || echo "nolock")
+              TEST_KEY=$(echo "${TREE_HASH}-${LOCK_HASH}" | md5sum | cut -d' ' -f1)
+              TEST_CACHE_MARKER="/cache/test-cache/${TEST_KEY}.success"
+              echo "📝 Contenu testé -> tree=${TREE_HASH} lock=${LOCK_HASH} key=${TEST_KEY}"
+
+              if [ -f "$TEST_CACHE_MARKER" ]; then
+                echo "✅ Tests déjà validés pour ce contenu"
+                echo "⏭️  Skip de l'exécution des tests"
+                exit 0
+              fi
+              echo "🔬 Aucun cache trouvé, exécution des tests..."
+
+          - npm run test:front
+
+          - echo "💾 Sauvegarde du résultat des tests dans le cache..."
+          - |
+              TREE_HASH=$(git rev-parse HEAD^{tree} 2>/dev/null || echo "notree")
+              LOCK_HASH=$(md5sum pnpm-lock.yaml 2>/dev/null | cut -d' ' -f1 || echo "nolock")
+              TEST_KEY=$(echo "${TREE_HASH}-${LOCK_HASH}" | md5sum | cut -d' ' -f1)
+              mkdir -p /cache/test-cache
+              echo "tests passed at $(date) (tree=${TREE_HASH})" > "/cache/test-cache/${TEST_KEY}.success"
+              echo "✅ Cache de tests sauvegardé (key=${TEST_KEY})"
+
+    # ==========================================
+    # 🛡️ CANARI D'ISOLATION (preprod + prod + patch)
+    # rstest tourne en pool vmThreads (rstest.config.ts) : chaque fichier a
+    # son contexte VM, mais dans des workers réutilisés (~6,5s).
+    # Ce step relance la MÊME suite avec un process neuf par fichier
+    # (--pool forks --isolate) juste avant tout déploiement. Si test_front
+    # (rapide) est vert mais que ce canari échoue → un test dépend d'un état
+    # partagé au niveau du worker → déploiement bloqué. preprod inclus : la
+    # fuite est ainsi attrapée dès la première cible déployée, pas seulement
+    # au moment de promouvoir vers prod/patch.
+    # Le surcoût (~17s) ne s'applique qu'aux branches déployées.
+    # ==========================================
+    - name: test_isolated
+      image: node:26-alpine
+      when:
+          branch:
+              - preprod
+              - prod
+              - patch
+      commands:
+          - apk add --no-cache libc6-compat
+          - echo "🛡️ Canari d'isolation — relance de la suite en mode isolé (--pool forks --isolate)..."
+          - echo "   But — détecter une fuite d'état inter-tests masquée par les workers réutilisés."
+          - npm run test:isolated
+
+    # ==========================================
+    # 📋 VÉRIFICATION CHANGELOG (prod + patch)
+    # Bloque le déploiement si aucun changelog
+    # n'a été préparé dans La Console.
+    # ==========================================
+    - name: check_changelog
+      image: node:26-alpine
+      when:
+          branch:
+              - prod
+              - patch
+      environment:
+          SUPABASE_URL:
+              from_secret: SUPABASE_URL
+          SUPABASE_SERVICE_KEY:
+              from_secret: SUPABASE_SERVICE_KEY
+      commands:
+          - apk add --no-cache curl jq
+          - |
+              echo "📋 Vérification du changelog avant déploiement en production..."
+              echo "   Branche : $DRONE_BRANCH"
+
+              # Écrit dist/version.json avec la version RÉELLE du changelog (table
+              # changelog_versions). dist/ est partagé avec les étapes deploy_* qui
+              # copieront ce fichier → l'app et le monitoring exposent la version
+              # effectivement déployée. Écrase le version.json (package.json) du build.
+              write_version() {
+                mkdir -p dist
+                jq -n \
+                  --arg version "$1" \
+                  --arg commit "$(echo "${DRONE_COMMIT_SHA:-dev}" | cut -c1-8)" \
+                  --arg branch "${DRONE_BRANCH:-unknown}" \
+                  --arg builtAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+                  '{version:$version, commit:$commit, branch:$branch, builtAt:$builtAt}' \
+                  > dist/version.json
+                echo "📝 dist/version.json → v$1 (changelog)"
+              }
+
+              # 1. Chercher un changelog en brouillon (draft)
+              DRAFT=$(curl -sf \
+                -H "apikey: $SUPABASE_SERVICE_KEY" \
+                -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+                -H "Content-Type: application/json" \
+                "${SUPABASE_URL}/rest/v1/changelog_versions?status=eq.draft&select=id,version,created_at" \
+              )
+              DRAFT_COUNT=$(echo "$DRAFT" | jq 'length' 2>/dev/null || echo "0")
+
+              if [ "$DRAFT_COUNT" -gt "0" ]; then
+                ID=$(echo "$DRAFT" | jq -r '.[0].id')
+                VERSION=$(echo "$DRAFT" | jq -r '.[0].version')
+                echo "📄 Changelog brouillon trouvé : v${VERSION} (id: ${ID})"
+                echo "   → Publication automatique en cours..."
+
+                PUBLISH=$(curl -sf -X PATCH \
+                  -H "apikey: $SUPABASE_SERVICE_KEY" \
+                  -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+                  -H "Content-Type: application/json" \
+                  -H "Prefer: return=representation" \
+                  -d '{"status":"published"}' \
+                  "${SUPABASE_URL}/rest/v1/changelog_versions?id=eq.${ID}" \
+                )
+
+                STATUS=$(echo "$PUBLISH" | jq -r '.[0].status' 2>/dev/null || echo "unknown")
+                if [ "$STATUS" = "published" ]; then
+                  echo "✅ Changelog v${VERSION} publié automatiquement !"
+                else
+                  echo "⚠️  Publication impossible (réponse inattendue), vérifier manuellement."
+                  echo "   Réponse API : $PUBLISH"
+                fi
+                write_version "$VERSION"
+                exit 0
+              fi
+
+              # 2. Sinon : chercher un changelog publié dans les dernières 48h
+              # BusyBox (Alpine) ne supporte ni `date -d '48 hours ago'` ni
+              # `date -v-48H` (BSD). On calcule donc le cutoff via l'epoch, que
+              # BusyBox sait formater (`@seconds_since_1970`).
+              CUTOFF_EPOCH=$(( $(date -u +%s) - 48 * 3600 ))
+              CUTOFF=$(date -u -d "@${CUTOFF_EPOCH}" +"%Y-%m-%dT%H:%M:%SZ")
+              RECENT=$(curl -sf \
+                -H "apikey: $SUPABASE_SERVICE_KEY" \
+                -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+                -H "Content-Type: application/json" \
+                "${SUPABASE_URL}/rest/v1/changelog_versions?status=eq.published&created_at=gte.${CUTOFF}&select=id,version,created_at" \
+              )
+              RECENT_COUNT=$(echo "$RECENT" | jq 'length' 2>/dev/null || echo "0")
+
+              if [ "$RECENT_COUNT" -gt "0" ]; then
+                VERSION=$(echo "$RECENT" | jq -r '.[0].version')
+                echo "✅ Changelog récemment publié trouvé : v${VERSION}"
+                write_version "$VERSION"
+                exit 0
+              fi
+
+              # 3. Aucun changelog → BLOCAGE
+              echo ""
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              echo "❌  DÉPLOIEMENT BLOQUÉ — Changelog manquant"
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              echo ""
+              echo "Aucun changelog n'a été préparé pour cette mise en production."
+              echo ""
+              echo "  Que faire ?"
+              echo "  1. Ouvrir La Console → Manager → Changelog"
+              echo "  2. Créer une nouvelle version (Patch / Minor / Major)"
+              echo "  3. Remplir les catégories concernées"
+              echo "  4. Sauvegarder en statut 'Brouillon'"
+              echo "  5. Relancer ce pipeline"
+              echo ""
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              exit 1
+
+    # ==========================================
+    # 🚀 DÉPLOIEMENT PREPROD
+    # ==========================================
+    - name: deploy_preprod
+      image: node:26-alpine
+      when:
+          branch: preprod
+      environment:
+          DEPLOY_PATH: /var/www/html/preprod
+      commands:
+          - echo "🚀 Déploiement PREPROD vers ${DEPLOY_PATH}"
+          - |
+              if [ ! -d "$DEPLOY_PATH" ]; then
+                echo "📁 Création du dossier ${DEPLOY_PATH}"
+                mkdir -p "$DEPLOY_PATH"
+              fi
+          - echo "🧹 Nettoyage de l'ancien build (Preprod)..."
+          - rm -rf ${DEPLOY_PATH:?}/*
+          - echo "📦 Copie du nouveau build..."
+          - |
+              if [ -d "dist" ]; then
+                cp -r dist/* ${DEPLOY_PATH}/
+              elif [ -d ".next" ]; then
+                cp -r .next/* ${DEPLOY_PATH}/
+              else
+                echo "❌ Aucun dossier de build trouvé (.next ou dist)"
+                exit 1
+              fi
+          - echo "✅ Nouveau build déployé avec succès en PREPROD !"
+
+    # ==========================================
+    # 🚀 DÉPLOIEMENT PROD
+    # ==========================================
+    - name: deploy_prod
+      image: node:26-alpine
+      when:
+          branch: prod
+      environment:
+          DEPLOY_PATH: /var/www/html/prod
+          DEPLOY_SECONDARY_PATH: /var/www/html/patch
+      commands:
+          - echo "🚀 Déploiement PROD vers ${DEPLOY_PATH} et ${DEPLOY_SECONDARY_PATH}"
+          - |
+              if [ ! -d "$DEPLOY_PATH" ]; then
+                echo "📁 Création du dossier PROD ${DEPLOY_PATH}"
+                mkdir -p "$DEPLOY_PATH"
+              fi
+          - echo "🧹 Nettoyage de l'ancien build (Prod)..."
+          - rm -rf ${DEPLOY_PATH:?}/*
+          - |
+              if [ ! -d "$DEPLOY_SECONDARY_PATH" ]; then
+                echo "📁 Création du dossier PATCH ${DEPLOY_SECONDARY_PATH}"
+                mkdir -p "$DEPLOY_SECONDARY_PATH"
+              fi
+          - echo "🧹 Nettoyage de l'ancien build (Patch)..."
+          - rm -rf ${DEPLOY_SECONDARY_PATH:?}/*
+          - echo "📦 Copie du nouveau build vers les deux environnements..."
+          - |
+              if [ -d "dist" ]; then
+                cp -r dist/* ${DEPLOY_PATH}/
+                cp -r dist/* ${DEPLOY_SECONDARY_PATH}/
+              elif [ -d ".next" ]; then
+                cp -r .next/* ${DEPLOY_PATH}/
+                cp -r .next/* ${DEPLOY_SECONDARY_PATH}/
+              else
+                echo "❌ Aucun dossier de build trouvé (.next ou dist)"
+                exit 1
+              fi
+          - echo "✅ Nouveau build déployé avec succès en PROD et PATCH !"
+
+    # ==========================================
+    # 🩹 DÉPLOIEMENT PATCH
+    #
+    # Patch et Prod uniquement — surtout PAS Preprod. La branche patch build
+    # avec ENV_MODE=production (voir le case plus haut), donc avec
+    # .env.production : ce bundle pointe api.nokk-project.example, la base de
+    # PROD. Le copier dans /var/www/html/preprod faisait travailler la préprod
+    # sur les données de production jusqu'au push suivant sur preprod.
+    # La préprod se réaligne par le merge patch -> preprod, qui la rebuild
+    # avec sa propre config.
+    # ==========================================
+    - name: deploy_patch
+      image: node:26-alpine
+      when:
+          branch: patch
+      environment:
+          DEPLOY_PATCH_PATH: /var/www/html/patch
+          DEPLOY_PROD_PATH: /var/www/html/prod
+      commands:
+          - echo "🚀 Déploiement PATCH vers ${DEPLOY_PATCH_PATH} et ${DEPLOY_PROD_PATH}"
+          - |
+              if [ ! -d "$DEPLOY_PATCH_PATH" ]; then
+                echo "📁 Création du dossier PATCH ${DEPLOY_PATCH_PATH}"
+                mkdir -p "$DEPLOY_PATCH_PATH"
+              fi
+          - echo "🧹 Nettoyage de l'ancien build (Patch)..."
+          - rm -rf ${DEPLOY_PATCH_PATH:?}/*
+          - |
+              if [ ! -d "$DEPLOY_PROD_PATH" ]; then
+                echo "📁 Création du dossier PROD ${DEPLOY_PROD_PATH}"
+                mkdir -p "$DEPLOY_PROD_PATH"
+              fi
+          - echo "🧹 Nettoyage de l'ancien build (Prod)..."
+          - rm -rf ${DEPLOY_PROD_PATH:?}/*
+          - echo "🔄 Mise à jour des environnements..."
+          - echo "📦 Copie du nouveau build..."
+          - |
+              if [ -d "dist" ]; then
+                BUILD_DIR="dist"
+              elif [ -d ".next" ]; then
+                BUILD_DIR=".next"
+              else
+                echo "❌ Aucun dossier de build trouvé (.next ou dist)"
+                exit 1
+              fi
+              echo "📂 Build source: $BUILD_DIR"
+
+              # Patch : remplacement complet (déjà nettoyé plus haut)
+              cp -r $BUILD_DIR/* ${DEPLOY_PATCH_PATH}/
+
+              # Prod : remplacement complet (déjà nettoyé plus haut)
+              cp -r $BUILD_DIR/* ${DEPLOY_PROD_PATH}/
+          - echo "✅ Patch déployé -> Patch reconstruit, Prod rafraîchie !"
+

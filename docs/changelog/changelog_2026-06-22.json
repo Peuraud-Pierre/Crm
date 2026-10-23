@@ -1,0 +1,178 @@
+{
+  "version": "2.6.0",
+  "summary": "Release majeure couvrant la période du 24/02/2026 au 22/06/2026 : nouveau module Stock/Arrivages, gestion de projet Kanban, messagerie & tickets, synchronisation calendrier Apple/Amelia, refonte CRM mono-page, analytics Matomo, durcissement sécurité (MFA, permissions, RGPD) et console de logs.",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Stock / Arrivages",
+        "contenu": "Nouveau module Stock complet (anciennement « gestion ») : tableaux d'arrivages et d'expéditions (ShipmentBoard, onglet Départs), création de balles et de livraisons, import de packing list, gestion des numéros de conteneur et alertes de déchargement, sélection fournisseur/catégorie en ligne."
+      },
+      {
+        "titre": "Stock / Arrivages",
+        "contenu": "Dashboard Stock avec tri des incohérences (conteneurs manquants/non conformes), KPI de statut, badges actionnables et correction en ligne, intégration Distancer pour l'affichage des distances."
+      },
+      {
+        "titre": "Stock / Arrivages",
+        "contenu": "Export Excel des arrivages (ExportArrivageButton), tableau ArrivageLimited pour la gestion manuelle, relances de factures et mises à jour de statut automatiques."
+      },
+      {
+        "titre": "Gestion de projet (Kanban)",
+        "contenu": "Tableau Kanban avec glisser-déposer (DnD Kit), vues Kanban/Liste, attribution d'équipe, édition des dates de sprint, vue « toutes les tâches », champ horaire optionnel et âge des tâches."
+      },
+      {
+        "titre": "Messagerie & Tickets",
+        "contenu": "Discussions de groupe avec gestion des membres, hook unifié de messages de ticket, suppression de messages avec nettoyage du stockage, envoi de pièces jointes par glisser-déposer et collage d'images, gestion des emojis."
+      },
+      {
+        "titre": "Tickets / Dashboard",
+        "contenu": "Intégration des tickets Retail, dashboard tickets avec section KPI, camembert de statuts et histogramme de priorités, sélection du type de ticket."
+      },
+      {
+        "titre": "Calendrier Apple / Amelia",
+        "contenu": "Synchronisation des événements Amelia (hook useAmeliaProviders), filtrage par catégorie Amelia, gestion des disponibilités (entreprise et manager) et affectation automatique du closer à la création d'un événement."
+      },
+      {
+        "titre": "Calendrier",
+        "contenu": "Fonctionnalité Show / No-Show avec mises à jour temps réel (Analytics et Calendrier), options de délai de relance, code couleur par utilisateur, vue semaine améliorée et descriptions d'événements."
+      },
+      {
+        "titre": "CRM",
+        "contenu": "Refonte CRM mono-page (SinglePageCRM) : colonnes « RDV à confirmer » et « No Show », widget de gamification, prise de lead, widget de provenance, scroll infini sur la liste clients, mises à jour Realtime."
+      },
+      {
+        "titre": "CRM",
+        "contenu": "Journalisation systématique de l'activité client (création/suppression/modification d'événements et de fiches), export RGPD au format PDF, enrichissement SIRET à la création, copie téléphone/email et liens WhatsApp/mailto."
+      },
+      {
+        "titre": "Analytics",
+        "contenu": "Tableau de bord analytics intégrant Matomo et LeadsStats, composant EventsPalier, suivi des nouveaux leads, calculs de taux de conversion et nouvelles fonctions d'export."
+      },
+      {
+        "titre": "Sécurité & Authentification",
+        "contenu": "Application de la MFA sur les routes protégées, panneau d'informations appareil, écrans de configuration PIN, indicateur de robustesse du mot de passe et modal d'attribution des rôles (Setter/Closer)."
+      },
+      {
+        "titre": "RGPD / Confidentialité",
+        "contenu": "Dialogue de consentement à la confidentialité avec contenu légal structuré et navigation par étapes affiché à la première connexion, gestion de la rétention des logs (purge manuelle et audit)."
+      },
+      {
+        "titre": "Permissions",
+        "contenu": "Gestion des permissions utilisateur individuelles et contrôles de permission pour la création/modification/suppression des catégories, fournisseurs et campagnes newsletter."
+      },
+      {
+        "titre": "Console d'erreurs",
+        "contenu": "Console d'erreurs dédiée (ErrorConsolePage) avec journalisation structurée, regroupement côté client et pagination, AppErrorBoundary (rechargement de chunk) et CrmErrorBoundary."
+      },
+      {
+        "titre": "Newsletter",
+        "contenu": "Fonctionnalité d'abonnement newsletter avec gestion des emails, codes d'invitation et carte d'abonnement configurable dans le profil."
+      },
+      {
+        "titre": "Veille",
+        "contenu": "Gestion des configurations de veille (WatchConfig), hook useVeilleReports avec métadonnées et normalisation des tags, filtrage par plage de dates et recherche."
+      },
+      {
+        "titre": "Devis",
+        "contenu": "Composant CreateDevis responsive avec actions mobiles, niveaux d'urgence sur les devis, génération PDF avec calculs de poids et gestion sécurisée de la liste de paiements."
+      },
+      {
+        "titre": "IA",
+        "contenu": "Story Creator (suggestions de légendes et hashtags) et agent IA avec interface de chat et intégration API."
+      },
+      {
+        "titre": "Outils Manager",
+        "contenu": "Composant GenTypes pour la génération des types TypeScript avec contrôle de permission."
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "Routage",
+        "contenu": "Migration vers RouterProvider (createBrowserRouter), mise en place des layouts d'authentification, intégration des providers CRM et Devis au routeur, fallback d'erreur de route."
+      },
+      {
+        "titre": "Permissions",
+        "contenu": "Migration des permissions de rôle vers une table normalisée et simplification de la récupération du profil utilisateur."
+      },
+      {
+        "titre": "Stock",
+        "contenu": "Renommage du dépôt et des routes « gestion » → « stock » pour plus de clarté, refactorisation des composants vers des constantes de thème (GESTION_THEME)."
+      },
+      {
+        "titre": "CI/CD",
+        "contenu": "Support du déploiement multi-branches (preprod/patch/prod), passage à node:20-alpine, purge du cache Cloudflare après déploiement, sauvegarde de la prod avant déploiement et étape de vérification du changelog (validation SemVer, fenêtre ±48h)."
+      },
+      {
+        "titre": "Calendrier",
+        "contenu": "Refactorisation des composants Calendar pour la structure et la performance, harmonisation des thèmes de couleur d'événements, amélioration de la logique de drag & resize et de la gestion des dates (UTC/local)."
+      },
+      {
+        "titre": "CRM",
+        "contenu": "Optimisation de la gestion d'état et des performances des contextes/hooks CRM, hydratation complète du client à la demande, mise à jour des plages de budget et des libellés d'urgence (« critique » → « élevée »)."
+      },
+      {
+        "titre": "UI",
+        "contenu": "Nombreuses améliorations de responsive et d'accessibilité (CreateDevis, ErrorConsole, sidebars, dialogs mobiles), composants Select migrés vers PopoverSelect, états de chargement et styles dark mode."
+      }
+    ],
+    "Corrections": [
+      {
+        "titre": "Calendrier",
+        "contenu": "Suppression des marqueurs de conflit de merge dans use_calendar, gestion des dates invalides, ajustement de la logique de synchronisation Amelia (suppression de l'exigence de connexion, fallback participants, cast explicite des lignes)."
+      },
+      {
+        "titre": "CRM",
+        "contenu": "Affichage des clients en colonne « RDV à confirmer », correction des types et de la structure des payloads, réinitialisation du scroll et du filtre utilisateur, hydratation client fiabilisée (MemoryRouter dans les tests)."
+      },
+      {
+        "titre": "Authentification",
+        "contenu": "Gestion de la dérive d'horloge JWT et de la logique de debounce dans updateUserStatus, attente du chargement des permissions dans AuthGuard."
+      },
+      {
+        "titre": "Formulaires mobiles",
+        "contenu": "Amélioration de la gestion du clavier sur tablette/mobile pour la création de clients et de devis, boutons de fermeture mobiles."
+      },
+      {
+        "titre": "Analytics",
+        "contenu": "Correction des calculs de taux de conversion et filtrage des événements source CRM, fonctions d'export enrichies et notifications pour les nouveaux leads."
+      },
+      {
+        "titre": "Stock",
+        "contenu": "Correction de la pagination des arrivages, déduplication par numéro de conteneur, fallbacks pour les lignes facture seule, ordre de tri et reset de pagination dans ArrivageLimitedTable."
+      },
+      {
+        "titre": "Environnement / API",
+        "contenu": "Mise à jour des URLs Supabase et des endpoints API via variables d'environnement, correction du formatage du fichier .env (PUBLIC_VITE_BRIDGE_KEY, PUBLIC_INFO_API_URL), CSP mis à jour pour Cloudflare Access."
+      },
+      {
+        "titre": "Changelog (CI)",
+        "contenu": "Fiabilisation de la vérification du changelog (résumé, drafts/publiés, calcul de cutoff compatible Alpine, ordre par created_at)."
+      },
+      {
+        "titre": "Tests",
+        "contenu": "Isolation du localStorage entre tests, transformation JSX moderne (pluginReact dans rstest), mocks Supabase/useAuth cohérents, variables d'environnement de test ajoutées."
+      }
+    ],
+    "Suppressions": [
+      {
+        "titre": "UserEdit",
+        "contenu": "Suppression du composant UserEdit obsolète et de ses tests associés (remplacé par UserEditDialog)."
+      },
+      {
+        "titre": "Arrivages",
+        "contenu": "Retrait de ArrivageNewsletterSheet et des services d'export/notification associés."
+      },
+      {
+        "titre": "Monitoring",
+        "contenu": "Suppression de l'intégration Highlight.io et des variables d'environnement liées (tracing et enregistrement réseau retirés)."
+      },
+      {
+        "titre": "Microsoft Graph",
+        "contenu": "Suppression de la configuration obsolète de l'API Microsoft Graph."
+      },
+      {
+        "titre": "Code mort",
+        "contenu": "Nettoyage des utilitaires et hooks inutilisés (conversion de dates, règles horaires, annonces), des imports et types inutilisés du module stock, et des worktrees Claude temporaires."
+      }
+    ]
+  }
+}

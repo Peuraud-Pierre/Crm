@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mascotte générique Nokk_project : une balle de vêtements souriante.
+     viewBox imposé par MASCOT_RATIO (stock_handpick/components/plan/scene/fixtures.ts). -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 430.6 417.6">
+  <g fill="none" stroke="#1c1a34" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="95" y="70" width="240" height="250" rx="36" fill="#f2efe8"/>
+    <path d="M95 140 H335 M95 250 H335" stroke="#2f6f3e" stroke-width="14"/>
+    <circle cx="180" cy="185" r="10" fill="#1c1a34"/>
+    <circle cx="250" cy="185" r="10" fill="#1c1a34"/>
+    <path d="M180 215 Q215 245 250 215"/>
+    <path d="M150 320 L135 385 M280 320 L295 385"/>
+    <path d="M110 385 H160 M270 385 H320" stroke-width="14"/>
+    <path d="M95 210 L45 170 M335 210 L385 160"/>
+  </g>
+  <text x="215" y="125" font-family="Arial Black, Arial, sans-serif" font-size="34" font-weight="900" text-anchor="middle" fill="#1c1a34">NOKK</text>
+</svg>

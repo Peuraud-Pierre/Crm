@@ -1,0 +1,154 @@
+{
+    "version": "2026.02.24",
+    "summary": "Migration vers React 19, refonte du système de changelog, maintenance infrastructure Supabase, améliorations du calendrier Apple et optimisations diverses",
+    "categories": {
+        "Ajouts": [
+            {
+                "titre": "Gestion normalisée des changelogs",
+                "contenu": "✅ Migration vers une structure de tables normalisées (changelog_categories, changelog_versions, changelog_items) avec gestion des catégories et système de versionnement."
+            },
+            {
+                "titre": "Calendrier Apple",
+                "contenu": "✅ Connexion et synchronisation avec Apple Calendar via API Go, création d'événements et gestion des flux de synchronisation."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "✅ Vues calendrier améliorées : options de vue mois et année, amélioration du layout des vues journalières et hebdomadaires."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "✅ Hook useEvent avec mises à jour optimistes pour une meilleure réactivité de l'interface lors de la création d'événements."
+            },
+            {
+                "titre": "Messagerie",
+                "contenu": "✅ Ajout de hooks pour gérer les pièces jointes dans le compositeur de messages (useMessageComposer)."
+            },
+            {
+                "titre": "Outils Supabase",
+                "contenu": "✅ Installation de index_advisor() — fonction SQL d'audit automatique des index (FK sans index, index inutilisés, dupliqués, scans séquentiels excessifs)."
+            },
+            {
+                "titre": "Outils Supabase",
+                "contenu": "✅ Création du script gen-types.sh pour la génération automatique des types TypeScript depuis le schéma DB."
+            }
+        ],
+        "Modifications": [
+            {
+                "titre": "React",
+                "contenu": "✅ Migration vers React 19 : adoption des nouveaux patterns sur l'ensemble du codebase avec gestion améliorée des refs et nettoyage des hooks."
+            },
+            {
+                "titre": "ESLint",
+                "contenu": "✅ Upgrade ESLint 9 → 10 avec intégration de @eslint-react pour de meilleures pratiques React."
+            },
+            {
+                "titre": "Dépendances frontend",
+                "contenu": "✅ Migrations majeures : Tailwind 3→4, react-router-dom 6→7, zod 3→4, date-fns 3→4, recharts 2→3, react-day-picker 8→9, maplibre-gl 3→5, react-map-gl 7→8, jsdom 27→28, @hcaptcha 1→2, react-resizable-panels 2→4."
+            },
+            {
+                "titre": "Dépendances frontend",
+                "contenu": "✅ Mises à jour mineures : @supabase/supabase-js 2.57→2.97, framer-motion 12.34.0→12.34.3, lucide-react 0.563→0.575, react-hook-form 7.71.1→7.71.2, tailwind-merge 3.4.1→3.5.0, @types/node 25.2.3→25.3.0, jspdf 4.2.0, @babel/runtime 7.28.6."
+            },
+            {
+                "titre": "Infrastructure Supabase",
+                "contenu": "✅ Stack Supabase mise à jour vers les dernières versions (13/13 services healthy)."
+            },
+            {
+                "titre": "Infrastructure Supabase",
+                "contenu": "✅ Vector.yml corrigé pour compatibilité v0.53 (to_timestamp! → parse_timestamp!)."
+            },
+            {
+                "titre": "Infrastructure Supabase",
+                "contenu": "✅ Logs Docker limités à 50 Mo × 3 fichiers par container (daemon.json). ~25 Go récupérés sur le disque (prune images/cache + truncate logs)."
+            },
+            {
+                "titre": "Galerie",
+                "contenu": "✅ Optimisation useGallery : utilisation de useCallback et useMemo pour améliorer les performances."
+            },
+            {
+                "titre": "CRM",
+                "contenu": "✅ Refactoring SinglePageCRM et SellJournal : consolidation des définitions de tabs et amélioration de la gestion d'état du composant Bilan."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "✅ Amélioration du rendu des événements avec gestion z-index optimisée et intégration du filtrage par utilisateur dans CalendarTab."
+            },
+            {
+                "titre": "UI",
+                "contenu": "✅ Amélioration du comportement des curseurs pour les éléments interactifs dans le CSS."
+            },
+            {
+                "titre": "Sécurité (RLS)",
+                "contenu": "✅ RLS activé sur 11 tables exposées sans protection. Policies optimisées avec (select auth.uid()) au lieu de auth.uid() (initplan fix). Ciblage TO role sur toutes les policies."
+            },
+            {
+                "titre": "Performance (Index)",
+                "contenu": "✅ 1 index FK créé (ticket_table.created_by). 2 index dupliqués supprimés (sorting_reports, direct_conversations)."
+            }
+        ],
+        "Corrections": [
+            {
+                "titre": "CRM",
+                "contenu": "✅ Ajout de l'import React aux côtés de useEffect dans SinglePageCRM et SellJournal pour résoudre les problèmes de dépendances."
+            },
+            {
+                "titre": "React 19",
+                "contenu": "✅ Patch @radix-ui/react-compose-refs pour la compatibilité avec React 19 concernant le nettoyage des refs."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "✅ Gestion sécurisée des noms de propriétaires d'événements dans le composant DayEventsList."
+            },
+            {
+                "titre": "Webhooks",
+                "contenu": "✅ Mise à jour des URLs webhook pour l'environnement de production et amélioration de la gestion d'erreurs dans ContentProvider."
+            },
+            {
+                "titre": "Tests",
+                "contenu": "✅ Mock cohérent du client Supabase dans les fichiers de test pour une meilleure intégration."
+            },
+            {
+                "titre": "Galerie",
+                "contenu": "✅ Activation du téléchargement direct des fichiers médias lorsqu'aucune analyse n'est disponible."
+            },
+            {
+                "titre": "UI",
+                "contenu": "✅ Fermeture automatique de la sidebar lors du clic sur un élément."
+            },
+            {
+                "titre": "Permissions",
+                "contenu": "✅ Correction des outlines frontend et des permissions côté utilisateur."
+            },
+            {
+                "titre": "Sécurité",
+                "contenu": "✅ Mise à jour des noms de classes pour un meilleur styling dans PinUnlockScreen et InputOTP."
+            },
+            {
+                "titre": "TypeScript",
+                "contenu": "✅ Correction des imports type/value pour Client dans le hook use_calendar."
+            },
+            {
+                "titre": "Analytics Supabase",
+                "contenu": "✅ Analytics/Logflare réparé (création schema _analytics manquant)."
+            },
+            {
+                "titre": "Sécurité (RLS)",
+                "contenu": "✅ Doublons de policies supprimés sur tableau_devis."
+            }
+        ],
+        "Suppressions": [
+            {
+                "titre": "Messagerie chiffrée",
+                "contenu": "✅ Retrait des exports de la fonctionnalité de messages cryptés de index.ts."
+            },
+            {
+                "titre": "Dépendances",
+                "contenu": "✅ Nettoyage de package-lock.json et package.json, suppression des dépendances et patches non utilisés."
+            },
+            {
+                "titre": "Index dupliqués",
+                "contenu": "✅ Suppression de 2 index dupliqués (sorting_reports, direct_conversations)."
+            }
+        ]
+    }
+}

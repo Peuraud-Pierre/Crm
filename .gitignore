@@ -1,0 +1,58 @@
+# Logs
+# Ancré à la racine : sans le « / » initial, ce motif correspond à un dossier
+# « logs » à n'importe quelle profondeur — il avalait silencieusement
+# src/features/arrivage-admin/components/logs/, que `git status` présentait
+# alors comme propre alors que rien n'était committé (CI en échec typecheck).
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Fichiers de verrou LibreOffice/OpenOffice
+.~lock.*#
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.todo
+src/integrations/supabase/client.ts
+
+# Test cache (local seulement, pas pour le CI)
+.git/test-cache/
+
+# CI cache (versionné pour être détecté par le VPS)
+# .ci-cache/  ← On ne l'ignore PAS, il doit être versionné
+
+# Autoriser les scripts du projet
+!scripts/*.sh
+!.githooks/*
+changelog_2026-04-07.json
+.roo/mcp.json
+.claude/settings.local.json
+.claude/worktrees/agent-a277b4b67e6233e10
+.claude/
+changelog_2.4.2.json
+.env
+# Config réelle preprod/prod (URLs et clés) : jamais dans le dépôt anonymisé.
+.env.preprod
+.env.production
+/tasks/
+# Supabase local (local-db/) : état CLI généré
+local-db/supabase/.temp/
+local-db/supabase/.branches/
+supabase/.temp/

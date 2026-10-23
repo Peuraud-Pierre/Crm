@@ -1,0 +1,24 @@
+-- Suppression de la vue `public.decrypted_messages`.
+--
+-- Vestige de l'ancienne messagerie, dont le déchiffrement se faisait côté
+-- serveur (`decrypt_message(content_encrypted)` sur `public.messages`) — donc
+-- avec une clé détenue par la base. Elle a été remplacée par le chiffrement de
+-- bout en bout de `public.cryptedmessage` (`src/features/messages/core/crypto.ts`),
+-- où la base ne voit jamais que du chiffré.
+--
+-- Comme `decrypt_message` et cette vue, elle n'a jamais été versionnée : créée
+-- via le dashboard Supabase, invisible du dépôt. Elle restait pourtant exposée
+-- par PostgREST et présente dans les types générés (`src/integrations/supabase/types.ts`),
+-- alors qu'aucun code applicatif ne la lit — vérifié par grep sur `src/`.
+--
+-- État constaté le 07/09/2026 avant suppression :
+--   * propriétaire `supabase_admin`, `security_invoker=on` — la RLS de
+--     `messages` s'appliquait bien, il n'y avait pas de contournement ;
+--   * aucun objet dépendant (pg_depend/pg_rewrite : 0 ligne).
+--
+-- Restent en place, morts côté code mais porteurs de données : `public.messages`,
+-- `public.groupe_participant` et la fonction `decrypt_message`. À traiter dans
+-- un lot dédié — supprimer la fonction rendrait l'historique de `messages`
+-- définitivement illisible.
+
+drop view if exists public.decrypted_messages;

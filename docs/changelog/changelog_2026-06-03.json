@@ -1,0 +1,36 @@
+{
+  "version": "2.4.0",
+  "summary": "Nouvelle colonne « RDV à confirmer » dans le pipeline d'acquisition du CRM, alimentée automatiquement par les rendez-vous pris via Amelia, niveaux d'urgence sur les devis, dialogue de confirmation avant suppression d'un client, et dialogue de consentement aux mentions légales et à la politique de confidentialité dès la première connexion (avec contenu actualisé sur l'usage de l'IA). Côté technique : mise à jour des menus et catégories de la barre latérale, et nettoyage de code mort.",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "CRM",
+        "contenu": "Nouvelle colonne « RDV à confirmer » dans le pipeline d'acquisition du Kanban, avec son infobulle dédiée : les rendez-vous pris via Amelia y positionnent automatiquement le client, en attente de confirmation par le commercial."
+      },
+      {
+        "titre": "Devis",
+        "contenu": "Niveaux d'urgence sur les devis (Normale, Haute, Élevée) : sélection à la création, affichage sur les cartes et report dans le PDF du devis."
+      },
+      {
+        "titre": "CRM",
+        "contenu": "Dialogue de confirmation avant la suppression d'un client, pour éviter les suppressions accidentelles."
+      },
+      {
+        "titre": "Confidentialité",
+        "contenu": "Dialogue de consentement affiché à la première connexion : présentation de la politique de confidentialité et des mentions légales via une navigation par étapes, avec un contenu actualisé concernant l'usage de l'intelligence artificielle."
+      }
+    ],
+    "Corrections": [],
+    "Modifications": [
+      {
+        "titre": "UI",
+        "contenu": "Mise à jour des éléments de menu et des catégories de la barre latérale."
+      },
+      {
+        "titre": "Utilisateurs",
+        "contenu": "Nettoyage technique : suppression du composant UserEdit devenu inutilisé et de ses tests associés (l'édition utilisateur passe désormais par la fiche dédiée)."
+      }
+    ],
+    "Suppressions": []
+  }
+}

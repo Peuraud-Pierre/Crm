@@ -1,0 +1,9 @@
+<h2>Reset Password</h2>
+
+<p>Suivez ce lien pour réinitialiser le mot de passe de votre utilisateur:</p>
+<p>
+    <a
+        href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=https://nokk-project.example/reset-password"
+        >Reset Password</a
+    >
+</p>

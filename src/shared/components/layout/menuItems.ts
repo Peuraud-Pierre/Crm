@@ -1,0 +1,332 @@
+import {
+    BookOpen,
+    Boxes,
+    BrainCircuit,
+    Bug,
+    Camera,
+    ChartBarIncreasing,
+    ClipboardList,
+    Container,
+    Eye,
+    FolderOpen,
+    HandCoins,
+    Handshake,
+    House,
+    KanbanSquare,
+    LayoutDashboard,
+    List,
+    Mail,
+    MessageCircleQuestionMark,
+    MessageSquare,
+    MonitorCog,
+    Newspaper,
+    Package,
+    Settings,
+    Shield,
+    ShieldCheck,
+    Sparkles,
+    Store,
+    Ticket,
+    UserCog,
+} from "lucide-react"
+
+export type MenuCategory =
+    | "Admin"
+    | "Commercial"
+    | "Entrepot"
+    | "Comptabilité"
+    | null
+
+export interface MenuItem {
+    title: string
+    displayName: string
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+    href: string
+    permissionCode: string
+    /** Entrée visible si l'utilisateur détient AU MOINS UN de ces codes
+     *  (prime sur permissionCode — ex. page Administration fusionnée). */
+    permissionCodes?: string[]
+    category: MenuCategory
+    group?: string
+    hideFromSidebar?: boolean
+    icon_main?: React.ComponentType<React.SVGProps<SVGSVGElement>>
+}
+
+export const menuItems: MenuItem[] = [
+    {
+        title: "dashboard",
+        displayName: "Accueil",
+        icon: House,
+        href: "/dashboard",
+        permissionCode: "dashboard.view",
+        category: null,
+    },
+    {
+        title: "messages",
+        displayName: "Messages",
+        icon: MessageSquare,
+        href: "/messages",
+        permissionCode: "messages.view",
+        category: null,
+    },
+    {
+        title: "projects",
+        displayName: "Projets",
+        icon: KanbanSquare,
+        href: "/projects",
+        permissionCode: "projects.view",
+        category: null,
+    },
+    {
+        title: "drive",
+        displayName: "Drive",
+        icon: FolderOpen,
+        href: "/drive",
+        permissionCode: "content.view",
+        category: null,
+    },
+    {
+        title: "veille",
+        displayName: "Veille",
+        icon: Eye,
+        href: "/veille",
+        permissionCode: "veille.view",
+        category: null,
+    },
+    {
+        title: "wiki",
+        displayName: "Wiki",
+        icon: BookOpen,
+        href: "/wiki",
+        permissionCode: "wiki.view",
+        category: null,
+    },
+    {
+        title: "reports",
+        displayName: "Support",
+        icon: MessageCircleQuestionMark,
+        href: "/reports",
+        permissionCode: "reports.view",
+        category: null,
+    },
+    // Groupe : Génération de contenu
+    {
+        title: "content",
+        displayName: "Créer un visuel",
+        icon: Camera,
+        href: "/content",
+        permissionCode: "content.view",
+        category: null,
+        group: "Génération de contenu",
+        icon_main: Sparkles,
+    },
+    {
+        title: "contentlist",
+        displayName: "Mes générations",
+        icon: List,
+        href: "/contentlist",
+        permissionCode: "content.view",
+        category: null,
+        group: "Génération de contenu",
+        icon_main: Sparkles,
+    },
+    {
+        title: "contentlistadmin",
+        displayName: "Gestion contenu",
+        icon: Shield,
+        href: "/contentlistadmin",
+        permissionCode: "content.manage",
+        category: null,
+        group: "Génération de contenu",
+        icon_main: Sparkles,
+    },
+    // Catégorie : Commercial
+    {
+        title: "crm",
+        displayName: "CRM",
+        icon: LayoutDashboard,
+        href: "/crm",
+        permissionCode: "crm.view",
+        category: "Commercial",
+        icon_main: Handshake,
+    },
+    {
+        title: "analytics",
+        displayName: "Analytics",
+        icon: ChartBarIncreasing,
+        href: "/analytics",
+        permissionCode: "matomo.view",
+        permissionCodes: ["matomo.view", "leads_stats.view", "crm.view"],
+        category: "Commercial",
+        icon_main: Handshake,
+    },
+    {
+        title: "magasins",
+        displayName: "Magasins",
+        icon: Store,
+        href: "/magasins",
+        permissionCode: "magasin.view",
+        category: "Commercial",
+        icon_main: Handshake,
+    },
+    {
+        title: "bibliotheque",
+        displayName: "Bibliothèque",
+        icon: Package,
+        href: "/bibliotheque",
+        permissionCode: "bibliotheque.view",
+        category: "Commercial",
+        icon_main: Handshake,
+    },
+    {
+        title: "newsletter",
+        displayName: "Newsletter",
+        icon: Mail,
+        href: "/newsletter",
+        permissionCode: "newsletter_clients.send",
+        category: "Commercial",
+        icon_main: Handshake,
+    },
+    // Catégorie : Entrepôt
+    {
+        title: "stock",
+        displayName: "Gestion des stocks",
+        icon: ChartBarIncreasing,
+        href: "/stock",
+        permissionCode: "stock.view",
+        category: "Entrepot",
+        icon_main: Container,
+    },
+    {
+        title: "stock_handpick",
+        displayName: "Stock Handpick",
+        icon: Boxes,
+        href: "/stock-handpick",
+        permissionCode: "stock_handpick.view",
+        category: "Entrepot",
+        icon_main: Container,
+    },
+    // « Rapport de Tri » (/sorters, feature non routée — l'entrée menait à une
+    // 404) est remplacé par la salle de tri, page à part depuis le 2026-10-01.
+    {
+        title: "salle_de_tri",
+        displayName: "Salle de tri",
+        icon: ClipboardList,
+        href: "/salle-de-tri",
+        permissionCode: "stock.tri.view",
+        category: "Entrepot",
+        icon_main: Container,
+    },
+    {
+        title: "commandes",
+        displayName: "Commandes boutiques",
+        icon: Store,
+        href: "/commandes",
+        permissionCode: "stock.commandes.view",
+        category: "Entrepot",
+        icon_main: Container,
+    },
+    // Catégorie : Comptabilité
+    {
+        title: "journalsell",
+        displayName: "Journal de vente",
+        icon: Newspaper,
+        href: "/journalsell",
+        permissionCode: "journalsell.view",
+        category: "Comptabilité",
+        icon_main: HandCoins,
+    },
+    // Catégorie : Admin
+    {
+        title: "administration",
+        displayName: "Administration",
+        icon: UserCog,
+        href: "/administration",
+        permissionCode: "users.view",
+        permissionCodes: ["users.view", "roles_services.view"],
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "manager",
+        displayName: "Manager",
+        icon: MonitorCog,
+        href: "/manager",
+        permissionCode: "manager.view",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "tickets",
+        displayName: "Tickets",
+        icon: Ticket,
+        href: "/tickets",
+        permissionCode: "tickets.view",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "error_console",
+        displayName: "Logs",
+        icon: Bug,
+        href: "/error-console",
+        permissionCode: "manager.console",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "veille_admin",
+        displayName: "Gestion Veille",
+        icon: Shield,
+        href: "/veille-admin",
+        permissionCode: "veille.admin",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "arrivage_admin",
+        displayName: "Newsletter Arrivages",
+        icon: Mail,
+        href: "/arrivage-admin",
+        permissionCode: "stock.arrivage.newsletter.admin",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "packing_admin",
+        displayName: "Packing (IA)",
+        icon: BrainCircuit,
+        href: "/packing-admin",
+        permissionCode: "stock.packing.admin",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    {
+        title: "crm_admin",
+        displayName: "CRM",
+        icon: Handshake,
+        href: "/crm-admin",
+        permissionCode: "crm.view",
+        category: "Admin",
+        icon_main: ShieldCheck,
+    },
+    // Routes sans entrée sidebar
+    {
+        title: "profile",
+        displayName: "Mon Profil",
+        icon: UserCog,
+        href: "/profile",
+        permissionCode: "profile.view",
+        category: null,
+        hideFromSidebar: true,
+    },
+    {
+        title: "settings",
+        displayName: "Paramètres",
+        icon: Settings,
+        href: "/settings",
+        permissionCode: "profile.view",
+        category: null,
+        hideFromSidebar: true,
+    },
+]

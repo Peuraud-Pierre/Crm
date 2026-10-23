@@ -1,0 +1,3 @@
+# Valeurs publiques (clés publishable Supabase, URLs PUBLIC_*) : pas des secrets.
+.env.preprod
+.env.production

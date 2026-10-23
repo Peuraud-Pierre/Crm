@@ -1,0 +1,173 @@
+================================================================================
+  NOTE DE PROCÉDURE — VERSIONNING DE LA CONSOLE (La Console / Nokk_project)
+  Dernière mise à jour : 2026-05-28
+================================================================================
+
+
+1. FORMAT OBLIGATOIRE
+─────────────────────
+Toutes les versions doivent respecter le standard SemVer (Semantic Versioning) :
+
+    MAJOR.MINOR.PATCH
+
+    Exemples valides   : 2.1.0 / 3.0.0 / 1.14.2
+    Exemples invalides : v2 / 2.1 / 2026.05.28 / beta-2
+
+Le préfixe "v" est accepté en saisie (ex : v2.1.0) mais est retiré
+automatiquement avant le stockage en base de données.
+L'affichage dans la sidebar utilise toujours le préfixe "v" (ex : v2.1.0).
+
+
+2. RÈGLES SEMVER — QUAND INCRÉMENTER QUOI ?
+────────────────────────────────────────────
+
+  ┌─────────┬────────────────────────────────────────────────────────────────┐
+  │  Type   │  Utiliser quand...                                             │
+  ├─────────┼────────────────────────────────────────────────────────────────┤
+  │  PATCH  │  Correction de bug, hotfix, amélioration invisible,            │
+  │ +0.0.1  │  correction de typo, ajustement de sécurité mineur,            │
+  │         │  optimisation de performance sans changement d'interface.       │
+  │         │  Exemple : 2.1.0 → 2.1.1                                       │
+  ├─────────┼────────────────────────────────────────────────────────────────┤
+  │  MINOR  │  Nouvelle fonctionnalité ajoutée, amélioration visible,        │
+  │ +0.1.0  │  nouveau composant ou module, extension d'une API existante     │
+  │         │  SANS casser l'existant. Les utilisateurs peuvent continuer     │
+  │         │  à travailler exactement comme avant.                           │
+  │         │  Exemple : 2.1.0 → 2.2.0                                       │
+  ├─────────┼────────────────────────────────────────────────────────────────┤
+  │  MAJOR  │  Changement cassant (breaking change) : suppression d'une      │
+  │ +1.0.0  │  fonctionnalité, refonte complète d'un module, migration        │
+  │         │  de données obligatoire, comportement existant modifié de       │
+  │         │  façon incompatible avec l'usage précédent.                     │
+  │         │  Exemple : 2.1.0 → 3.0.0                                       │
+  └─────────┴────────────────────────────────────────────────────────────────┘
+
+  RÈGLE D'OR : En cas de doute entre MINOR et PATCH → MINOR.
+               En cas de doute entre MINOR et MAJOR → demandez-vous si un
+               utilisateur doit CHANGER quelque chose de son côté. Si oui → MAJOR.
+
+
+3. DÉTECTION AUTOMATIQUE DANS LE FORMULAIRE CHANGELOG
+──────────────────────────────────────────────────────
+Le formulaire de création de changelog analyse automatiquement les catégories
+dans lesquelles du contenu est saisi et suggère le type de bump approprié.
+
+  Fonctionnement :
+  ─────────────────
+  1. Dès qu'une catégorie contient au moins un titre ou une description,
+     elle devient "active".
+
+  2. Le nom de chaque catégorie active est analysé par mots-clés (FR + EN).
+
+  3. Le type de bump avec la priorité la plus haute l'emporte :
+         MAJOR (priorité 3) > MINOR (priorité 2) > PATCH (priorité 1)
+
+  4. Si du contenu est présent mais aucun mot-clé n'est reconnu → MINOR par défaut.
+
+  5. Sans aucun contenu → pas de suggestion affichée.
+
+  Mots-clés reconnus par type :
+  ──────────────────────────────
+
+  MAJOR  →  rupture, cassant, incompatible, refonte, migration, suppression,
+            supprimé, majeur, réécriture, breaking, breaking change, removed,
+            dropped, rewrite, redesign
+
+  MINOR  →  fonctionnalité, feature, ajout, ajouté, nouveau, nouvelle,
+            amélioration, améliorer, enhancement, ajout de, nouvelles,
+            new, add, added, improvement, introduce, support
+
+  PATCH  →  correctif, correction, corrigé, bug, fix, fixé, patch, hotfix,
+            maintenance, sécurité, stabilité, performance, optimisation, typo,
+            mise à jour mineure, bugfix, security, refactor, stability, minor
+
+  IMPORTANT : La détection est basée sur le NOM de la catégorie, pas sur
+  le contenu des items. Nommez vos catégories de façon explicite pour que
+  la suggestion soit fiable (ex : "Correctifs", "Nouvelles fonctionnalités",
+  "Breaking Changes").
+
+
+4. PROCÉDURE DE CRÉATION D'UNE NOUVELLE VERSION
+─────────────────────────────────────────────────
+  Étape 1 — Remplir le contenu
+      Saisir les items dans chaque catégorie concernée par cette version.
+      Le badge de suggestion apparaît automatiquement en haut du panneau gauche.
+
+  Étape 2 — Vérifier la suggestion
+      Le système affiche un badge coloré, par exemple :
+          [ ✦ Minor suggéré — Catégorie(s) de fonctionnalités détectée(s)  → 2.2.0 ]
+      Cliquer dessus pour l'appliquer, ou choisir manuellement avec les
+      boutons Patch / Minor / Major.
+
+  Étape 3 — Vérifier le numéro de version
+      Le champ version devient rouge si le format est invalide.
+      Format attendu : X.Y.Z (exemple : 2.2.0)
+
+  Étape 4 — Renseigner la date de déploiement
+      Indiquer la date et l'heure de mise en production (heure locale).
+
+  Étape 5 — Statut
+      - Brouillon   : version en cours de rédaction, non visible.
+      - Publié      : version visible dans la sidebar et le changelog public.
+      - Archivé     : version masquée de l'affichage principal.
+
+  Étape 6 — Enregistrer
+      Cliquer sur "Enregistrer le changelog".
+      La sidebar affiche automatiquement la nouvelle version publiée la plus récente.
+
+
+5. GESTION DES CATÉGORIES
+──────────────────────────
+Les catégories sont configurables dans le gestionnaire de catégories.
+Pour que la détection automatique fonctionne correctement, nommer les
+catégories avec des mots explicites correspondant aux listes ci-dessus.
+
+  Exemples de nommage recommandé :
+      ✓ "Correctifs"              → détecté comme PATCH
+      ✓ "Bug Fix"                 → détecté comme PATCH
+      ✓ "Nouvelles fonctionnalités" → détecté comme MINOR
+      ✓ "Améliorations"           → détecté comme MINOR
+      ✓ "Breaking Changes"        → détecté comme MAJOR
+      ✓ "Migrations"              → détecté comme MAJOR
+
+  Exemples de nommage à éviter (non reconnus → fallback MINOR) :
+      ✗ "Divers"
+      ✗ "Autres"
+      ✗ "Updates"
+
+
+6. AFFICHAGE DANS LA SIDEBAR
+──────────────────────────────
+La sidebar affiche toujours la dernière version dont le statut est "Publié",
+triée par numéro SemVer décroissant (pas par date).
+
+  Format affiché : "Version bêta vX.Y.Z"
+
+  Si aucune version n'est publiée → affiche "Version bêta —"
+
+
+7. IMPORT / EXPORT JSON (OPTIONNEL)
+─────────────────────────────────────
+Le formulaire permet d'exporter un template JSON structuré par catégories,
+de le transmettre à un LLM ou collaborateur, puis de réimporter le résultat.
+
+  Format du JSON :
+  {
+    "version": "2.2.0",
+    "summary": "Résumé de la version",
+    "categories": {
+      "Correctifs": [
+        { "titre": "CRM", "contenu": "Description du correctif" }
+      ],
+      "Nouvelles fonctionnalités": [
+        { "titre": "Calendrier", "contenu": "Ajout de la vue hebdomadaire" }
+      ]
+    }
+  }
+
+  La correspondance catégorie ↔ JSON se fait par nom (insensible à la casse).
+
+
+================================================================================
+  FIN DE LA NOTE DE PROCÉDURE
+================================================================================

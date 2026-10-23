@@ -1,0 +1,402 @@
+{
+    "version": "2.2.3",
+    "summary": "Module Stock complet avec tableau de bord opérationnel et triage des incohérences, gestion des fournisseurs avec édition inline, onglet Départs pour containers mal classifiés, intégration Distancer, enforcement MFA, intégration tickets Retail, champ heure sur les tâches et événements, codage couleur calendrier par utilisateur, assignation d'équipe dans le Kanban.",
+    "categories": {
+        "Ajouts": [
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Tableau de bord Stock avec 4 KPIs opérationnels : containers sans fournisseur."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Tableau de bord Stock avec 4 KPIs opérationnels : incohérences à traiter."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Tableau de bord Stock avec 4 KPIs opérationnels : nombre d'arrivages du mois en cours."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Tableau de bord Stock avec 4 KPIs opérationnels : valeur facturée totale."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Graphique timeline sur 12 mois glissants des arrivages dans le tableau de bord Stock."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Graphique top 5 fournisseurs dans le tableau de bord Stock."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Section 'Incohérences à traiter' avec détection des fournisseurs manquants assignables inline via Popover."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Détection des incohérences de chronologie (dates départ/arrivée/réception) avec lien vers l'onglet Arrivages pré-filtré."
+            },
+            {
+                "titre": "Stock - Dashboard",
+                "contenu": "Détection des numéros de containers non conformes au format BIC avec correction inline depuis le tableau."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Onglet Départs permettant à l'opérateur de déplacer les containers mal classifiés depuis l'onglet Arrivages."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Action de menu 'Déplacer vers les départs' (ou 'Replacer dans les arrivages') avec toast de confirmation dans ArrivageActionMenu."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "ShipmentBoard réutilisé pour les deux onglets Arrivages et Départs avec filtrage par kind depuis le contexte."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Bascule 'Valeurs brutes' sur l'en-tête d'expédition pour afficher les données non transformées."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Vue tableau des expéditions avec pagination automatique et tri."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Vue calendrier des arrivages (ArrivageCalendarView)."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Barre de filtres (flowFilterBar) pour les expéditions avec critères multiples."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Pagination et tri pour les résultats de recherche de balles."
+            },
+            {
+                "titre": "Stock - Fournisseurs",
+                "contenu": "Gestion des fournisseurs avec édition inline et feuille de création dédiée (FournisseurCreationSheet)."
+            },
+            {
+                "titre": "Stock - Fournisseurs",
+                "contenu": "Contextes fournisseur et livraison avec hooks dédiés pour la gestion des données."
+            },
+            {
+                "titre": "Stock - Fournisseurs",
+                "contenu": "Bouton de suppression sur les menus catégories et fournisseurs dans le board de paramètres."
+            },
+            {
+                "titre": "Stock - Fournisseurs",
+                "contenu": "Intégration du fournisseur avec contexte et hooks pour la saisie de produits dans les formulaires."
+            },
+            {
+                "titre": "Stock - Paramètres",
+                "contenu": "Board de paramètres Stock avec menu général."
+            },
+            {
+                "titre": "Stock - Paramètres",
+                "contenu": "Board de paramètres Stock avec menu fournisseurs."
+            },
+            {
+                "titre": "Stock - Paramètres",
+                "contenu": "Board de paramètres Stock avec menu catégories."
+            },
+            {
+                "titre": "Stock - Distancer",
+                "contenu": "Intégration de l'API Distancer pour l'affichage des distances dans la gestion des expéditions."
+            },
+            {
+                "titre": "Calendrier - Événements",
+                "contenu": "Champ heure optionnel sur les formulaires de création de tâches et d'événements avec combinaison date + heure en ISO datetime."
+            },
+            {
+                "titre": "Calendrier - UI",
+                "contenu": "Codage couleur par utilisateur dans la WeekView pour distinguer visuellement les événements par commercial."
+            },
+            {
+                "titre": "Calendrier - Contexte",
+                "contenu": "Contextes de page dédiés pour Calendrier, Clients et Tâches avec modals de gestion de tâches."
+            },
+            {
+                "titre": "Kanban - Équipes",
+                "contenu": "Option d'assignation d'équipe sur les cartes Kanban avec filtrage par équipe dans les colonnes."
+            },
+            {
+                "titre": "Tâches - Affichage",
+                "contenu": "Affichage de l'âge relatif de la tâche dans la carte (ex : 'il y a 3 jours')."
+            },
+            {
+                "titre": "Tâches - Affichage",
+                "contenu": "Tooltip sur la date de création des tâches affichant la date absolue avec icône sablier."
+            },
+            {
+                "titre": "Tickets - Retail",
+                "contenu": "Intégration Retail avec API dédiée (retailApi.ts) pour la récupération des tickets depuis le système Retail."
+            },
+            {
+                "titre": "Tickets - Retail",
+                "contenu": "Mapping Retail vers le format interne des tickets (mapping.ts) pour une coexistence transparente."
+            },
+            {
+                "titre": "Tickets - Retail",
+                "contenu": "Hooks useRetailTickets et useRetailTicketChat pour la gestion des tickets et messages Retail."
+            },
+            {
+                "titre": "Tickets - Messagerie",
+                "contenu": "Hook unifié useUnifiedTicketMessage routant les messages entre Supabase et Retail selon le préfixe de l'identifiant de chat."
+            },
+            {
+                "titre": "Sécurité - MFA",
+                "contenu": "Enforcement de l'authentification multi-facteurs (MFA) sur toutes les routes protégées via MfaRequiredGuard."
+            },
+            {
+                "titre": "Sécurité - MFA",
+                "contenu": "Hook useMfaEnrolled vérifiant l'état d'enrôlement MFA de l'utilisateur connecté."
+            },
+            {
+                "titre": "CRM - Clients",
+                "contenu": "Liens mailto sur le champ email personnel dans la fiche client (ClientInfo)."
+            },
+            {
+                "titre": "CRM - Clients",
+                "contenu": "Liens mailto sur le champ email professionnel dans la fiche client (ClientInfo)."
+            },
+            {
+                "titre": "Veille",
+                "contenu": "Hook useVeilleReports enrichi avec gestion des métadonnées des rapports."
+            },
+            {
+                "titre": "Veille",
+                "contenu": "Normalisation des tags dans useVeilleReports pour une cohérence des données de veille."
+            },
+            {
+                "titre": "UI - ErrorConsole",
+                "contenu": "Fonctionnalité de copie du contenu d'erreur dans le presse-papier depuis la console d'erreurs."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Nouvelle feuille de détail des livraisons (deliverySheet.tsx) avec affichage complet des informations."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Pagination des données dans la feuille de détail des livraisons."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Ouverture de la feuille de détail au clic sur une carte livraison dans deliveryBoard."
+            }
+        ],
+        "Modifications": [
+            {
+                "titre": "Stock - Architecture",
+                "contenu": "Refactoring du contexte et provider Stock avec suppression du stockContext déprécié et intégration de la gestion des paramètres."
+            },
+            {
+                "titre": "Stock - Architecture",
+                "contenu": "Renommage du dépôt interne de 'gestion' en 'stock' pour une meilleure cohérence."
+            },
+            {
+                "titre": "Stock - Interfaces",
+                "contenu": "Interfaces ArrivageRow et PackingList mises à jour pour une meilleure structure et clarté."
+            },
+            {
+                "titre": "Stock - Supabase",
+                "contenu": "Régénération des types TypeScript Supabase avec ajout de la fonction set_container_no."
+            },
+            {
+                "titre": "Stock - Supabase",
+                "contenu": "Unification du domaine arrivages avec mise à jour des hooks d'expédition."
+            },
+            {
+                "titre": "Stock - Thème",
+                "contenu": "Composants stock refactorisés pour utiliser les constantes GESTION_THEME au lieu des classes CSS en dur."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Labels du ShipmentBoard adaptés dynamiquement selon l'onglet actif (Arrivages ou Départs)."
+            },
+            {
+                "titre": "CRM - Composants",
+                "contenu": "Composants Select (catégorie, fournisseur) migrés vers PopoverSelect pour une meilleure usabilité et cohérence."
+            },
+            {
+                "titre": "CRM - TaxAndBilling",
+                "contenu": "Refactoring du composant TaxAndBilling pour amélioration des performances avec mémoïsation."
+            },
+            {
+                "titre": "CRM - TaxAndBilling",
+                "contenu": "Amélioration de l'usabilité du composant TaxAndBilling avec mise à jour de l'interface utilisateur."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Suppression de devis avec mise à jour optimiste de l'interface avant confirmation Supabase."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Journalisation détaillée des étapes de suppression de devis pour faciliter le débogage."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Amélioration du layout et du styling de CreateDevis pour une meilleure responsivité."
+            },
+            {
+                "titre": "CRM - Formulaire client",
+                "contenu": "Options produit et style mises à jour dans le formulaire client."
+            },
+            {
+                "titre": "CRM - Formulaire client",
+                "contenu": "Section activité améliorée avec structure de layout révisée."
+            },
+            {
+                "titre": "Calendrier - Composants",
+                "contenu": "Refactoring complet des composants calendrier pour une meilleure structure et performance."
+            },
+            {
+                "titre": "Calendrier - WeekView",
+                "contenu": "Amélioration de la disposition des événements dans WeekView avec gestion optimisée du z-index."
+            },
+            {
+                "titre": "Calendrier - WeekView",
+                "contenu": "Gestion des couleurs par utilisateur intégrée dans WeekView."
+            },
+            {
+                "titre": "Calendrier - Contexte",
+                "contenu": "Mise à jour du contexte calendrier pour une gestion améliorée des événements."
+            },
+            {
+                "titre": "Kanban - Filtrage",
+                "contenu": "Logique de filtrage des tâches mise à jour pour les assignations d'équipes dans les colonnes Kanban."
+            },
+            {
+                "titre": "Stock - Fournisseurs",
+                "contenu": "Composant FournisseurSelect refactorisé avec meilleure gestion des inputs et retour visuel amélioré."
+            },
+            {
+                "titre": "Build",
+                "contenu": "Plugin Rsdoctor chargé lazily dans la configuration rsbuild pour réduire l'impact sur le build de développement."
+            },
+            {
+                "titre": "UI - Responsivité",
+                "contenu": "Amélioration de la responsivité et des ajustements de layout sur divers composants."
+            },
+            {
+                "titre": "Stock - ArrivageCreationSheet",
+                "contenu": "Mise à jour de la détermination initiale du kind et ajustement du padding dans ArrivageCreationSheet."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Vue tableau des expéditions (shipmentTableView) migrée vers les composants Table partagés pour une meilleure structure et cohérence de style."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Contexte livraison mis à jour pour gérer la livraison sélectionnée et l'état d'ouverture de la feuille de détail."
+            },
+            {
+                "titre": "Tests",
+                "contenu": "Remplacement de Gestion.test.tsx par Stock.test.tsx aligné sur le nouveau nommage du module."
+            }
+        ],
+        "Corrections": [
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Déduplication des arrivages par numéro de container pour éviter les collisions de clés React dans les listes."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Correction de la pagination du tableau arrivages bloquée sur la première page."
+            },
+            {
+                "titre": "Stock - Arrivages",
+                "contenu": "Filtrage des lignes sans numéro de container pour éviter les entrées invalides dans le tableau."
+            },
+            {
+                "titre": "Stock - Données",
+                "contenu": "Repli sur invoice_total_qty comme valeur de la colonne Quantité à la place du comptage d'items."
+            },
+            {
+                "titre": "Stock - Données",
+                "contenu": "Valeurs de repli pour les colonnes Arrivée port et Quantité sur les lignes facture uniquement."
+            },
+            {
+                "titre": "Stock - Données",
+                "contenu": "Repli sur les données fournisseur/facture quand le champ Origine est vide."
+            },
+            {
+                "titre": "Stock - API",
+                "contenu": "Correction de l'URL de l'API Distancer vers l'endpoint externe correct (DISTANCER_API_URL)."
+            },
+            {
+                "titre": "Stock - Incohérences",
+                "contenu": "Remplacement de la détection pending_mode par missing_container_no dans le KPI Incohérences."
+            },
+            {
+                "titre": "Stock - Incohérences",
+                "contenu": "Exclusion du cas missing_fournisseur du compteur principal Incohérences (traité séparément)."
+            },
+            {
+                "titre": "Stock - Identifiants",
+                "contenu": "Longueur maximale des identifiants catégorie et fournisseur limitée à 3 caractères."
+            },
+            {
+                "titre": "CRM - Soumissions",
+                "contenu": "Prévention des soumissions doubles dans AddEventModal via un verrou isSubmitting."
+            },
+            {
+                "titre": "CRM - Soumissions",
+                "contenu": "Suivi des identifiants récemment insérés (recentlyInsertedIds) dans useActivites pour ignorer les doublons temps réel."
+            },
+            {
+                "titre": "CRM - Devis",
+                "contenu": "Capture des snapshots de rollback via des setters fonctionnels dans useDevis pour éviter les dépendances obsolètes."
+            },
+            {
+                "titre": "Calendrier - Dates",
+                "contenu": "Correction du décalage UTC en utilisant des chaînes de date/heure locales lors de la création et modification d'événements."
+            },
+            {
+                "titre": "Calendrier - Imports",
+                "contenu": "Correction du casing des imports de composants calendrier pour compatibilité avec les systèmes de fichiers sensibles à la casse."
+            },
+            {
+                "titre": "Calendrier - Formulaire",
+                "contenu": "Suppression du propriétaire d'événement par défaut pré-rempli et mise à jour du placeholder dans create_event."
+            },
+            {
+                "titre": "Messagerie - Erreurs",
+                "contenu": "Messages d'erreur sous-jacents inclus dans les hooks manager via (err as any)?.message comme fallback."
+            },
+            {
+                "titre": "UI - Badges",
+                "contenu": "Badges d'incohérence rendus actionnables avec lien vers l'onglet Arrivages pré-filtré sur le container concerné."
+            }
+        ],
+        "Suppressions": [
+            {
+                "titre": "Stock - Architecture",
+                "contenu": "Suppression du stockContext déprécié remplacé par le nouveau provider unifié."
+            },
+            {
+                "titre": "Code - Imports",
+                "contenu": "Suppression de l'import non utilisé dans use_fournisseur.tsx."
+            },
+            {
+                "titre": "Stock - Debug",
+                "contenu": "Suppression du log de debug présent dans les types Supabase mis à jour."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Suppression du type ArrivageStatus et des constantes associées dans shipmentFilters.tsx devenus inutilisés."
+            },
+            {
+                "titre": "Stock - Livraisons",
+                "contenu": "Suppression de la fonction updateStatusColor inutilisée dans generalMenu.tsx."
+            },
+            {
+                "titre": "Code - Imports",
+                "contenu": "Nettoyage des imports inutilisés dans balleCard.tsx et deliveryCard.tsx."
+            },
+            {
+                "titre": "Tests",
+                "contenu": "Suppression de Gestion.test.tsx obsolète remplacé par Stock.test.tsx."
+            }
+        ]
+    }
+}

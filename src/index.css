@@ -1,0 +1,882 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Hauteur d'écran faible : téléphone en paysage, fenêtre écrasée, clavier
+   virtuel ouvert. Les breakpoints Tailwind ne regardent que la largeur ; un
+   844×390 tombe en `lg` alors qu'il n'a pas la place d'empiler logo, titre et
+   formulaire. Utilisé par l'AuthShell (features/auth) pour compacter le
+   bandeau de marque. */
+@custom-variant short (@media (max-height: 500px));
+
+/* Téléphone portrait peu haut (iPhone SE, Android 16:9, clavier ouvert sur un
+   grand écran) : assez de place pour empiler logo et formulaire, pas pour
+   leur laisser leurs marges confortables. L'AuthShell y réduit le logo d'un
+   cran. Exclut `short`, qui a sa propre mise en page côte à côte. */
+@custom-variant compact (@media (min-height: 501px) and (max-height: 700px));
+
+/* Restore TW3 cursor:pointer behavior on interactive elements */
+@layer base {
+    button,
+    [role="button"],
+    [type="button"],
+    [type="reset"],
+    [type="submit"],
+    select,
+    summary,
+    [role="tab"],
+    [role="checkbox"],
+    [role="radio"],
+    [role="switch"],
+    [role="option"],
+    [role="menuitem"],
+    label:has(input, select, textarea) {
+        cursor: pointer;
+    }
+}
+
+/* =====================================================
+   THEME — Tailwind 4 CSS-first config
+===================================================== */
+@theme {
+    --color-border: hsl(var(--border));
+    --color-input: hsl(var(--input));
+    --color-ring: hsl(var(--ring));
+    --color-background: hsl(var(--background));
+    --color-foreground: hsl(var(--foreground));
+
+    --color-primary: hsl(var(--primary));
+    --color-primary-foreground: hsl(var(--primary-foreground));
+    --color-primary-hover: hsl(var(--primary-hover));
+    --color-primary-light: hsl(var(--primary-light));
+
+    --color-secondary: hsl(var(--secondary));
+    --color-secondary-foreground: hsl(var(--secondary-foreground));
+    --color-secondary-hover: hsl(var(--secondary-hover));
+
+    --color-destructive: hsl(var(--destructive));
+    --color-destructive-foreground: hsl(var(--destructive-foreground));
+    --color-destructive-light: hsl(var(--destructive-light));
+
+    --color-success: hsl(var(--success));
+    --color-success-foreground: hsl(var(--success-foreground));
+    --color-success-light: hsl(var(--success-light));
+
+    --color-warning: hsl(var(--warning));
+    --color-warning-foreground: hsl(var(--warning-foreground));
+    --color-warning-light: hsl(var(--warning-light));
+
+    --color-muted: hsl(var(--muted));
+    --color-muted-foreground: hsl(var(--muted-foreground));
+
+    /* accent = surface de survol/sélection neutre (contrat des primitives
+       shadcn) ; brand = vert d'identité visuelle. Voir DESIGN_SYSTEM.md §12.1 */
+    --color-accent: hsl(var(--accent));
+    --color-accent-foreground: hsl(var(--accent-foreground));
+
+    --color-brand: hsl(var(--brand));
+    --color-brand-foreground: hsl(var(--brand-foreground));
+    --color-brand-light: hsl(var(--brand-light));
+
+    --color-popover: hsl(var(--popover));
+    --color-popover-foreground: hsl(var(--popover-foreground));
+
+    --color-card: hsl(var(--card));
+    --color-card-foreground: hsl(var(--card-foreground));
+
+    --color-sidebar: hsl(var(--sidebar));
+    --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+    --color-sidebar-accent: hsl(var(--sidebar-accent));
+    --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+    --color-sidebar-muted: hsl(var(--sidebar-muted));
+    --color-sidebar-border: hsl(var(--sidebar-border));
+    --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+    --color-chart-1: hsl(var(--chart-1));
+    --color-chart-2: hsl(var(--chart-2));
+    --color-chart-3: hsl(var(--chart-3));
+    --color-chart-4: hsl(var(--chart-4));
+    --color-chart-5: hsl(var(--chart-5));
+    --color-chart-6: hsl(var(--chart-6));
+    --color-chart-7: hsl(var(--chart-7));
+    --color-chart-8: hsl(var(--chart-8));
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    /* Tailles de texte compactes (tableaux/badges denses) — remplacent les valeurs
+       arbitraires text-[9px]/[10px]/[11px], le pire foyer de dérive identifié dans
+       docs/PLAN_ASSAINISSEMENT.md §7.5 (module stock). Tailwind fournit déjà
+       text-xs (12px) et text-sm (14px) — ces 3 tokens comblent l'écart en dessous. */
+    --text-2xs: 11px;
+    --text-3xs: 10px;
+    --text-4xs: 9px;
+
+    /* Dimensions propres à la feature Bibliothèque */
+    --width-biblio-dialog:     70vw;
+    --width-biblio-sidebar:    280px;
+    --width-biblio-search:     300px;
+    --width-biblio-topic-img:  100px;
+    --height-biblio-topic-img: 100px;
+
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+    /* Valeur reprise de l'ancien `@utility animate-slide-in-top` (0.35s
+       cubic-bezier), qui définissait le MÊME utilitaire que ce token avec une
+       valeur divergente. Le @utility a été supprimé — voir DESIGN_SYSTEM.md §13.2. */
+    --animate-slide-in-top: slide-in-top 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+
+    /* Frise d'acheminement (`shared/ui/organisms/shipment-timeline`). Le
+       véhicule est POSITIONNÉ par la donnée ; ces deux animations ne font que
+       l'animer sur place, et uniquement sur le segment en cours — un trajet
+       fini ou pas commencé reste immobile, sans quoi le mouvement ne dirait
+       plus rien. La règle globale prefers-reduced-motion les neutralise. */
+    --animate-ship-bob: ship-bob 3.2s ease-in-out infinite;
+    --animate-truck-rumble: truck-rumble 1.1s ease-in-out infinite;
+
+    /* =================================================================
+       MOTION — durées, easings et élévations. Voir DESIGN_SYSTEM.md §13.
+       ================================================================= */
+
+    /* Easings. `--ease-*` EST un namespace Tailwind v4 : chaque entrée
+       génère un utilitaire `ease-<nom>`. On ÉTEND uniquement — redéfinir
+       --ease-in/--ease-out/--ease-in-out (defaults de
+       tailwindcss/theme.css) changerait le comportement de tw-animate-css
+       et de tous les usages existants d'un seul coup. */
+    --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-decel: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Durées. ATTENTION : le namespace est `--transition-duration-*`, PAS
+       `--duration-*` (l'utilitaire `duration-*` lit `--transition-duration`
+       — voir DESIGN_SYSTEM.md §13.2). Les valeurs nues `duration-300`
+       restent valides : ces tokens s'ajoutent, ils n'écrasent rien. */
+    --transition-duration-instant: 100ms;
+    --transition-duration-fast: 150ms;
+    --transition-duration-base: 200ms;
+    --transition-duration-slow: 300ms;
+    --transition-duration-slower: 500ms;
+    --transition-duration-glacial: 700ms;
+
+    /* Élévations. Les valeurs vivent dans :root et .dark (hors @theme),
+       donc aucun utilitaire n'était généré — `shadow-elevated` était une
+       classe morte. Noms DISTINCTS ici pour éviter la référence
+       circulaire, en s'appuyant sur la cascade automatique du §12.1 : le
+       var() est résolu au site d'usage, donc hérite de .dark sans
+       redéfinition. */
+    --shadow-surface: var(--shadow-card);
+    --shadow-raised: var(--shadow-elevated);
+    --shadow-glow: var(--shadow-primary);
+}
+
+@keyframes accordion-down {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--radix-accordion-content-height);
+    }
+}
+
+@keyframes accordion-up {
+    from {
+        height: var(--radix-accordion-content-height);
+    }
+    to {
+        height: 0;
+    }
+}
+
+@keyframes collapsible-down {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--radix-collapsible-content-height);
+    }
+}
+
+@keyframes collapsible-up {
+    from {
+        height: var(--radix-collapsible-content-height);
+    }
+    to {
+        height: 0;
+    }
+}
+
+/* =====================================================
+   DESIGN SYSTEM — LIGHT THEME
+===================================================== */
+:root {
+    --background: 40 20% 98%;
+    --foreground: 220 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 15%;
+
+    /* Primary */
+    --primary: 131 65% 28%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 131 65% 24%;
+    --primary-light: 131 65% 32%;
+
+    /* Secondary */
+    --secondary: 40 10% 95%;
+    --secondary-foreground: 220 25% 25%;
+    --secondary-hover: 40 10% 90%;
+
+    --muted: 40 10% 95%;
+    --muted-foreground: 220 10% 50%;
+
+    /* Accent */
+    --accent: 40 10% 92%;
+    --accent-foreground: 220 25% 25%;
+
+    /* Brand */
+    --brand: 131 65% 32%;
+    --brand-foreground: 0 0% 100%;
+    --brand-light: 131 65% 95%;
+
+    /* Status */
+    --success: 131 65% 32%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 131 65% 95%;
+    /* Ambre, et non bleu. La valeur historique était `210 90% 60%` — une teinte
+       bleue identique à --chart-2 : `bg-warning` rendait un avertissement BLEU.
+       Conséquence mesurée : le token n'était utilisé que 10 fois dans l'app,
+       contre 260 classes amber/orange/yellow écrites en dur, faute de cible
+       sémantique valide.
+
+       Luminosité 38 % et non 50 % : comme --success (32 %) et --destructive
+       (45 %), ce token doit servir AUX DEUX usages — aplat (`bg-warning` +
+       `text-warning-foreground` blanc) et texte (`text-warning` sur
+       `bg-warning-light`). Un ambre à 50 % passe en aplat mais devient
+       illisible en texte sur fond clair. */
+    --warning: 38 92% 38%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 38 92% 94%;
+    --destructive: 15 100% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-light: 15 100% 95%;
+    --viso: 270 70% 55%;
+
+    /* Palette catégorielle pour charts (non-sémantique — différenciation de séries/catégories) */
+    --chart-1: 131 65% 32%;
+    --chart-2: 210 90% 60%;
+    --chart-3: 15 100% 55%;
+    --chart-4: 270 70% 55%;
+    --chart-5: 45 90% 55%;
+    --chart-6: 340 75% 55%;
+    --chart-7: 190 70% 45%;
+    --chart-8: 220 15% 55%;
+
+    /* Borders & Ring */
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 210 100% 40%;
+
+    /* Sidebar */
+    --sidebar: 131 65% 28%;
+    --sidebar-foreground: 225 40% 96%;
+    --sidebar-muted: 131 66% 24%;
+    --sidebar-accent: 131 65% 32%;
+    --sidebar-accent-foreground: 225 40% 96%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 131 65% 45%;
+
+    /* Shadows */
+    --shadow-card: 0 2px 8px hsl(220 25% 15% / 0.08);
+    --shadow-elevated: 0 8px 30px hsl(220 25% 15% / 0.12);
+    --shadow-primary: 0 4px 20px hsl(131 65% 28% / 0.25);
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    /* Events */
+    --event-rdv-bg: hsl(var(--success) / 0.1);
+    --event-rdv-text: hsl(var(--success));
+    --event-rdv-border: hsl(var(--success) / 0.2);
+
+    --event-reu-bg: hsl(var(--primary) / 0.1);
+    --event-reu-text: hsl(var(--primary));
+    --event-reu-border: hsl(var(--primary) / 0.2);
+
+    --event-appel-bg: hsl(var(--warning) / 0.1);
+    --event-appel-text: hsl(var(--warning));
+    --event-appel-border: hsl(var(--warning) / 0.2);
+
+    --event-visio-bg: hsl(var(--viso) / 0.1);
+    --event-visio-text: hsl(var(--viso));
+    --event-visio-border: hsl(var(--viso) / 0.2);
+
+    --event-rappel-bg: hsl(var(--destructive) / 0.1);
+    --event-rappel-text: hsl(var(--destructive));
+    --event-rappel-border: hsl(var(--destructive) / 0.2);
+
+    --event-other-bg: hsl(var(--muted) / 0.1);
+    --event-other-text: hsl(var(--muted-foreground));
+    --event-other-border: hsl(var(--muted) / 0.2);
+}
+
+/* =====================================================
+   DARK THEME
+===================================================== */
+.dark {
+    --background: 220 25% 8%;
+    --foreground: 220 13% 90%;
+
+    --card: 220 25% 10%;
+    --card-foreground: 220 13% 90%;
+
+    --popover: 220 25% 10%;
+    --popover-foreground: 220 13% 90%;
+
+    --secondary: 220 25% 15%;
+    --secondary-foreground: 220 13% 80%;
+    /* Était absent de .dark : le survol sautait au beige clair (40 10% 90%)
+       sur une surface quasi noire. */
+    --secondary-hover: 220 25% 20%;
+
+    --muted: 220 25% 15%;
+    --muted-foreground: 220 10% 60%;
+
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 210 100% 50%;
+
+    /* Primary */
+    --primary: 131 50% 38%;
+    /* Était absent de .dark : la valeur claire (blanc pur) fuyait ici, à 3,9:1
+       sur --primary sombre. Léger blanc cassé, contraste rétabli. */
+    --primary-foreground: 131 15% 97%;
+    --primary-hover: 131 50% 33%;
+    --primary-light: 131 50% 43%;
+
+    /* Accent */
+    --accent: 220 25% 18%;
+    --accent-foreground: 220 13% 90%;
+
+    /* Brand */
+    --brand: 131 50% 43%;
+    --brand-foreground: 0 0% 100%;
+    --brand-light: 131 40% 18%;
+
+    /* Status */
+    --success: 131 50% 43%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 131 40% 18%;
+    /* Ambre (voir :root) — la teinte est éclaircie et désaturée pour rester
+       lisible sur fond sombre, comme les tokens --chart-* le font déjà. */
+    --warning: 38 85% 55%;
+    --warning-foreground: 30 60% 10%;
+    --warning-light: 38 40% 18%;
+    --destructive: 15 85% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-light: 15 60% 20%;
+    --viso: 270 65% 62%;
+
+    --shadow-primary: 0 4px 20px hsl(131 50% 38% / 0.3);
+
+    /* Palette catégorielle chart — plus claire/moins saturée pour la lisibilité sur fond sombre */
+    --chart-1: 131 50% 43%;
+    --chart-2: 210 85% 62%;
+    --chart-3: 15 85% 60%;
+    --chart-4: 270 65% 65%;
+    --chart-5: 45 85% 60%;
+    --chart-6: 340 70% 62%;
+    --chart-7: 190 60% 52%;
+    --chart-8: 220 12% 68%;
+
+    /* --event-* (définis dans :root) référencent var(--success)/var(--primary)/etc. via
+       des hsl(var(--x) / alpha) non résolues — elles héritent donc automatiquement de
+       ces overrides dark, sans avoir besoin d'être redéfinies ici. */
+
+    --sidebar: 220 25% 5%;
+    --sidebar-foreground: 220 13% 80%;
+    --sidebar-muted: 220 25% 25%;
+    --sidebar-accent: 131 65% 28%;
+    --sidebar-accent-foreground: 220 13% 90%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 131 65% 45%;
+
+    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.2);
+    --shadow-elevated: 0 8px 30px hsl(0 0% 0% / 0.3);
+}
+
+/* =====================================================
+   BASE STYLES
+===================================================== */
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* =====================================================
+   ACCESSIBILITÉ — prefers-reduced-motion
+   Neutralise par construction toute animation/transition CSS de l'app
+   (tw-animate-css, keyframes maison, transitions des primitives), sans
+   qu'aucune feature ait à y penser. Voir DESIGN_SYSTEM.md §13.4.
+
+   Trois détails non négociables, chacun corrige un piège réel :
+   - `animation-delay: 0ms` : les staggers utilisent `fill-mode-backwards`
+     + un `animationDelay` inline. Neutraliser la durée sans le délai
+     laisserait les éléments INVISIBLES pendant N ms. Réduire le
+     mouvement ne doit jamais masquer du contenu.
+   - `:not(.animate-spin)` : sans cette exclusion,
+     `animation-iteration-count: 1` fige tous les spinners de chargement
+     de l'app. Un spinner porte de l'information d'état, pas de la
+     décoration.
+   - Cette règle rend les transitions instantanées mais n'annule PAS
+     l'état final d'une transformation. Tout `hover:` qui déplace ou
+     scale doit donc porter son propre `motion-reduce:` — c'est la seule
+     chose que cette règle ne peut pas faire à notre place.
+===================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *:not(.animate-spin):not(.motion-essential),
+    *:not(.animate-spin):not(.motion-essential)::before,
+    *:not(.animate-spin):not(.motion-essential)::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    html {
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+/* Gouttière qui respecte l'encoche et la barre d'accueil en PWA installée
+   (display: standalone + viewport-fit=cover) : jamais moins de 1rem, plus si
+   l'appareil réserve une zone. env() n'a pas d'équivalent dans l'échelle
+   Tailwind, d'où l'utilitaire. */
+@utility safe-gutter {
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+}
+
+/* Variantes partielles pour un bloc pleine largeur collé au bord (bandeau
+   de marque mobile des écrans d'auth) : le haut suit l'encoche seule, les
+   côtés gardent la gouttière de 1rem. Séparées de `safe-gutter` pour ne
+   jamais combiner deux utilitaires qui écrivent le même padding. */
+@utility safe-area-top {
+    padding-top: env(safe-area-inset-top);
+}
+
+@utility safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@utility safe-area-x {
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-left: max(1rem, env(safe-area-inset-left));
+}
+
+@utility hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@utility clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@utility clamp-2 {
+    -webkit-line-clamp: 2;
+}
+
+@utility clamp-3 {
+    -webkit-line-clamp: 3;
+}
+
+@utility clamp-5 {
+    -webkit-line-clamp: 5;
+}
+
+@utility highlight-change {
+    animation: highlightChange 0.8s ease-out;
+}
+
+@utility animate-shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--sidebar-muted)) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--sidebar-muted));
+    border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--sidebar-accent));
+}
+
+/* =====================================================
+   BIO MODE (Easter Egg) — Vintage Friperie / Grossiste
+===================================================== */
+.bio-mode {
+    --background: 35 30% 95%;
+    --foreground: 30 20% 18%;
+    --card: 35 25% 97%;
+    --card-foreground: 30 20% 18%;
+    --popover: 35 25% 97%;
+    --popover-foreground: 30 20% 18%;
+    --primary: 30 55% 28%;
+    --primary-foreground: 40 30% 95%;
+    --primary-hover: 30 55% 24%;
+    --primary-light: 30 55% 34%;
+    --secondary: 35 18% 90%;
+    --secondary-foreground: 30 15% 25%;
+    --muted: 35 14% 90%;
+    --muted-foreground: 30 12% 40%;
+    --accent: 35 20% 88%;
+    --accent-foreground: 30 18% 22%;
+    /* Le mode vintage neutralise aussi le vert de marque (bibliotheque) :
+       reprend les valeurs que --accent portait ici avant la séparation
+       accent/brand, pour ne pas y réintroduire de vert. */
+    --brand: 30 18% 22%;
+    --brand-foreground: 35 20% 96%;
+    --brand-light: 35 20% 92%;
+    --border: 30 16% 76%;
+    --input: 30 16% 86%;
+    --ring: 30 40% 35%;
+}
+
+/* Kraft paper background */
+.bio-mode body {
+    background:
+        radial-gradient(
+            1200px 800px at 15% 10%,
+            rgba(210, 180, 140, 0.3),
+            transparent 60%
+        ),
+        radial-gradient(
+            1000px 700px at 85% 20%,
+            rgba(188, 158, 120, 0.2),
+            transparent 60%
+        ),
+        radial-gradient(
+            800px 600px at 25% 85%,
+            rgba(210, 180, 140, 0.2),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            hsl(35, 25%, 94%) 0%,
+            hsl(38, 22%, 92%) 50%,
+            hsl(33, 20%, 93%) 100%
+        );
+    background-attachment: fixed;
+}
+
+/* Kraft paper texture */
+.bio-mode body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.12'/></svg>");
+    background-size: 200px 200px;
+    z-index: 0;
+}
+
+/* Faint ruled lines like old paper */
+.bio-mode body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(139, 69, 19, 0.3) 39px,
+        rgba(139, 69, 19, 0.3) 40px
+    );
+    z-index: 0;
+}
+
+.bio-mode #root {
+    position: relative;
+    z-index: 1;
+}
+
+.bio-mode #root::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: radial-gradient(
+        circle at 1px 1px,
+        rgba(139, 69, 19, 0.4) 1px,
+        transparent 0
+    );
+    background-size: 24px 24px;
+    z-index: 0;
+}
+
+.bio-mode #root::after {
+    content: none;
+}
+
+/* ── Stamps ── */
+.bio-mode .bio-stamp {
+    animation: stamp-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Scotch tape strips ── */
+.bio-mode .bio-tape {
+    position: absolute;
+    width: 120px;
+    height: 28px;
+    background: linear-gradient(
+        180deg,
+        rgba(210, 195, 160, 0.45) 0%,
+        rgba(195, 178, 140, 0.35) 100%
+    );
+    border: 1px solid rgba(180, 160, 120, 0.2);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.bio-mode .bio-tape-sm {
+    width: 80px;
+    height: 22px;
+}
+
+/* ── Coffee ring stains ── */
+.bio-mode .bio-coffee-ring {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(139, 90, 43, 0.08);
+    box-shadow:
+        inset 0 0 12px rgba(139, 90, 43, 0.04),
+        0 0 8px rgba(139, 90, 43, 0.03);
+}
+
+.bio-mode .bio-coffee-ring-sm {
+    width: 55px;
+    height: 55px;
+    border-width: 2px;
+}
+
+/* ── Cards get a kraft feel ── */
+.bio-mode .bg-card {
+    position: relative;
+    box-shadow:
+        0 2px 8px rgba(139, 69, 19, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* =====================================================
+   BIO MODE × DARK MODE
+===================================================== */
+.dark.bio-mode {
+    --background: 30 20% 10%;
+    --foreground: 35 18% 85%;
+    --card: 30 18% 13%;
+    --card-foreground: 35 18% 85%;
+    --popover: 30 18% 13%;
+    --popover-foreground: 35 18% 85%;
+    --primary: 35 50% 45%;
+    --primary-foreground: 30 15% 10%;
+    --primary-hover: 35 50% 40%;
+    --primary-light: 35 50% 50%;
+    --secondary: 30 16% 18%;
+    --secondary-foreground: 35 14% 72%;
+    --muted: 30 14% 18%;
+    --muted-foreground: 35 10% 55%;
+    --accent: 30 18% 20%;
+    --accent-foreground: 35 16% 78%;
+    --brand: 35 16% 78%;
+    --brand-foreground: 30 18% 14%;
+    --brand-light: 30 18% 24%;
+    --border: 30 14% 24%;
+    --input: 30 14% 22%;
+    --ring: 35 35% 42%;
+}
+
+/* Dark kraft background */
+.dark.bio-mode body {
+    background:
+        radial-gradient(
+            1200px 800px at 15% 10%,
+            rgba(100, 75, 45, 0.25),
+            transparent 60%
+        ),
+        radial-gradient(
+            1000px 700px at 85% 20%,
+            rgba(80, 60, 35, 0.2),
+            transparent 60%
+        ),
+        radial-gradient(
+            800px 600px at 25% 85%,
+            rgba(100, 75, 45, 0.15),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            hsl(30, 18%, 11%) 0%,
+            hsl(33, 15%, 10%) 50%,
+            hsl(28, 18%, 11%) 100%
+        );
+    background-attachment: fixed;
+}
+
+/* Dark kraft texture */
+.dark.bio-mode body::before {
+    opacity: 0.25;
+}
+
+/* Dark ruled lines */
+.dark.bio-mode body::after {
+    opacity: 0.05;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(210, 170, 110, 0.15) 39px,
+        rgba(210, 170, 110, 0.15) 40px
+    );
+}
+
+/* Dark dots */
+.dark.bio-mode #root::before {
+    opacity: 0.04;
+    background-image: radial-gradient(
+        circle at 1px 1px,
+        rgba(210, 170, 110, 0.3) 1px,
+        transparent 0
+    );
+}
+
+/* Dark tape */
+.dark.bio-mode .bio-tape {
+    background: linear-gradient(
+        180deg,
+        rgba(80, 65, 40, 0.4) 0%,
+        rgba(65, 52, 32, 0.3) 100%
+    );
+    border-color: rgba(100, 80, 50, 0.2);
+}
+
+/* Dark coffee rings */
+.dark.bio-mode .bio-coffee-ring {
+    border-color: rgba(160, 120, 70, 0.1);
+    box-shadow:
+        inset 0 0 12px rgba(160, 120, 70, 0.05),
+        0 0 8px rgba(160, 120, 70, 0.04);
+}
+
+/* Dark cards */
+.dark.bio-mode .bg-card {
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   KEYFRAMES
+===================================================== */
+@keyframes ship-bob {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50%      { transform: translateY(-2px) rotate(4deg); }
+}
+
+@keyframes truck-rumble {
+    0%, 100% { transform: translateY(0); }
+    45%      { transform: translateY(-1px); }
+    70%      { transform: translateY(0.5px); }
+}
+
+@keyframes slide-in-top {
+    from {
+        transform: translateY(-6px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    20%,
+    60% {
+        transform: translateX(-6px);
+    }
+    40%,
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+@keyframes stamp-appear {
+    0% {
+        opacity: 0;
+        transform: scale(1.8) rotate(var(--tw-rotate, 0deg));
+    }
+    60% {
+        opacity: 1;
+        transform: scale(0.95) rotate(var(--tw-rotate, 0deg));
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(var(--tw-rotate, 0deg));
+    }
+}
+
+@keyframes highlightChange {
+    0% {
+        background-color: transparent;
+    }
+    25% {
+        background-color: rgba(0, 255, 34, 0.56);
+        color: #166534;
+    }
+    100% {
+        background-color: transparent;
+    }
+}

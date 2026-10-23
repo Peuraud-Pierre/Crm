@@ -1,0 +1,16 @@
+# Configuration des hooks Git
+
+# Activer/désactiver la synchronisation automatique du cache de tests vers le VPS
+# Nécessite une connexion SSH configurée vers le VPS
+ENABLE_TEST_SYNC=false
+
+# Activer/désactiver l'exécution des tests avant le push
+# Si false, le hook créera juste un marker de cache sans exécuter les tests
+ENABLE_PRE_PUSH_TESTS=true
+
+# Timeout pour la synchronisation SSH (en secondes)
+SYNC_TIMEOUT=5
+
+# Configuration SSH du VPS (si synchronisation activée)
+REMOTE_HOST=root@nokk-project.example
+REMOTE_PATH=/root/github_webhook/cache/test-cache

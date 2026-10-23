@@ -1,0 +1,44 @@
+{
+  "version": "2.6.4",
+  "summary": "Patch couvrant le 29/06/2026 : optimisation des performances du CRM par forte réduction des appels Supabase superflus — suppression des rechargements complets redondants (calendrier, modale d'événement, comptage clients), réduction de l'amplification temps réel (N+1) sur les tables client_crm et Event_calendar, passage aux mises à jour optimistes du calendrier et stabilisation des dépendances d'effets.",
+  "categories": {
+    "Ajouts": [],
+    "Corrections": [
+      {
+        "titre": "CRM / Analytics & Calendrier",
+        "contenu": "Dépendances d'effets basées sur l'identifiant utilisateur (user?.user_id) plutôt que sur l'objet « user » : la recherche des collaborateurs (fetch_research, scan de client_crm) n'est plus relancée inutilement à chaque rafraîchissement de jeton d'authentification."
+      },
+      {
+        "titre": "CRM / Temps réel",
+        "contenu": "Nom du canal Realtime des tâches rendu unique par utilisateur (realtime-taches-<user_id>) afin d'éviter toute collision de topic en cas de montage multiple."
+      },
+      {
+        "titre": "Analytics",
+        "contenu": "Retrait des journaux console émis par événement dans le calcul des statistiques de RDV (use_stats), réduisant le bruit console et la charge sur les gros volumes de données."
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "CRM / Temps réel",
+        "contenu": "Réduction de l'amplification N+1 des abonnements Realtime : sur client_crm, l'appartenance d'un client à la vue est désormais calculée depuis la charge utile brute (customer/closers/collum) avant tout fetch, évitant un SELECT joint pour chaque ligne modifiée qui n'est pas affichée ; sur Event_calendar, les événements sortis du filtre courant sont retirés de l'état local au lieu de déclencher une nouvelle requête."
+      },
+      {
+        "titre": "CRM / Calendrier",
+        "contenu": "Passage aux mises à jour optimistes lors de l'édition, du déplacement et du redimensionnement d'un événement : suppression du re-scan complet de la table Event_calendar (avec ses deux jointures) à chaque modification, tout en préservant la cohérence des vues filtrées (un RDV réassigné à un autre commercial quitte immédiatement la vue)."
+      },
+      {
+        "titre": "CRM / Calendrier",
+        "contenu": "Dérivation d'une clé de chargement stable (eventOwnerScope) : le basculement entre les vues Mois et Semaine ne recharge plus l'agenda (données identiques), et l'ouverture/fermeture de la modale de création ne déclenche plus de rechargement complet."
+      },
+      {
+        "titre": "CRM / Clients",
+        "contenu": "Comptage exact (count) limité à la première page de pagination : les pages suivantes (scroll infini de la liste, agrégation Analytics via fetchAllClients) n'effectuent plus de scan COUNT complet à chaque requête, l'estimation par taille de page prenant le relais."
+      },
+      {
+        "titre": "CRM / Modale d'événement",
+        "contenu": "L'agenda n'est rechargé à l'ouverture de la modale que s'il n'est pas déjà en mémoire (cas de la modale « RDV Rapide » lancée depuis la fiche client, montée hors CalendarProvider), et le rechargement complet après création/édition est supprimé (couvert par la mise à jour optimiste et la synchronisation temps réel)."
+      }
+    ],
+    "Suppressions": []
+  }
+}

@@ -1,0 +1,4 @@
+project_id = "nokk_project"
+# Appelée par pg_cron (en-tête x-cron-secret), pas par un utilisateur.
+[functions.crm-stats-newsletter]
+verify_jwt = false

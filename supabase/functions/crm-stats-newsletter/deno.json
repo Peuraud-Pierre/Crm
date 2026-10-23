@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "xlsx-js-style": "npm:xlsx-js-style@1.2.0",
+        "@supabase/supabase-js": "npm:@supabase/supabase-js@2"
+    }
+}

@@ -1,0 +1,65 @@
+{
+  "version": "2.13.0",
+  "summary": "Version du 12/08/2026 : les projets et les statistiques sont désormais adressables par lien direct (un projet, une vue, une tâche ou un onglet précis s'ouvrent d'un simple lien, et le bouton retour du navigateur fonctionne), archivage réversible des annonces, refonte de la page Profil & Préférences avec gestion des notifications push et de l'abonnement newsletter. Harmonisation complète des couleurs de l'application pour un mode sombre cohérent sur tous les écrans.",
+  "categories": {
+    "Ajouts": [
+      {
+        "titre": "Projets / Navigation",
+        "contenu": "L'adresse de la page reflète maintenant ce qui est affiché : un projet, sa vue (Kanban, Liste ou Calendrier), le sprint sélectionné et la tâche ouverte. Un lien peut donc être partagé ou mis en favori pour rouvrir exactement le même écran, le rechargement de la page ne perd plus le contexte, et le bouton retour du navigateur referme la fiche de tâche ou revient à la vue précédente"
+      },
+      {
+        "titre": "Projets / Notifications",
+        "contenu": "Les notifications liées aux projets (création de projet, ajout à une équipe, sprint créé ou modifié, tâche supprimée) ouvrent directement le projet concerné, et le sprint correspondant lorsqu'il est connu, au lieu de la liste générale"
+      },
+      {
+        "titre": "Statistiques / Navigation",
+        "contenu": "Les onglets Matomo, Statistiques Leads et Activité commerciale s'ouvrent par lien direct et sont conservés au rechargement de la page. Un onglet auquel l'utilisateur n'a pas accès ne peut plus être atteint par l'adresse : il est automatiquement ramené vers le premier onglet autorisé"
+      },
+      {
+        "titre": "Manager / Annonces",
+        "contenu": "Nouvelle action « Archiver » sur les annonces : l'annonce est retirée du carrousel et de la liste courante sans être supprimée, elle reste consultable via le filtre « Archivées » et peut être réactivée à tout moment"
+      },
+      {
+        "titre": "Profil / Préférences",
+        "contenu": "Page Profil réorganisée : identité et photo de profil, changement de mot de passe, activation des notifications push et gestion de l'abonnement à la newsletter sont désormais regroupés dans des sections dédiées"
+      },
+      {
+        "titre": "CRM / Agenda",
+        "contenu": "Certains collaborateurs peuvent être épinglés en fin de liste dans la vue Jour, pour garder un ordre d'affichage stable d'un jour à l'autre"
+      }
+    ],
+    "Corrections": [
+      {
+        "titre": "CRM / Tâches",
+        "contenu": "Un clic sur le client d'une tâche ouvre désormais sa fiche même lorsque ce client n'était pas encore chargé dans la liste : il est récupéré à la volée au lieu de ne rien afficher"
+      },
+      {
+        "titre": "Catalogue",
+        "contenu": "Le titre de la page Catalogue s'affichait sans couleur en raison d'un style invalide : il utilise à nouveau la couleur de texte standard"
+      },
+      {
+        "titre": "Navigation / Menu",
+        "contenu": "L'entrée de menu correspondant à la page consultée reste maintenant surlignée lorsqu'on navigue dans une sous-page (projet ouvert, onglet de stock ou d'administration)"
+      }
+    ],
+    "Modifications": [
+      {
+        "titre": "Interface / Thème",
+        "contenu": "Toutes les couleurs qui étaient encore fixées en dur ont été remplacées par les couleurs officielles de l'application : graphiques, tableaux de bord Matomo, fenêtres de statistiques, boutons d'action et fenêtres de confirmation s'adaptent désormais correctement au mode clair comme au mode sombre. Certaines teintes de graphiques et de boutons colorés changent donc légèrement"
+      },
+      {
+        "titre": "Projets",
+        "contenu": "L'application ne rouvre plus automatiquement le dernier projet consulté : la page Projets affiche la liste des projets, et l'accès direct à un projet passe désormais par son lien"
+      },
+      {
+        "titre": "Technique",
+        "contenu": "Nettoyage de messages de débogage qui restaient affichés dans la console du navigateur, suppression de fichiers devenus inutilisés, et fiabilisation de l'enregistrement d'un rapport de tri, dont la liste pouvait se recharger après coup"
+      },
+      {
+        "titre": "Technique / Qualité",
+        "contenu": "Le contrôle automatique de qualité du code est désormais verrouillé à zéro avertissement sur les couleurs : toute nouvelle couleur codée en dur est bloquée avant mise en ligne, ce qui évite le retour progressif des écarts de thème"
+      }
+    ],
+    "Suppressions": []
+  }
+}

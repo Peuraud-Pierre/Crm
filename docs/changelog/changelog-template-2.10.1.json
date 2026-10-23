@@ -1,0 +1,23 @@
+{
+  "version": "2.10.1",
+  "summary": "Version du 16/07/2026 : correction d'un bug majeur du brief client (les modifications faites via les boutons/badges ne réapparaissaient pas à la réouverture de la fiche) et fiabilisation de la sauvegarde des notes et des champs lors de la fermeture rapide de la fiche.",
+  "categories": {
+    "Ajouts": [],
+    "Corrections": [
+      {
+        "titre": "CRM / Fiche client",
+        "contenu": "Le brief est désormais correctement rechargé à la réouverture d'une fiche. Auparavant, l'ouverture affichait d'abord une fiche minimale (sans brief) puis chargeait la version complète, mais cette dernière n'était jamais réinjectée dans le formulaire : le brief apparaissait vide et les sélections (styles, matières, produits, langue…) semblaient perdues alors qu'elles étaient bien enregistrées"
+      },
+      {
+        "titre": "CRM / Fiche client",
+        "contenu": "Les modifications du brief encore en attente d'enregistrement (anti-rebond de 800 ms) sont maintenant envoyées immédiatement à la fermeture de la fiche. Cliquer sur un bouton puis fermer aussitôt ne fait plus perdre la dernière modification"
+      },
+      {
+        "titre": "CRM / Fiche client",
+        "contenu": "Les notes importantes saisies juste avant de fermer la fiche ou de changer d'onglet ne sont plus perdues : la dernière frappe en attente est validée au démontage au lieu d'être annulée"
+      }
+    ],
+    "Modifications": [],
+    "Suppressions": []
+  }
+}

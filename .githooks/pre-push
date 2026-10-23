@@ -1,0 +1,40 @@
+#!/bin/bash
+# 🧪 Pre-push hook : Exécute les tests localement (feedback rapide)
+
+set -e
+
+# Couleurs
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+echo -e "${YELLOW}🧪 Pre-push hook : Exécution des tests...${NC}"
+
+# Vérification du cache local (évite de re-tester après un amend)
+COMMIT_HASH=$(git rev-parse HEAD)
+TEST_CACHE_DIR=".git/test-cache"
+TEST_CACHE_FILE="${TEST_CACHE_DIR}/${COMMIT_HASH}.success"
+
+mkdir -p "$TEST_CACHE_DIR"
+
+if [ -f "$TEST_CACHE_FILE" ]; then
+    echo -e "${GREEN}✅ Tests déjà validés pour ce commit${NC}"
+    exit 0
+fi
+
+# Exécution des tests
+echo -e "${YELLOW}🔬 Lancement des tests front...${NC}"
+
+if npm run test:front; then
+    echo -e "${GREEN}✅ Tests réussis !${NC}"
+    echo "tests passed at $(date)" > "$TEST_CACHE_FILE"
+    echo -e "${GREEN}💾 Cache local sauvegardé${NC}"
+    echo -e "${YELLOW}ℹ️  Le VPS exécutera les tests une fois et les cachera${NC}"
+else
+    echo -e "${RED}❌ Tests échoués ! Push annulé.${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}✅ Pre-push terminé${NC}"
+exit 0

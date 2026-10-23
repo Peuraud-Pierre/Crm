@@ -1,0 +1,170 @@
+{
+    "version": "2.1.0",
+    "summary": "Nouvelle console d'erreurs avec logging structuré, refonte des permissions utilisateur, intégration calendrier Apple, améliorations majeures de la messagerie de groupe (CRUD complet), optimisations performance et corrections CSS.",
+    "categories": {
+        "Ajouts": [
+            {
+                "titre": "Monitoring - Console d'erreurs",
+                "contenu": "Nouvelle page ErrorConsolePage avec vérification des permissions pour accéder aux logs système."
+            },
+            {
+                "titre": "Monitoring - Console d'erreurs",
+                "contenu": "Composant ErrorConsole avec groupement client-side des logs et support de la pagination."
+            },
+            {
+                "titre": "Monitoring - Logging",
+                "contenu": "errorLogger structuré avec patch des méthodes console (console.error, console.warn, console.log) pour une capture automatique des erreurs."
+            },
+            {
+                "titre": "Monitoring - Error Boundary",
+                "contenu": "AppErrorBoundary pour une gestion globale des erreurs non capturées dans l'application React."
+            },
+            {
+                "titre": "Permissions",
+                "contenu": "Migration vers un système de permissions normalisé avec table dédiée role_permissions pour une gestion plus flexible des droits utilisateurs."
+            },
+            {
+                "titre": "Permissions",
+                "contenu": "Refactoring de AuthProvider : récupération des profils utilisateurs et des permissions avec gestion améliorée des erreurs signUp."
+            },
+            {
+                "titre": "Calendrier Apple",
+                "contenu": "Intégration complète avec Apple Calendar via API backend : synchronisation, création d'événements, gestion des flux bidirectionnels."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "Fonctionnalité de création de calendriers avec interface utilisateur dédiée."
+            },
+            {
+                "titre": "Calendrier",
+                "contenu": "Amélioration du composant CalendarTab : streamlining des props SelectFilter et amélioration des commentaires de clarté."
+            },
+            {
+                "titre": "Messagerie - Gestion des groupes",
+                "contenu": "Implémentation complète de la fonctionnalité de chat de groupe avec gestion des membres (ajout, suppression, rôles)."
+            },
+            {
+                "titre": "Messagerie - Gestion des groupes",
+                "contenu": "Fonction de suppression de groupe avec modal de confirmation (admin uniquement) : avertissement sur l'irréversibilité et la perte des messages."
+            },
+            {
+                "titre": "Messagerie - Gestion des groupes",
+                "contenu": "Fonction de renommage de groupe avec édition inline directement sur le nom du groupe dans le header (admin uniquement)."
+            },
+            {
+                "titre": "Messagerie - Gestion des groupes",
+                "contenu": "Fonction de sortie de groupe (leaveGroup) permettant aux membres non-admin de quitter un groupe."
+            },
+            {
+                "titre": "Messagerie - UX",
+                "contenu": "Bouton contextuel suppression/sortie dans le header : affiche 'Supprimer' (rouge) pour les admins et 'Quitter' (gris) pour les membres, avec confirmation inline."
+            },
+            {
+                "titre": "Messagerie - UX",
+                "contenu": "Support des raccourcis clavier pour le renommage de groupe : Entrée pour valider, Échap pour annuler."
+            },
+            {
+                "titre": "CSS",
+                "contenu": "Ajout des classes utilitaires Tailwind manquantes : @utility bg-gradient-hero, bg-gradient-primary, bg-gradient-secondary, bg-gradient-subtle."
+            },
+            {
+                "titre": "CSS",
+                "contenu": "Ajout de la variable CSS --gradient-subtle pour les thèmes clair et sombre (dégradés gris subtils)."
+            },
+            {
+                "titre": "CSS",
+                "contenu": "Nouvelles variables CSS pour gradients et couleurs dans SelectedProject et composants List."
+            }
+        ],
+        "Corrections": [
+            {
+                "titre": "CSS",
+                "contenu": "Correction des gradients manquants utilisés dans Products.tsx, ProductsTab.tsx, et SettingsTab.tsx."
+            },
+            {
+                "titre": "Calendrier - z-index",
+                "contenu": "Ajustement des valeurs z-index pour les éléments sticky dans DayView et WeekView pour résoudre les problèmes de superposition."
+            },
+            {
+                "titre": "Messagerie - État",
+                "contenu": "Gestion automatique de la désélection du groupe après suppression ou sortie pour éviter les états incohérents."
+            },
+            {
+                "titre": "Messagerie - Validation",
+                "contenu": "Validation des noms de groupe : rejet des noms vides ou contenant uniquement des espaces lors du renommage."
+            },
+            {
+                "titre": "Messagerie - Accessibilité",
+                "contenu": "Amélioration des prompts utilisateur et de l'accessibilité dans les composants de chat."
+            },
+            {
+                "titre": "UI",
+                "contenu": "Correction de l'overlay de la liste des utilisateurs : backdrop avec flou (backdrop-blur-sm) sans assombrissement excessif pour préserver la clarté."
+            },
+            {
+                "titre": "Permissions - Tests",
+                "contenu": "Mise à jour de la gestion des permissions dans AuthProvider.test.tsx avec ajustements des réponses d'erreur signUp."
+            },
+            {
+                "titre": "Monitoring - Tests",
+                "contenu": "Ajout de mocks errorLogger dans les fichiers de test pour une meilleure gestion des erreurs."
+            }
+        ],
+        "Modifications": [
+            {
+                "titre": "Dépendances",
+                "contenu": "Mise à jour de jspdf vers 4.2.0 et @babel/runtime vers 7.28.6."
+            },
+            {
+                "titre": "Galerie - Performance",
+                "contenu": "Optimisation du hook useGallery avec useCallback et useMemo pour améliorer les performances et réduire les re-renders."
+            },
+            {
+                "titre": "Calendrier - UX",
+                "contenu": "Amélioration des effets de transition de la sidebar dans CalendarTab."
+            },
+            {
+                "titre": "Messagerie - Architecture",
+                "contenu": "Extension du hook useGroups avec updateGroup(), deleteGroup(), et leaveGroup() pour une gestion CRUD complète des groupes."
+            },
+            {
+                "titre": "Messagerie - UX",
+                "contenu": "Refonte de l'UX de gestion des groupes : déplacement des actions administratives du panel caché vers le header pour une meilleure découvrabilité."
+            },
+            {
+                "titre": "Messagerie - Composants",
+                "contenu": "Refactoring ChatHeader : ajout de l'édition inline, gestion des états d'édition (isEditing, editingName, isUpdating) et des confirmations d'action."
+            },
+            {
+                "titre": "Messagerie - Composants",
+                "contenu": "Simplification GroupMembersPanel : suppression de ~85 lignes de code (renommage et suppression déplacés vers le header)."
+            },
+            {
+                "titre": "Messagerie - État",
+                "contenu": "Ajout du chargement des membres de groupe dans ChatView avec détection automatique du statut admin pour gérer les permissions UI."
+            },
+            {
+                "titre": "Messagerie - Permissions",
+                "contenu": "Gating des fonctionnalités : renommage et suppression réservés aux admins, sortie accessible à tous les membres."
+            },
+            {
+                "titre": "UI",
+                "contenu": "Optimisation du backdrop de la liste des utilisateurs : passage de bg-black/40 à backdrop-blur-sm pour un effet moderne sans assombrissement."
+            }
+        ],
+        "Suppressions": [
+            {
+                "titre": "Monitoring - Highlight.io",
+                "contenu": "Retrait complet de l'intégration Highlight.io et des variables d'environnement associées après migration vers console d'erreurs custom."
+            },
+            {
+                "titre": "Messagerie - Code",
+                "contenu": "Suppression du code de renommage et suppression de groupe du GroupMembersPanel (~85 lignes) après migration vers le header."
+            },
+            {
+                "titre": "Messagerie - Props",
+                "contenu": "Nettoyage des props inutilisées : suppression de onDeleteGroup, onDeleteSuccess, et groupName du GroupMembersPanel et de ses composants parents."
+            }
+        ]
+    }
+}
